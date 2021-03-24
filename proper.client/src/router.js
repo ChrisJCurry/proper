@@ -9,8 +9,7 @@ const routes = [
   {
     path: '/',
     name: 'LandingPage',
-    component: loadPage('LandingPage'),
-    beforeEnter: authGuard
+    component: loadPage('LandingPage')
   },
   {
     path: '/rentals',
