@@ -11,14 +11,14 @@
                     aria-expanded="true"
                     aria-controls="collapseOne"
             >
-              Collapsible Group Item #1
+              Owner Information
             </button>
           </h2>
         </div>
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body">
-            Some placeholder content for the first accordion panel. This panel is shown by default, thanks to the <code>.show</code> class.
+            form.form-group>
           </div>
         </div>
       </div>

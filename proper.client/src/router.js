@@ -9,32 +9,38 @@ const routes = [
   {
     path: '/',
     name: 'LandingPage',
-    component: loadPage('LandingPage')
+    component: loadPage('LandingPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/rentals',
     name: 'RentalsPage',
-    component: loadPage('RentalsPage')
+    component: loadPage('RentalsPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/maintenance',
     name: 'MaintenancePage',
-    component: loadPage('MaintenancePage')
+    component: loadPage('MaintenancePage'),
+    beforeEnter: authGuard
   },
   {
     path: '/newrental',
     name: 'NewRentalPage',
-    component: loadPage('NewRentalPage')
+    component: loadPage('NewRentalPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/rentaldetails',
     name: 'RentalDetailsPage',
-    component: loadPage('RentalDetailsPage')
+    component: loadPage('RentalDetailsPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/about',
     name: 'About',
-    component: loadPage('AboutPage')
+    component: loadPage('AboutPage'),
+    beforeEnter: authGuard
   },
   {
     path: '/account',
