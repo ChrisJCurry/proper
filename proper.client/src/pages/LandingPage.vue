@@ -1,9 +1,5 @@
 <template>
   <div class="landing-page flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <img src="https://bcw.blob.core.windows.net/public/img/8600856373152463" alt="CodeWorks Logo">
-    <h1 class="my-5 bg-dark text-light p-3 rounded d-flex align-items-center">
-      <span class="mx-2 text-white">Vue 3 Starter</span>
-    </h1>
   </div>
 </template>
 
@@ -14,8 +10,10 @@ export default {
 </script>
 
 <style scoped lang="scss">
-.home{
+.landing-page{
   text-align: center;
+  background-image: url(https://cf-images.us-east-1.prod.boltdns.net/v1/static/5615998029001/02d9b717-c65c-483f-9379-0ae668b160e6/dd0ce4e8-7956-4903-9ca3-3a20498614b1/1280x720/match/image.jpg);
+  background-size: cover ;
   user-select: none;
   > img{
     height: 200px;
