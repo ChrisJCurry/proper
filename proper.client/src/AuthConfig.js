@@ -1,3 +1,3 @@
-export const domain = ''
-export const clientId = ''
-export const audience = ''
+export const domain = 'chrisjcurry.us.auth0.com'
+export const clientId = 'fmM8kaHOwqJfJQReJh7HDvWyvHyaiYM8'
+export const audience = 'https://proper.com'
