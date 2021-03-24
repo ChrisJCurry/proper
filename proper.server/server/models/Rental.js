@@ -1,4 +1,7 @@
-import { Schema } from 'mongoose'
+
+import mongoose from 'mongoose'
+const Schema = mongoose.Schema
+const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const Rental = new Schema(
   {
@@ -13,8 +16,19 @@ const Rental = new Schema(
     yearBuilt: { type: String, required: true },
     tenants: [{ type: String, ref: 'Tenant' }],
     maintenance: [],
-    owner: { type: {}, required: true }
-  }
+    owner: { type: {}, required: true },
+    creatorId: { type: String, required: true },
+    maintenanceId: { type: ObjectId, ref: 'Maintenance', required: true },
+    ownerId: { type: ObjectId, ref: 'Owner', required: true }
+  },
+  { timestamps: true, toJSON: { virtuals: true } }
 )
+
+Rental.virtual('creator', {
+  localField: 'creatorId',
+  ref: 'Account',
+  foreignField: '_id',
+  justOne: true
+})
 
 export default Rental
