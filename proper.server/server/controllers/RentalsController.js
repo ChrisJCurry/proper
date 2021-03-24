@@ -6,10 +6,10 @@ export class RentalsController extends BaseController {
     super('api/rentals')
     this.router
       .get('', this.getAll)
-      .get('/:id', this.getById)
-    // .post('', this.create)
-    // .delete('', this.remove)
-    // .put('/:id', this.edit)
+      // .get('/:id', this.getById)
+      // .post('', this.create)
+      // .delete('', this.remove)
+      // .put('/:id', this.edit)
   }
 
   async getAll(req, res, next) {
@@ -20,16 +20,6 @@ export class RentalsController extends BaseController {
       next(err)
     }
   }
-
-  async getById(req, res, next) {
-    try {
-      const rental = await rentalsService.findById(req.params.id)
-      res.send(rental)
-    } catch (error) {
-      next(error)
-    }
-  }
-
 
   async create(req, res, next) {
     try {
