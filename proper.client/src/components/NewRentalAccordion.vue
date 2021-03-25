@@ -2,9 +2,9 @@
   <div class="new-rental-accordion">
     <div class="accordion" id="accordionExample">
       <div class="card">
-        <div class="card-header" id="headingOne">
+        <div class="border-bottom border-dark card-header bg-primary" id="headingOne">
           <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left"
+            <button class="btn btn-block text-left"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseOne"
@@ -28,9 +28,9 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="headingTwo">
+        <div class="border-bottom border-dark card-header bg-primary" id="headingTwo">
           <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left collapsed"
+            <button class="btn btn-block text-left collapsed"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseTwo"
@@ -43,18 +43,18 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
-            <input placeholder="Name" type="text" v-model="state.newRental.street">
-            <input placeholder="Phone Number" type="text" v-model="state.newRental.aptNum">
-            <input placeholder="Address" type="text" v-model="state.newRental.city">
-            <input placeholder="E-Mail" type="text" v-model="state.newRental.country">
-            <input placeholder="E-Mail" type="text" v-model="state.newRental.rent">
+            <input placeholder="Street" type="text" v-model="state.newRental.street">
+            <input placeholder="Apartment Number" type="text" v-model="state.newRental.aptNum">
+            <input placeholder="City" type="text" v-model="state.newRental.city">
+            <input placeholder="Country" type="text" v-model="state.newRental.country">
+            <input placeholder="Rent" type="text" v-model="state.newRental.rent">
           </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="headingThree">
+        <div class="card-header bg-primary" id="headingThree">
           <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left collapsed"
+            <button class="btn btn-block text-left collapsed"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseThree"
@@ -74,9 +74,9 @@
         </div>
       </div>
       <div class="card">
-        <div class="card-header" id="headingFour">
+        <div class="card-header bg-primary" id="headingFour">
           <h2 class="mb-0">
-            <button class="btn btn-link btn-block text-left collapsed"
+            <button class="btn btn-block text-left collapsed"
                     type="button"
                     data-toggle="collapse"
                     data-target="#collapseFour"
@@ -104,8 +104,8 @@ import { AppState } from '../AppState'
 import { computed } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
-import { ownersService } from '../services/OwnersService'
-import { tenantsService } from '../service/TenantsService'
+// import { ownersService } from '../services/OwnersService'
+// import { tenantsService } from '../service/TenantsService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
@@ -123,8 +123,8 @@ export default {
       async createNewProp(newOwner, newRental, newTenant) {
         try {
           await rentalsService.create(state.newRental)
-          await ownersService.create(state.newOwner)
-          await tenantsService.create(state.newTenant)
+          // await ownersService.create(state.newOwner)
+          // await tenantsService.create(state.newTenant)
         } catch (error) {
           logger.log(error)
         }
