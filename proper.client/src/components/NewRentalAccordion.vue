@@ -43,6 +43,11 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
+            <input placeholder="Name" type="text" v-model="state.newRental.street">
+            <input placeholder="Phone Number" type="text" v-model="state.newRental.aptNum">
+            <input placeholder="Address" type="text" v-model="state.newRental.city">
+            <input placeholder="E-Mail" type="text" v-model="state.newRental.country">
+            <input placeholder="E-Mail" type="text" v-model="state.newRental.rent">
           </div>
         </div>
       </div>
@@ -56,13 +61,37 @@
                     aria-expanded="false"
                     aria-controls="collapseThree"
             >
-              Collapsible Group Item #3
+              Tenant Info
             </button>
           </h2>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
           <div class="card-body">
-            And lastly, the placeholder content for the third and final accordion panel. This panel is hidden by default.
+            <form class="form-group" action="text">
+              <input placeholder="Tenant Name(s)" type="text" v-model="state.newTenant.name">
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-header" id="headingFour">
+          <h2 class="mb-0">
+            <button class="btn btn-link btn-block text-left collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+            >
+              Maintenance Required?
+            </button>
+          </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+          <div class="card-body">
+            <form action="text">
+              <textarea placeholder="Any maintainence concerns with the property?" name="maintenance" id="maintenance" cols="40" rows="50"></textarea>
+            </form>
           </div>
         </div>
       </div>
@@ -73,17 +102,33 @@
 <script>
 import { AppState } from '../AppState'
 import { computed } from 'vue'
+import { logger } from '../utils/Logger'
+import { rentalsService } from '../services/RentalsService'
+import { ownersService } from '../services/OwnersService'
+import { tenantsService } from '../service/TenantsService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
     const state = ({
+      newTenant: {},
       newOwner: {},
-      newRenter: {},
-      owner: computed(() => AppState.owner)
+      newRental: {},
+      owner: computed(() => AppState.owner),
+      rental: computed(() => AppState.rental),
+      tenant: computed(() => AppState.tenant)
     })
 
     return {
-      state
+      state,
+      async createNewProp(newOwner, newRental, newTenant) {
+        try {
+          await rentalsService.create(state.newRental)
+          await ownersService.create(state.newOwner)
+          await tenantsService.create(state.newTenant)
+        } catch (error) {
+          logger.log(error)
+        }
+      }
     }
   },
   components: {}
