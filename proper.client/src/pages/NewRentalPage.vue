@@ -1,5 +1,6 @@
 <template>
   <div class="new-rental-page">
+    <NewRentalAccordion />
   </div>
 </template>
 

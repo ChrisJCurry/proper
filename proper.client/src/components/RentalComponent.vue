@@ -7,20 +7,24 @@
 </template>
 
 <script>
-import { AppState } from '../AppState'
-import  {rentalService} from '../services/RentalService'
+// import { AppState } from '../AppState'
+// import {reactive} from 'vue'
+// import  {rentalService} from '../services/RentalService'
 export default {
-    name: 'Rental'
+    name: 'RentalComponent',
     props: {
         rental: {type: Object, required: true }
     },
     setup(props) {
-        const state = reactive({
-            rental: computed(() => AppState.rental)
-        }),
-
-
+        // const state = reactive({
+        //     rental: computed(() => AppState.rental)
+        // }),
+    return{
+        state
     }
+
+
+    },
 }
 </script>
 
@@ -43,7 +47,8 @@ export default {
 .card {
     width: 200px;
     height: 300px;
-    background-color: ;
+    background-color: blue ;
 }
 
 </style>
+

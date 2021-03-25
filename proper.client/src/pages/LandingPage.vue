@@ -1,5 +1,6 @@
 <template>
   <div class="landing-page flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+    <NewRentalAccordion />
   </div>
 </template>
 
