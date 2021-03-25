@@ -7,5 +7,6 @@ export class Rental {
     this.closed = data.closed
     this.creatorId = data.creatorId
     this.tenants = data.tenants
+    this.picture = data.picture || ''
   }
 }

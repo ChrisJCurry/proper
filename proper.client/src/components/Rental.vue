@@ -1,14 +1,11 @@
 <template>
   <div class="col rental mt-3">
     <router-link :to="{ name: 'RentalDetailsPage' }">
-      <div class="card">
-        <div class="card-body">
+      <div class="card" style="height: 13rem;">
+        <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat' } ">
           <h5 class="card-title">
             {{ rental.address.street }}
           </h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the bulk of the card's content.
-          </p>
           <a href="#" class="btn btn-primary">Go somewhere</a>
         </div>
       </div>
@@ -35,6 +32,7 @@ export default {
 
 <style lang="scss" scoped>
   a {
-    color: black
+    color: white;
+    text-shadow: 0 0 10px #fff
   }
 </style>
