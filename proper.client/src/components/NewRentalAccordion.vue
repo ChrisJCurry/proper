@@ -1,9 +1,9 @@
 <template>
-  <div class="new-rental-accordion">
-    <div class="accordion" id="accordionExample">
+  <div class="new-rental-accordion row">
+    <div class="accordion col-xl-12" id="accordionExample">
       <div class="card">
         <div class="border-bottom border-dark card-header bg-primary" id="headingOne">
-          <h2 class="mb-0">
+          <h2 class="">
             <button class="btn btn-block text-left"
                     type="button"
                     data-toggle="collapse"
@@ -19,10 +19,25 @@
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body">
             <form action="submit" class="form-group">
-              <input required placeholder="Name" type="text" v-model="state.newOwner.name">
-              <input required placeholder="Phone Number" type="text" v-model="state.newOwner.phoneNumber">
-              <input required placeholder="Address" type="text" v-model="state.newOwner.address">
-              <input required placeholder="E-Mail" type="text" v-model="state.newOwner.email">
+              <p><input class="mr-1" required placeholder="John Doe" type="text" v-model="state.newOwner.name"></p>
+              <p>
+                <input class="mr-1"
+                       required
+                       placeholder="(123) 456-7890"
+                       type="tel"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                       v-model="state.newOwner.phoneNumber"
+                >
+              </p>
+              <p><input class="mr-1" required placeholder="404 Not Found Dr" type="text" v-model="state.newOwner.address"></p>
+              <input class="mr-1"
+                     required
+                     placeholder="john.doe@test.com"
+                     type="email"
+                     name="ownerEmail"
+                     id="ownerEmail"
+                     v-model="state.newOwner.email"
+              >
             </form>
           </div>
         </div>
@@ -43,11 +58,11 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
-            <input required placeholder="Street" type="text" v-model="state.newRental.street">
-            <input required placeholder="Apartment Number" type="text" v-model="state.newRental.aptNum">
-            <input required placeholder="City" type="text" v-model="state.newRental.city">
-            <input required placeholder="Country" type="text" v-model="state.newRental.country">
-            <input required placeholder="Rent" type="text" v-model="state.newRental.rent">
+            <p><input class="mr-1" required placeholder="Broadway" type="text" v-model="state.newRental.street"></p>
+            <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.newRental.aptNum"></p>
+            <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.newRental.city"></p>
+            <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.newRental.country"></p>
+            <p><input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent"></p>
           </div>
         </div>
       </div>
@@ -90,12 +105,12 @@
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
             <form action="text">
-              <textarea placeholder="Any maintainence concerns with the property?" name="maintenance" id="maintenance" cols="40" rows="50"></textarea>
+              <textarea placeholder="What needs fixing?" name="maintenance" id="maintenance" cols="25" rows="10"></textarea>
             </form>
           </div>
         </div>
       </div>
-      <button class="btn btn-block btn-dark">
+      <button @click="create" class="btn btn-block btn-dark">
         Submit Form
       </button>
     </div>
@@ -135,5 +150,5 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+$transition-collapse: height .50s ease !default;
 </style>
