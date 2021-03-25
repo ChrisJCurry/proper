@@ -16,12 +16,7 @@ const Maintenance = new Schema(
     creatorId: { type: String, required: true }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
-Maintenance.virtual('rental', {
-  localField: 'rentalId',
-  ref: 'Rental',
-  foreignField: '_id',
-  justOne: true
-})
+
 Maintenance.virtual('creator', {
   localField: 'creatorId',
   ref: 'Account',
