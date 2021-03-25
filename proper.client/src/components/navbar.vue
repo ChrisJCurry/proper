@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center">
-        <h3>Pooper 💩</h3>
+        <h3>Proper</h3>
       </div>
     </router-link>
     <button
@@ -19,8 +19,8 @@
     <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item">
-          <router-link :to="{ name: 'About' }" class="nav-link">
-            About
+          <router-link :to="{ name: 'RentalsPage' }" class="nav-link">
+            Rentals
           </router-link>
         </li>
       </ul>

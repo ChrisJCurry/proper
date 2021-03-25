@@ -1,5 +1,11 @@
 export class Rental {
-  constructor(data = {}) {
-    this.rental = data
+  constructor(data) {
+    this.id = data.id || data._id
+    this.address = data.address
+    this.rent = data.rent
+    this.yearBuilt = data.yearBuilt
+    this.closed = data.closed
+    this.creatorId = data.creatorId
+    this.tenants = data.tenants
   }
 }
