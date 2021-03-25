@@ -18,7 +18,12 @@
 
         <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
           <div class="card-body">
-            form.form-group>
+            <form action="" class="form-group">
+              <input placeholder="Name" type="text" v-model="state.newOwner.name">
+              <input placeholder="Phone Number" type="text" v-model="state.newOwner.phoneNumber">
+              <input placeholder="Address" type="text" v-model="state.newOwner.address">
+              <input placeholder="E-Mail" type="text" v-model="state.newOwner.email">
+            </form>
           </div>
         </div>
       </div>
@@ -32,13 +37,12 @@
                     aria-expanded="false"
                     aria-controls="collapseTwo"
             >
-              Collapsible Group Item #2
+              Rental Info
             </button>
           </h2>
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
-            Some placeholder content for the second accordion panel. This panel is hidden by default.
           </div>
         </div>
       </div>
@@ -67,10 +71,20 @@
 </template>
 
 <script>
+import { AppState } from '../AppState'
+import { computed } from 'vue'
 export default {
   name: 'NewRentalAccordion',
   setup() {
-    return {}
+    const state = ({
+      newOwner: {},
+      newRenter: {},
+      owner: computed(() => AppState.owner)
+    })
+
+    return {
+      state
+    }
   },
   components: {}
 }

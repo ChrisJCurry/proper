@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center">
-        <h3>Pooper</h3>
+        <h3>Pooper 💩</h3>
       </div>
     </router-link>
     <button
