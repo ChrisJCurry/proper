@@ -6,7 +6,6 @@ import RentalSchema from '../models/Rental.js'
 class DbContext {
   Values = mongoose.model('Value', ValueSchema);
   Account = mongoose.model('Account', AccountSchema);
-
   Rentals = mongoose.model('Rental', RentalSchema)
 }
 
