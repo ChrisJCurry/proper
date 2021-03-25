@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <!-- <Rental v-for="rental in state.rentals" :key="rental.id" :board="rental" /> -->
+          <!-- <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" /> -->
         </div>
       </div>
     </div>
