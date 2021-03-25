@@ -43,6 +43,22 @@ class MaintenancesService {
     }
     return maintenance
   }
+
+  /*
+ NON-MAINTENANCE
+ */
+  async findTasksById(id) {
+    const maintenance = await dbContext.Maintenances.findById(id)
+    if (!maintenance) {
+      throw new BadRequest('No maintenance found with that ID')
+    }
+    const tasks = maintenance.tasks
+    if (!tasks) {
+      throw new BadRequest('No tasks found')
+    }
+
+    return tasks
+  }
 }
 
 export const maintenancesService = new MaintenancesService()

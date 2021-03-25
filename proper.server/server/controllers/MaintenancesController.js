@@ -10,6 +10,7 @@ export class MaintenancesController extends BaseController {
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/tasks', this.getTasksById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
@@ -64,6 +65,19 @@ export class MaintenancesController extends BaseController {
       res.send(maintenance)
     } catch (error) {
       next(error)
+    }
+  }
+
+  /*
+  NON-MAINTENANCE functions
+ */
+  async getTasksById(req, res, next) {
+    logger.log(req.params.id)
+    try {
+      const tasks = await maintenancesService.findTasksById(req.params.id)
+      res.send(tasks)
+    } catch (err) {
+      next(err)
     }
   }
 }
