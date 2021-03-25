@@ -61,14 +61,14 @@
                     aria-expanded="false"
                     aria-controls="collapseThree"
             >
-              Maintenance Required?
+              Tenant Info
             </button>
           </h2>
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
           <div class="card-body">
-            <form action="text">
-              <textarea placeholder="Any maintainence concerns with the property?" name="maintenance" id="maintenance" cols="40" rows="50"></textarea>
+            <form class="form-group" action="text">
+              <input placeholder="Tenant Name(s)" type="text" v-model="state.newTenant.name">
             </form>
           </div>
         </div>
@@ -83,13 +83,14 @@
                     aria-expanded="false"
                     aria-controls="collapseFour"
             >
-              Tenant Info
+              Maintenance Required?
             </button>
           </h2>
         </div>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
-            <form class="form-group" action="text">
+            <form action="text">
+              <textarea placeholder="Any maintainence concerns with the property?" name="maintenance" id="maintenance" cols="40" rows="50"></textarea>
             </form>
           </div>
         </div>
@@ -102,6 +103,9 @@
 import { AppState } from '../AppState'
 import { computed } from 'vue'
 import { logger } from '../utils/Logger'
+import { rentalsService } from '../services/RentalsService'
+import { ownersService } from '../services/OwnersService'
+import { tenantsService } from '../service/TenantsService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
@@ -110,15 +114,17 @@ export default {
       newOwner: {},
       newRental: {},
       owner: computed(() => AppState.owner),
-      rental: computed(() => AppState.rental)
+      rental: computed(() => AppState.rental),
+      tenant: computed(() => AppState.tenant)
     })
 
     return {
       state,
-      async createNewProp(newOwner, newRental) {
+      async createNewProp(newOwner, newRental, newTenant) {
         try {
-          await rentalService.create(state.newRental)
-          await ownerService.create(state.newOwner)
+          await rentalsService.create(state.newRental)
+          await ownersService.create(state.newOwner)
+          await tenantsService.create(state.newTenant)
         } catch (error) {
           logger.log(error)
         }
