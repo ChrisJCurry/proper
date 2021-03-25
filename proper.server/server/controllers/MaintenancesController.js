@@ -10,10 +10,11 @@ export class MaintenancesController extends BaseController {
     this.router
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/tasks', this.getTasksById)
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
-    // .delete('', this.remove)
-    // .put('/:id', this.edit)
+      .put('/:id', this.update)
+      .delete('', this.remove)
   }
 
   async getAll(req, res, next) {
@@ -44,6 +45,37 @@ export class MaintenancesController extends BaseController {
       req.body.rentalId = rental._id
       const maintenance = await maintenancesService.create(req.body)
       res.send(maintenance)
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  async update(req, res, next) {
+    try {
+      const maintenance = await maintenancesService.update(req.params.id, req.body, req.userInfo)
+      res.send(maintenance)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async remove(req, res, next) {
+    try {
+      const maintenance = await maintenancesService.remove(req.params.id)
+      res.send(maintenance)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  /*
+  NON-MAINTENANCE functions
+ */
+  async getTasksById(req, res, next) {
+    logger.log(req.params.id)
+    try {
+      const tasks = await maintenancesService.findTasksById(req.params.id)
+      res.send(tasks)
     } catch (err) {
       next(err)
     }

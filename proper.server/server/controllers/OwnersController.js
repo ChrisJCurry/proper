@@ -1,11 +1,10 @@
-import { rentalsService } from '../services/RentalsService'
+import { ownersService } from '../services/OwnersService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { ownersService } from '../services/OwnersService'
 
-export class RentalsController extends BaseController {
+export class OwnersController extends BaseController {
   constructor() {
-    super('api/rentals')
+    super('api/owners')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
@@ -17,8 +16,8 @@ export class RentalsController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const rentals = await rentalsService.find()
-      res.send(rentals)
+      const owners = await ownersService.find()
+      res.send(owners)
     } catch (err) {
       next(err)
     }
@@ -26,20 +25,18 @@ export class RentalsController extends BaseController {
 
   async getById(req, res, next) {
     try {
-      const rental = await rentalsService.findById(req.params.id)
-      res.send(rental)
+      const owner = await ownersService.findById(req.params.id)
+      res.send(owner)
     } catch (error) {
       next(error)
     }
   }
 
   async create(req, res, next) {
-    const owner = await ownersService.findById('605cc781dbf6ad63cc0ae8ee')
-    req.body.ownerId = owner.id
     try {
       req.body.creatorId = req.userInfo.id
-      const rental = await rentalsService.create(req.body)
-      res.send(rental)
+      const owner = await ownersService.create(req.body)
+      res.send(owner)
     } catch (err) {
       next(err)
     }
@@ -47,8 +44,8 @@ export class RentalsController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      const rental = await rentalsService.update(req.params.id, req.body, req.userInfo.id)
-      res.send(rental)
+      const owner = await ownersService.update(req.params.id, req.body, req.userInfo.id)
+      res.send(owner)
     } catch (error) {
       next(error)
     }
@@ -56,8 +53,8 @@ export class RentalsController extends BaseController {
 
   async remove(req, res, next) {
     try {
-      const rental = await rentalsService.remove(req.params.id, req.body)
-      res.send(rental)
+      const owner = await ownersService.remove(req.params.id, req.body)
+      res.send(owner)
     } catch (error) {
       next(error)
     }
