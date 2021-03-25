@@ -1,9 +1,9 @@
 <template>
-  <div class="rentals-page">
+  <div class="owners-page">
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <!-- <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" /> -->
+          <!-- <Owner v-for="owner in state.owners" :key="owner.id" :owner="owner" /> -->
         </div>
       </div>
     </div>
@@ -12,7 +12,7 @@
 
 <script>
 export default {
-  name: 'RentalsPage',
+  name: 'OwnersPage',
   setup() {
     return {}
   },
