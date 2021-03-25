@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
         <div class="col-12">
-          <Board v-for="boardData in state.boards" :key="boardData.id" :board="boardData" />
+          <!-- <Board v-for="boardData in state.boards" :key="boardData.id" :board="boardData" /> -->
         </div>
       </div>
     </div>
