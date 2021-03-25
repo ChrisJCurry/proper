@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center">
         <h3>Proper</h3>
@@ -23,6 +23,9 @@
             Rentals
           </router-link>
         </li>
+        <router-link :to="{name:'NewRentalPage'}" class="nav-link">
+          Create New Rental
+        </router-link>
       </ul>
       <span class="navbar-text">
         <button
