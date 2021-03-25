@@ -23,6 +23,9 @@
             Rentals
           </router-link>
         </li>
+        <router-link :to="{name:'NewRentalPage'}" class="nav-link">
+          Create New Rental
+        </router-link>
       </ul>
       <span class="navbar-text">
         <button
@@ -93,7 +96,8 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+
 .dropdown-menu {
   user-select: none;
   display: block;
