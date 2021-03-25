@@ -104,8 +104,15 @@
         </div>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
-            <form action="text">
-              <textarea placeholder="What needs fixing?" name="maintenance" id="maintenance" cols="25" rows="10"></textarea>
+            <form action="text" @submit.prevent="createMaintenanceTask">
+              <textarea
+                placeholder="What needs fixing?"
+                name="maintenance"
+                id="maintenance"
+                cols="25"
+                rows="10"
+              ></textarea>
+              <button type="submit"></button>
             </form>
           </div>
         </div>
