@@ -11,7 +11,7 @@ class RentalsService {
   }
 
   async findById(id) {
-    const rental = await dbContext.Rentals.findById({ _id: id }).populate('creator', 'name email')
+    const rental = await dbContext.Rentals.findById({ _id: id }).populate('creator', 'name email').populate('rentalId')
     if (!rental) {
       throw new BadRequest(`Sorry, but you have sent the wrong ID ${id}. Please re-check the info you are sending through.`)
     }
@@ -19,7 +19,7 @@ class RentalsService {
   }
 
   async create(rental) {
-    const newRental = await (await dbContext.Rentals.create(rental)).populate('creator', 'name email')
+    const newRental = await (await dbContext.Rentals.create(rental)).populate('creator', 'name email').populate('rentalId')
     if (!newRental) {
       throw new BadRequest(`You may be missing one of the required properties ${rental}`)
     }

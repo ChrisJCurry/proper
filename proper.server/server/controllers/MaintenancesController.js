@@ -2,7 +2,6 @@ import { maintenancesService } from '../services/MaintenancesService'
 import BaseController from '../utils/BaseController'
 import { logger } from '../utils/Logger'
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { rentalsService } from '../services/RentalsService'
 
 export class MaintenancesController extends BaseController {
   constructor() {
@@ -36,13 +35,9 @@ export class MaintenancesController extends BaseController {
   }
 
   async create(req, res, next) {
-    const id = '605cbc072fc9df5508286250'
-    const rental = await rentalsService.findById(id)
-    logger.log(rental)
     try {
       req.body.creatorId = req.userInfo.id
       // @ts-ignore
-      req.body.rentalId = rental._id
       const maintenance = await maintenancesService.create(req.body)
       res.send(maintenance)
     } catch (err) {

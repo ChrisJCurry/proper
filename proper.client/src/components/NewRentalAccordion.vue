@@ -105,14 +105,21 @@
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
             <form action="text" @submit.prevent="createMaintenanceTask">
+              <p><input placeholder="Title" sclass="form-inline" type="text"></p>
               <textarea
-                placeholder="What needs fixing?"
+                placeholder="What needs to be done?"
                 name="maintenance"
                 id="maintenance"
-                cols="25"
-                rows="10"
-              ></textarea>
-              <button type="submit"></button>
+                cols="23"
+                rows="5"
+                v-model="state.newTask.body"
+              >
+              </textarea>
+              <p>
+                <button class="btn btn-dark plus-size" type="submit">
+                  <strong>+</strong>
+                </button>
+              </p>
             </form>
           </div>
         </div>
@@ -129,6 +136,7 @@ import { AppState } from '../AppState'
 import { computed } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
+import { maintenancesService } from '../services/MaintenancesService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
@@ -136,6 +144,7 @@ export default {
       newTenant: {},
       newOwner: {},
       newRental: {},
+      newTask: {},
       owner: computed(() => AppState.owner),
       rental: computed(() => AppState.rental),
       tenant: computed(() => AppState.tenant)
@@ -143,11 +152,19 @@ export default {
 
     return {
       state,
+      async createNewMaintenanceTask(newTask) {
+        try {
+          await maintenancesService.createNewMaintenanceTask()
+          this.getAllMaintenanceTasks()
+        } catch (error) {
+          logger.error(error)
+        }
+      },
       async createNewProp(newOwner, newRental, newTenant) {
         try {
           await rentalsService.create(state.newRental)
         } catch (error) {
-          logger.log(error)
+          logger.error(error)
         }
       }
     }
@@ -157,5 +174,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$transition-collapse: height .50s ease !default;
+.plus-size{
+  font-size: 16px;
+  font-weight: 400;
+}
 </style>
