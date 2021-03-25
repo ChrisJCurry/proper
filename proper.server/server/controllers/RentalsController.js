@@ -33,6 +33,7 @@ export class RentalsController extends BaseController {
   }
 
   async create(req, res, next) {
+    req.body.ownerId = '123sdfasdf'
     try {
       req.body.creatorId = req.userInfo.id
       const rental = await rentalsService.create(req.body)
