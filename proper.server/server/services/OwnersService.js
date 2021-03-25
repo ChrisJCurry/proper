@@ -26,6 +26,18 @@ class OwnersService {
     return newOwner
   }
 
+  async update(id, body, userInfo) {
+    delete body.closed
+    const owner = await dbContext.Owners.find({ _id: id })
+    if (owner.creatorId !== userInfo.id) {
+      throw new BadRequest('You are not the creator of this rental and you do not have permissions to update this data.')
+    }
+    if (owner.closed) {
+      throw new BadRequest("You can't edit the owner when it's closed.")
+    }
+    return await dbContext.Owners.findOneAndUpdate({ _id: id }, body, { new: true })
+  }
+
   async remove(id, body) {
     // passing the closed property through...even though they should not be able to send a body for the delete I am going to protect the data
     delete body.closed
@@ -34,15 +46,6 @@ class OwnersService {
       throw new BadRequest('You can not actually delete this. Please send the ID and we will softly delete this data')
     }
     return owner
-  }
-
-  async update(id, body, userInfo) {
-    delete body.closed
-    const owner = await dbContext.Owners.find({ _id: id }).populate('creator', 'name email')
-    if (owner.creatorId !== userInfo.id) {
-      throw new BadRequest('You are not the creator of this rental and you do not have permissions to update this data.')
-    }
-    return await dbContext.Owners.findOneAndUpdate({ _id: id }, body, { new: true })
   }
 }
 
