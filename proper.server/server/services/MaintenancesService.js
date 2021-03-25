@@ -52,12 +52,8 @@ class MaintenancesService {
     if (!maintenance) {
       throw new BadRequest('No maintenance found with that ID')
     }
-    const tasks = maintenance.tasks
-    if (!tasks) {
-      throw new BadRequest('No tasks found')
-    }
 
-    return tasks
+    return maintenance
   }
 }
 
