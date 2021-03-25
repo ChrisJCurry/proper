@@ -5,7 +5,8 @@ const ObjectId = mongoose.SchemaTypes.ObjectId
 const Task = new Schema(
   {
     title: { type: String, required: true },
-    description: { type: String, required: true }
+    description: { type: String, required: true },
+    closed: { type: Boolean, required: true, default: false }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
 
