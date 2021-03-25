@@ -3,7 +3,7 @@ import { BadRequest } from '../utils/Errors'
 
 class RentalsService {
   async find(query = {}) {
-    const rentals = await dbContext.Rentals.find(query).populate('maintenance', 'tasks')
+    const rentals = await dbContext.Rentals.find(query).populate('creator', 'name email')
     if (!rentals) {
       throw new BadRequest()
     }
@@ -11,7 +11,7 @@ class RentalsService {
   }
 
   async findById(id) {
-    const rental = await dbContext.Rentals.findById({ _id: id }).populate('maintenance', 'tasks')
+    const rental = await dbContext.Rentals.findById({ _id: id }).populate('creator', 'name email')
     if (!rental) {
       throw new BadRequest(`Sorry, but you have sent the wrong ID ${id}. Please re-check the info you are sending through.`)
     }
@@ -19,7 +19,7 @@ class RentalsService {
   }
 
   async create(rental) {
-    const newRental = await (await dbContext.Rentals.create(rental)).populate('maintenance', 'tasks')
+    const newRental = await (await dbContext.Rentals.create(rental)).populate('creator', 'name email')
     if (!newRental) {
       throw new BadRequest(`You may be missing one of the required properties ${rental}`)
     }
@@ -38,7 +38,7 @@ class RentalsService {
 
   async update(id, body, userInfo) {
     delete body.closed
-    const rental = await dbContext.Rentals.find({ _id: id }).populate('maintenance', 'tasks')
+    const rental = await dbContext.Rentals.find({ _id: id }).populate('creator', 'name email')
     if (rental.creatorId !== userInfo.id) {
       throw new BadRequest('You are not the creator of this rental and you do not have permissions to update this data.')
     } if (rental && rental.closed) {

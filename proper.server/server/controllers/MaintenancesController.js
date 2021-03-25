@@ -35,7 +35,7 @@ export class MaintenancesController extends BaseController {
   }
 
   async create(req, res, next) {
-    const id = '605bbb9b167bf672b960e22b'
+    const id = '605cbc072fc9df5508286250'
     const rental = await rentalsService.findById(id)
     logger.log(rental)
     try {
