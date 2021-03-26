@@ -132,7 +132,7 @@
             </form>
             <span v-if="state.showCreateForm">
               <button @submit.prevent="createMaintenanceTask" @click="state.showCreateForm = !state.showCreateForm" type="submit" class="btn btn-dark">
-                Submit Tasks
+                Submit Task
               </button>
             </span>
           </div>
