@@ -1,12 +1,12 @@
 <template>
   <div class="col rental mt-3">
-    <router-link :to="{ name: 'RentalDetailsPage' }">
+    <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
       <div class="card" style="height: 13rem;">
-        <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat' } ">
+        <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat'} ">
           <h5 class="card-title">
             {{ rental.address.street }}
           </h5>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
+          <a href="#" class="btn btn-dark">Go somewhere</a>
         </div>
       </div>
     </router-link>

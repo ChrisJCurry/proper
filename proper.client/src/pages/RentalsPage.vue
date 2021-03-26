@@ -20,8 +20,8 @@ export default {
       rentals: computed(() => AppState.rentals),
       filterOpen: true
     })
-    onMounted(() => {
-      rentalsService.getAll()
+    onMounted(async() => {
+      await rentalsService.getAll()
     })
     return {
       state

@@ -15,16 +15,25 @@ export default class RentalsService {
   }
 
   async getById(id) {
-    logger.log('hey')
     try {
       const res = await api.get('api/rentals/' + id)
-      const rental = res.data
-      AppState.rental = rental
-      return rental
-    } catch (err) {
-      logger.log(err)
+      console.log('Hello from the service', res.data)
+      AppState.rental = res.data
+    } catch (error) {
+      logger.error(error)
     }
   }
+
+  // async create(rental) {
+  //   try {
+  //     const res = await api.get('api/rentals/' + id)
+  //     const rental = res.data
+  //     AppState.rental = rental
+  //     return rental
+  //   } catch (err) {
+  //     logger.log(err)
+  //   }
+  // }
 
   async getMaintenancesById(id) {
     try {
