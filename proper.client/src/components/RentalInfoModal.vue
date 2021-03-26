@@ -10,6 +10,11 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content text-between">
           <div class="modal-header">
+            <button @click="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
             <div class="accordion" id="accordionExample">
               <div class="card">
                 <div class="card-header" id="headingOne">
@@ -32,6 +37,8 @@
               </div>
             </div>
           </div>
+          <div class="modal-footer">
+          </div>
         </div>
       </div>
     </div>
@@ -39,10 +46,22 @@
 </template>
 
 <script>
+import $ from 'jquery'
+import { AppState } from '../AppState'
+import { computed, reactive } from 'vue'
 export default {
   name: 'RentalInfoModal',
   setup() {
-    return {}
+    const state = reactive({
+      tenant: computed(() => AppState.rental)
+    })
+    return {
+      state,
+      closeModal() {
+        $('#rental-info').modal('hide')
+        $('.modal-backdrop').remove()
+      }
+    }
   },
   components: {}
 }
