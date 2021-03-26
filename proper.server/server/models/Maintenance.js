@@ -1,6 +1,6 @@
 import mongoose from 'mongoose'
 const Schema = mongoose.Schema
-const ObjectId = mongoose.SchemaTypes.ObjectId
+// const ObjectId = mongoose.SchemaTypes.ObjectId
 
 const Task = new Schema(
   {
@@ -13,7 +13,7 @@ const Task = new Schema(
 const Maintenance = new Schema(
   {
     tasks: [Task],
-    rentalId: { type: ObjectId, ref: 'Rental', required: true },
+    rental: { type: Object, ref: 'Rental', required: true },
     creatorId: { type: String, required: true }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
