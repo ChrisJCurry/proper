@@ -22,16 +22,31 @@
           </div>
         </div>
       </div>
-      <Maintenance />
+      <!-- <Maintenance /> -->
     </div>
   </div>
 </template>
 
 <script>
+
+import { useRoute } from 'vue-router'
+import { rentalsService } from '../services/RentalsService'
+import { onMounted, reactive, computed } from 'vue'
+import { AppState } from '../AppState'
+
 export default {
   name: 'RentalDetailsPage',
   setup() {
-    return {}
+    const route = useRoute()
+    const state = reactive({
+      rentals: computed(() => AppState.rentals)
+    })
+    onMounted(() => {
+      rentalsService.getById(route.params.id)
+    })
+    return {
+      state
+    }
   },
   components: {}
 }
