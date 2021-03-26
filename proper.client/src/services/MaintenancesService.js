@@ -8,7 +8,6 @@ export default class MaintenancesService {
   async getAll() {
     try {
       const res = await api.get('api/maintenances')
-      console.log(res)
       const maintenances = res.data.map(m => new Maintenance(m))
       AppState.maintenances = maintenances
       return maintenances
@@ -23,15 +22,6 @@ export default class MaintenancesService {
       AppState.rentals.push(res.data)
       this.getAll()
       return res.data._id
-    } catch (error) {
-      logger.error(error)
-    }
-  }
-
-  async getMaintenancesById(id) {
-    try {
-      // const res = await api.get('api/rentals/' + id + '/maintenances')
-      // AppState.maintenances = res.data.map(m => new Maintenance(m))
     } catch (error) {
       logger.error(error)
     }

@@ -1,17 +1,15 @@
 <template>
-  <div class="maintenance-page">
-    <div class="container">
-      <div class="row">
-        <div class="col-12">
-          <Maintenance v-for="maintenance in state.maintenances" :key="maintenance._id" :maintenance="maintenance" />
-        </div>
+  <div class="maintenances-page container-fluid">
+    <div class="row px-2">
+      <div class="col-12">
+        <Maintenance v-for="maintenance in state.maintenances" :key="maintenance.id" :maintenance="maintenance" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { computed, onMounted, reactive } from 'vue'
+import { reactive, computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
 import { maintenancesService } from '../services/MaintenancesService'
 
@@ -24,6 +22,7 @@ export default {
     onMounted(async() => {
       await maintenancesService.getAll()
     })
+
     return {
       state
     }
