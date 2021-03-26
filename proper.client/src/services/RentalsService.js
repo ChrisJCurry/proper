@@ -8,7 +8,6 @@ export default class RentalsService {
   async getAll() {
     try {
       const res = await api.get('api/rentals')
-      console.log(res)
       AppState.rentals = res.data.map(r => new Rental(r))
     } catch (error) {
       logger.error(error)
