@@ -66,8 +66,8 @@
           </div>
         </div>
       </div>
-      <div class="card">
-        <div class="card-header bg-primary" id="headingThree">
+      <div class="card ">
+        <div class="card-header border-bottom border-dark bg-primary" id="headingThree">
           <h2 class="mb-0">
             <button class="btn btn-block text-left collapsed"
                     type="button"
@@ -84,12 +84,21 @@
           <div class="card-body">
             <form class="form-group" action="text">
               <input required placeholder="Tenant Name(s)" type="text" v-model="state.newTenant.name">
+              <p>
+                <input class="mt-1"
+                       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                       required
+                       placeholder="Primary Phone Number"
+                       type="text"
+                       v-model="state.newTenant.phoneNum"
+                >
+              </p>
             </form>
           </div>
         </div>
       </div>
       <div class="card">
-        <div class="card-header bg-primary" id="headingFour">
+        <div class="card-header bg-primary border-bottom border-dark" id="headingFour">
           <h2 class="mb-0">
             <button class="btn btn-block text-left collapsed"
                     type="button"
@@ -104,7 +113,12 @@
         </div>
         <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
           <div class="card-body">
-            <form action="text" @submit.prevent="createMaintenanceTask">
+            <span v-if="!state.showCreateForm">
+              <button @click="state.showCreateForm = !state.showCreateForm" class="btn btn-dark mb-1" type="button">
+                New Task
+              </button>
+            </span>
+            <form v-if="state.showCreateForm" action="text" @submit.prevent="createMaintenanceTask">
               <p><input placeholder="Title" sclass="form-inline" type="text"></p>
               <textarea
                 placeholder="What needs to be done?"
@@ -115,12 +129,12 @@
                 v-model="state.newTask.body"
               >
               </textarea>
-              <p>
-                <button class="btn btn-dark plus-size" type="submit">
-                  <strong>+</strong>
-                </button>
-              </p>
             </form>
+            <span v-if="state.showCreateForm">
+              <button @submit.prevent="createMaintenanceTask" @click="state.showCreateForm = !state.showCreateForm" type="submit" class="btn btn-dark">
+                Submit Tasks
+              </button>
+            </span>
           </div>
         </div>
       </div>
@@ -133,14 +147,15 @@
 
 <script>
 import { AppState } from '../AppState'
-import { computed } from 'vue'
+import { computed, reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { maintenancesService } from '../services/MaintenancesService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
-    const state = ({
+    const state = reactive({
+      showCreateForm: true,
       newTenant: {},
       newOwner: {},
       newRental: {},
@@ -154,7 +169,7 @@ export default {
       state,
       async createNewMaintenanceTask(newTask) {
         try {
-          await maintenancesService.createNewMaintenanceTask()
+          await maintenancesService.createNewMaintenanceTask(newTask)
           this.getAllMaintenanceTasks()
         } catch (error) {
           logger.error(error)
@@ -162,7 +177,7 @@ export default {
       },
       async createNewProp(newOwner, newRental, newTenant) {
         try {
-          await rentalsService.create(state.newRental)
+          await rentalsService.create(newRental)
         } catch (error) {
           logger.error(error)
         }
