@@ -8,11 +8,11 @@ export class RentalsController extends BaseController {
   constructor() {
     super('api/rentals')
     this.router
+      .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/maintenances', this.getMaintenanceById)
       .post('', this.create)
-      .use(Auth0Provider.getAuthorizedUserInfo)
       .delete('/:id', this.remove)
       .put('/:id', this.edit)
   }
