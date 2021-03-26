@@ -1,9 +1,9 @@
 <template>
   <div class="rental-details-page">
     <div class="container">
-      <div class="row">
+      <div class="row mt-3">
         <div class="col-12">
-          <img src="" alt="">
+          <img class="img-fluid" :src="state.rental.picture" alt="">
         </div>
       </div>
       <div class="row">
@@ -11,7 +11,7 @@
           <div class="card">
             <div class="card-body">
               <h5 class="card-title">
-                Address
+                <!-- {{ state.rental.address.street }} -->
               </h5>
               <p class="card-text">
               </p>
@@ -39,7 +39,7 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      rentals: computed(() => AppState.rentals)
+      rental: computed(() => AppState.rental)
     })
     onMounted(() => {
       rentalsService.getById(route.params.id)
