@@ -1,10 +1,10 @@
 <template>
-  <div class="row" v-if="state.rental">
-    <div class="col-12 maintenance my-1">
+  <div class="row">
+    <div class="col-12 maintenance my-1" v-if="state.rental">
       <div v-for="task in maintenance.tasks" :key="task._id">
         <div class="row card p-0">
           <div class="col-12 card-title mt-2 text-center">
-            <h6 class="p-0">
+            <h6 class="p-0" v-if="state.rental.address">
               {{ state.rental.address.street }}
             </h6>
             <div class="row card-body py-0">
