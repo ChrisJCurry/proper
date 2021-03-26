@@ -15,6 +15,15 @@ export default class RentalsService {
     }
   }
 
+  async getById(id) {
+    try {
+      const res = await api.get('api/rentals/' + id)
+      AppState.activeRental = res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   async create(rental) {
     try {
       const res = await api / post('api/rentals', rental)
