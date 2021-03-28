@@ -16,14 +16,6 @@ class MaintenancesService {
     return maintenance
   }
 
-  async create(maintenance) {
-    const newMaintenance = await dbContext.Maintenances.create(maintenance)
-    if (!newMaintenance) {
-      throw new BadRequest('Error creating maintenance field.')
-    }
-    return newMaintenance
-  }
-
   async update(id, body, userInfo) {
     delete body.closed
     const maintenance = await dbContext.Maintenances.findOne({ _id: id })

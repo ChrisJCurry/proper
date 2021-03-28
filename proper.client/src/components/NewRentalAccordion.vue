@@ -119,6 +119,11 @@
               </button>
             </span>
             <form v-if="state.showCreateForm" action="text" @submit.prevent="createNewMaintenanceTask(state.newTask)">
+              <div class="form-group row" v-if="state.showWarning">
+                <div class="col-12 bg-danger">
+                  There's nothing to add.
+                </div>
+              </div>
               <div class="form-group row justify-content-center">
                 <p><input placeholder="Title" sclass="form-inline" type="text" v-model="state.newTask.title"></p>
               </div>
@@ -193,6 +198,7 @@ export default {
       newRental: {},
       maintenance: {},
       newTask: {},
+      showWarning: false,
       owner: computed(() => AppState.owner),
       rental: computed(() => AppState.rental),
       tenant: computed(() => AppState.tenant)
@@ -201,21 +207,28 @@ export default {
     return {
       state,
       async createNewMaintenanceTask(newTask) {
-        try {
-          if (!state.maintenance.id) {
-            state.maintenance = await maintenancesService.create(state.maintenance)
-            state.maintenance.tasks.push(newTask)
-            state.newTask = {}
-            await maintenancesService.edit(state.maintenance)
-          } else {
-            state.maintenance.tasks.push(newTask)
-            state.newTask = {}
+        if (newTask.title || newTask.description) {
+          try {
+            if (!state.maintenance.id) {
+              state.maintenance = await maintenancesService.create(state.maintenance)
+              state.maintenance.tasks.push(newTask)
+              state.newTask = {}
+              await maintenancesService.edit(state.maintenance)
+            } else {
+              state.maintenance.tasks.push(newTask)
+              state.newTask = {}
 
-            await maintenancesService.edit(state.maintenance)
+              await maintenancesService.edit(state.maintenance)
+            }
+          } catch (error) {
+            logger.error(error)
           }
-        } catch (error) {
-          logger.error(error)
+        } else {
+          console.log('dont put an empty object there, fool.')
+          state.showWarning = true
+          return
         }
+        state.showWarning = false
       },
       async createNewProp(newOwner, newRental, newTenant) {
         try {
