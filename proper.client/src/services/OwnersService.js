@@ -39,7 +39,7 @@ export default class OwnersService {
   */
   async create(owner) {
     try {
-      const res = await api.post('api/owners', owner)
+      const res = await api.post('api/owners/', owner)
       AppState.owners.push(res.data)
       this.getAll()
       return res.data

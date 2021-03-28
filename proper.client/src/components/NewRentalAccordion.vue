@@ -26,10 +26,14 @@
                        placeholder="(123) 456-7890"
                        type="tel"
                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                       v-model="state.newOwner.phoneNumber"
+                       v-model="state.newOwner.phone"
                 >
               </p>
-              <p><input class="mr-1" required placeholder="404 Not Found Dr" type="text" v-model="state.newOwner.address"></p>
+              <p><input class="mr-1" required placeholder="Street" type="text" v-model="state.ownerAddress.street"></p>
+              <p><input class="mr-1" required placeholder="City" type="text" v-model="state.ownerAddress.city"></p>
+              <p><input class="mr-1" required placeholder="State" type="text" v-model="state.ownerAddress.state"></p>
+              <p><input class="mr-1" required placeholder="ZIP Code" type="text" v-model="state.ownerAddress.zip"></p>
+              <p><input class="mr-1" required placeholder="Country" type="text" v-model="state.ownerAddress.country"></p>
               <input class="mr-1"
                      required
                      placeholder="john.doe@test.com"
@@ -58,11 +62,13 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
-            <p><input class="mr-1" required placeholder="Broadway" type="text" v-model="state.newRental.street"></p>
-            <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.newRental.aptNum"></p>
-            <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.newRental.city"></p>
-            <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.newRental.country"></p>
+            <p><input class="mr-1" required placeholder="Broadway" type="text" v-model="state.address.street"></p>
+            <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.address.aptNum"></p>
+            <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.address.city"></p>
+            <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.address.country"></p>
+            <p><input class="mr-1" required placeholder="ZIP Code" type="text" v-model="state.address.zip"></p>
             <p><input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent"></p>
+            <p><input class="mr-1" required placeholder="Year Built" type="text" v-model="state.newRental.yearBuilt"></p>
           </div>
         </div>
       </div>
@@ -211,7 +217,7 @@
           </div>
         </div>
       </div>
-      <button @click="create" class="btn btn-block btn-dark text-primary">
+      <button @click.prevent="create" type="button" class="btn btn-block btn-dark text-primary">
         Submit Form
       </button>
     </div>
@@ -234,6 +240,8 @@ export default {
       newTenant: {},
       newOwner: {},
       newRental: {},
+      address: {},
+      ownerAddress: {},
       maintenance: {},
       newTask: {},
       showWarning: false,
@@ -266,11 +274,13 @@ export default {
         }
         state.showWarning = false
       },
-      async createOwner(newOwner) {
+      async createOwner() {
         try {
-          newOwner = await ownersService.create(newOwner)
-          state.owners.push(newOwner)
+          state.newOwner.address = state.ownerAddress
+          state.newOwner = await ownersService.create(state.newOwner)
+          state.owners.push(state.newOwner)
           state.newOwner = {}
+          state.ownerAddress = {}
         } catch (error) {
           logger.error(error)
         }
@@ -284,11 +294,19 @@ export default {
           logger.error(error)
         }
       },
-      async create(newOwner, newRental, newTenant) {
+      async create() {
         try {
-          newRental.ownerId = newOwner.id
-          await rentalsService.create(newRental)
+          state.newOwner.address = state.ownerAddress
+          state.newOwner = await ownersService.create(state.newOwner)
+          state.newRental.ownerId = state.newOwner.id
+          state.newRental.tenants = []
+          state.newRental.tenants = state.tenants
+          state.newRental.address = state.address
+          state.newRental = await rentalsService.create(state.newRental)
+          state.maintenance.rentalId = state.newRental
+          await maintenancesService.edit(state.maintenance)
           state.newRental = {}
+          state.address = {}
         } catch (error) {
           logger.error(error)
         }

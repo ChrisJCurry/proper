@@ -32,7 +32,7 @@ class MaintenancesService {
     } if (maintenance && maintenance.closed) {
       throw new BadRequest("You can't update a closed maintenance task.")
     }
-    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: body.tasks }, { new: true })
+    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: body.tasks, rentalId: body.rentalId }, { new: true })
   }
 
   async remove(id, body) {
