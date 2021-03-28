@@ -63,7 +63,7 @@ export default class RentalsService {
       const res = await api.put('api/rentals/' + rental.id, rental)
       this.getById(res.data._id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 
@@ -80,7 +80,7 @@ export default class RentalsService {
       await api.delete('api/rentals/' + id)
       this.getById(id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 }

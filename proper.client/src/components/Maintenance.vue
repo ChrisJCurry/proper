@@ -44,7 +44,6 @@ import { computed, onBeforeMount, onMounted, reactive } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
-import { logger } from '../utils/Logger'
 export default {
   name: 'Maintenance',
   props: {
@@ -59,7 +58,6 @@ export default {
       loading: true
     })
     onBeforeMount(async() => {
-      logger.log('hey')
       await rentalsService.getById(props.maintenance.rentalId)
     })
     onMounted(() => {

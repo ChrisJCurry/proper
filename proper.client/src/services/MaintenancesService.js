@@ -41,7 +41,7 @@ export default class MaintenancesService {
   */
   async create(maintenance) {
     try {
-      const res = await api.post('api/maintenances', maintenance)
+      const res = await api.post('api/maintenances/', maintenance)
       AppState.maintenances.push(res.data)
       this.getAll()
       return res.data
@@ -58,7 +58,7 @@ export default class MaintenancesService {
       const res = await api.put('api/maintenances/' + maintenance.id, maintenance)
       this.getById(res.data._id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 
@@ -75,7 +75,7 @@ export default class MaintenancesService {
       await api.delete('api/maintenances/' + id)
       this.getById(id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 }

@@ -16,6 +16,14 @@ class MaintenancesService {
     return maintenance
   }
 
+  async create(maintenance) {
+    const newMaintenance = await (await dbContext.Maintenances.create(maintenance)).populate('creator', 'name email')
+    if (!newMaintenance) {
+      throw new BadRequest(`You may be missing one of the required properties ${maintenance}`)
+    }
+    return newMaintenance
+  }
+
   async update(id, body, userInfo) {
     delete body.closed
     const maintenance = await dbContext.Maintenances.findOne({ _id: id })

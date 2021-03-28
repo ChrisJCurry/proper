@@ -82,18 +82,54 @@
         </div>
         <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
           <div class="card-body">
-            <form class="form-group" action="text">
-              <input required placeholder="Tenant Name(s)" type="text" v-model="state.newTenant.name">
+            <span v-if="!state.showCreateTenant">
+              <button @click="state.showCreateTenant = !state.showCreateTenant" class="btn btn-dark mb-1" type="button">
+                New Tenant
+              </button>
+            </span>
+            <form @submit.prevent="createTenant(state.newTenant)" v-if="state.showCreateTenant">
+              <input required placeholder="Tenant Name" type="text" v-model="state.newTenant.name">
               <p>
                 <input class="mt-1"
                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                        required
-                       placeholder="Primary Phone Number"
+                       placeholder="Phone Number"
                        type="text"
                        v-model="state.newTenant.phoneNum"
                 >
               </p>
+              <button type="submit" class="btn btn-dark text-primary">
+                Add Tenant
+              </button>
             </form>
+            <div v-if="state.tenants">
+              <div v-for="tenant in state.tenants" :key="tenant.id">
+                <div class="bg-primary border border-danger block py-1 my-1">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-8">
+                        <div class="title">
+                          {{ tenant.name }}
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="col-1 offset-1">
+                        <button type="button" class="delete btn btn-sm btn-dark" @click="removeTenant(tenant)">
+                          x
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div>
+                          <span class="font-weight-bold">-</span> {{ tenant.phone }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -118,7 +154,7 @@
                 New Task
               </button>
             </span>
-            <form v-if="state.showCreateForm" action="text" @submit.prevent="createNewMaintenanceTask(state.newTask)">
+            <form v-if="state.showCreateForm" action="text" @submit.prevent="createMaintenanceTask(state.newTask)">
               <div class="form-group row" v-if="state.showWarning">
                 <div class="col-12 bg-danger">
                   There's nothing to add.
@@ -139,7 +175,7 @@
               </textarea>
               </div>
               <div class="form-group row justify-content-center">
-                <button type="submit" class="btn btn-dark">
+                <button type="submit" class="btn btn-dark text-primary">
                   Submit Task
                 </button>
               </div>
@@ -175,7 +211,7 @@
           </div>
         </div>
       </div>
-      <button @click="create" class="btn btn-block btn-dark">
+      <button @click="create" class="btn btn-block btn-dark text-primary">
         Submit Form
       </button>
     </div>
@@ -183,56 +219,76 @@
 </template>
 
 <script>
-import { AppState } from '../AppState'
-import { computed, reactive } from 'vue'
+import { reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { maintenancesService } from '../services/MaintenancesService'
+import { ownersService } from '../services/OwnersService'
+import { tenantsService } from '../services/TenantsService'
 export default {
   name: 'NewRentalAccordion',
   setup() {
     const state = reactive({
       showCreateForm: true,
+      showCreateTenant: true,
       newTenant: {},
       newOwner: {},
       newRental: {},
       maintenance: {},
       newTask: {},
       showWarning: false,
-      owner: computed(() => AppState.owner),
-      rental: computed(() => AppState.rental),
-      tenant: computed(() => AppState.tenant)
+      owners: [],
+      tenants: []
     })
 
     return {
       state,
-      async createNewMaintenanceTask(newTask) {
-        if (newTask.title || newTask.description) {
+      async createMaintenanceTask(newTask) {
+        if (state.newTask.title && state.newTask.description) {
           try {
             if (!state.maintenance.id) {
               state.maintenance = await maintenancesService.create(state.maintenance)
+              state.maintenance.tasks = []
               state.maintenance.tasks.push(newTask)
-              state.newTask = {}
               await maintenancesService.edit(state.maintenance)
+              state.newTask = {}
             } else {
               state.maintenance.tasks.push(newTask)
-              state.newTask = {}
-
               await maintenancesService.edit(state.maintenance)
+              state.newTask = {}
             }
           } catch (error) {
             logger.error(error)
           }
         } else {
-          console.log('dont put an empty object there, fool.')
           state.showWarning = true
           return
         }
         state.showWarning = false
       },
-      async createNewProp(newOwner, newRental, newTenant) {
+      async createOwner(newOwner) {
         try {
+          newOwner = await ownersService.create(newOwner)
+          state.owners.push(newOwner)
+          state.newOwner = {}
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async createTenant(newTenant) {
+        try {
+          newTenant = await tenantsService.create(newTenant)
+          state.tenants.push(newTenant)
+          state.newTenant = {}
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async create(newOwner, newRental, newTenant) {
+        try {
+          newRental.ownerId = newOwner.id
           await rentalsService.create(newRental)
+          state.newRental = {}
         } catch (error) {
           logger.error(error)
         }
@@ -243,8 +299,16 @@ export default {
           if (!res) {
             return
           }
-          state.maintenance.tasks.splice(state.maintenance.tasks.indexOf(task), 1)
           await maintenancesService.edit(state.maintenance)
+          state.maintenance.tasks.splice(state.maintenance.tasks.indexOf(task), 1)
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async removeTenant(tenant) {
+        try {
+          await tenantsService.delete(tenant.id)
+          state.tenants.splice(state.tenants.indexOf(tenant), 1)
         } catch (error) {
           logger.error(error)
         }
