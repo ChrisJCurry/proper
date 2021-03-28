@@ -118,23 +118,55 @@
                 New Task
               </button>
             </span>
-            <form v-if="state.showCreateForm" action="text" @submit.prevent="createMaintenanceTask">
-              <p><input placeholder="Title" sclass="form-inline" type="text"></p>
-              <textarea
-                placeholder="What needs to be done?"
-                name="maintenance"
-                id="maintenance"
-                cols="23"
-                rows="5"
-                v-model="state.newTask.body"
-              >
+            <form v-if="state.showCreateForm" action="text" @submit.prevent="createNewMaintenanceTask(state.newTask)">
+              <div class="form-group row justify-content-center">
+                <p><input placeholder="Title" sclass="form-inline" type="text" v-model="state.newTask.title"></p>
+              </div>
+              <div class="form-group row justify-content-center">
+                <textarea
+                  placeholder="What needs to be done?"
+                  name="maintenance"
+                  id="maintenance"
+                  cols="23"
+                  rows="5"
+                  v-model="state.newTask.description"
+                >
               </textarea>
+              </div>
+              <div class="form-group row justify-content-center">
+                <button type="submit" class="btn btn-dark">
+                  Submit Task
+                </button>
+              </div>
             </form>
-            <span v-if="state.showCreateForm">
-              <button @submit.prevent="createMaintenanceTask" @click="state.showCreateForm = !state.showCreateForm" type="submit" class="btn btn-dark">
-                Submit Task
-              </button>
-            </span>
+            <div v-if="state.maintenance.tasks">
+              <div v-for="task in state.maintenance.tasks" :key="task.id">
+                <div class="bg-primary border border-danger block py-1 my-1">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-8">
+                        <div class="title">
+                          {{ task.title }}
+                          <hr>
+                        </div>
+                      </div>
+                      <div class="col-1 offset-1">
+                        <button type="button" class="delete btn btn-sm btn-dark" @click="removeMaintenanceTask(task)">
+                          x
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <div>
+                          <span class="font-weight-bold">-</span> {{ task.description }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -159,6 +191,7 @@ export default {
       newTenant: {},
       newOwner: {},
       newRental: {},
+      maintenance: {},
       newTask: {},
       owner: computed(() => AppState.owner),
       rental: computed(() => AppState.rental),
@@ -169,8 +202,17 @@ export default {
       state,
       async createNewMaintenanceTask(newTask) {
         try {
-          await maintenancesService.createNewMaintenanceTask(newTask)
-          this.getAllMaintenanceTasks()
+          if (!state.maintenance.id) {
+            state.maintenance = await maintenancesService.create(state.maintenance)
+            state.maintenance.tasks.push(newTask)
+            state.newTask = {}
+            await maintenancesService.edit(state.maintenance)
+          } else {
+            state.maintenance.tasks.push(newTask)
+            state.newTask = {}
+
+            await maintenancesService.edit(state.maintenance)
+          }
         } catch (error) {
           logger.error(error)
         }
@@ -178,6 +220,18 @@ export default {
       async createNewProp(newOwner, newRental, newTenant) {
         try {
           await rentalsService.create(newRental)
+        } catch (error) {
+          logger.error(error)
+        }
+      },
+      async removeMaintenanceTask(task) {
+        try {
+          const res = window.confirm('Are you sure you want to remove this task?')
+          if (!res) {
+            return
+          }
+          state.maintenance.tasks.splice(state.maintenance.tasks.indexOf(task), 1)
+          await maintenancesService.edit(state.maintenance)
         } catch (error) {
           logger.error(error)
         }
@@ -192,5 +246,16 @@ export default {
 .plus-size{
   font-size: 16px;
   font-weight: 400;
+}
+
+.title {
+  text-align: center;
+}
+
+.title hr {
+  padding: 0;
+  margin-top: 0;
+  width: 100%;
+  border-bottom: 1px solid black;
 }
 </style>

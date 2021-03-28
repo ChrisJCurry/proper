@@ -26,13 +26,13 @@ class MaintenancesService {
 
   async update(id, body, userInfo) {
     delete body.closed
-    const maintenance = await dbContext.Maintenances.find({ _id: id })
-    if (maintenance.creatorId !== userInfo.id || !maintenance) {
+    const maintenance = await dbContext.Maintenances.findOne({ _id: id })
+    if (maintenance.creatorId !== userInfo.id) {
       throw new BadRequest('I am sorry but you are not the creator or you are not allowed to update this piece of data.')
     } if (maintenance && maintenance.closed) {
-      throw new BadRequest('Sorry but you can not close this this Maintenance request through an edit. You must go through the delete')
+      throw new BadRequest("You can't update a closed maintenance task.")
     }
-    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, body, { new: true })
+    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: body.tasks }, { new: true })
   }
 
   async remove(id, body) {

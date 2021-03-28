@@ -13,7 +13,7 @@ const Task = new Schema(
 const Maintenance = new Schema(
   {
     tasks: [Task],
-    rentalId: { type: ObjectId, ref: 'Rental', required: true },
+    rentalId: { type: ObjectId, ref: 'Rental' },
     creatorId: { type: String, required: true }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )

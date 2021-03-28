@@ -27,7 +27,7 @@ export default class MaintenancesService {
     try {
       const res = await api.get('api/maintenances/' + id)
 
-      const maintenance = res.data.map(m => new Maintenance(m))
+      const maintenance = res.data
       AppState.maintenance = maintenance
       return maintenance
     } catch (error) {
@@ -42,25 +42,25 @@ export default class MaintenancesService {
   async create(maintenance) {
     try {
       const res = await api.post('api/maintenances', maintenance)
-      AppState.maintenances.push(res.data.map(m => new Maintenance(m)))
+      AppState.maintenances.push(res.data)
       this.getAll()
-      return res.data._id
+      return res.data
     } catch (error) {
       logger.error(error)
     }
   }
 
-  // /* Do we even need this? NOTE
-  //   Calls server-side controller, edits maintenance.
-  // */
-  // async edit(maintenance) {
-  //   try {
-  //     const res = await api.put('api/maintenances/' + maintenance.id, maintenance)
-  //     this.getById(res.data._id)
-  //   } catch (error) {
-  //     logger.log(error)
-  //   }
-  // }
+  /* Do we even need this? NOTE
+    Calls server-side controller, edits maintenance.
+  */
+  async edit(maintenance) {
+    try {
+      const res = await api.put('api/maintenances/' + maintenance.id, maintenance)
+      this.getById(res.data._id)
+    } catch (error) {
+      logger.log(error)
+    }
+  }
 
   /*
     Calls server-side controller, removes all maintenance tasks
