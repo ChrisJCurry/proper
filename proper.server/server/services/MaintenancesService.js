@@ -8,7 +8,7 @@ class MaintenancesService {
   }
 
   async findById(id) {
-    const maintenance = await dbContext.Maintenances.findById({ _id: id }).populate('creator', 'name, email')
+    const maintenance = await dbContext.Maintenances.findById({ _id: id }).populate('creator', 'name email')
     if (!maintenance) {
       throw new BadRequest('No maintenance found by that ID.')
     }
@@ -26,10 +26,10 @@ class MaintenancesService {
 
   async update(id, body, userInfo) {
     delete body.closed
-    const foundMaintenance = await dbContext.Maintenances.find({ _id: id })
-    if (foundMaintenance.creatorId !== userInfo.id) {
-      throw new BadRequest('I am sorry but you are not the creator and you are not allowed to update this piece of data.')
-    } if (foundMaintenance && foundMaintenance.closed) {
+    const maintenance = await dbContext.Maintenances.find({ _id: id })
+    if (maintenance.creatorId !== userInfo.id || !maintenance) {
+      throw new BadRequest('I am sorry but you are not the creator or you are not allowed to update this piece of data.')
+    } if (maintenance && maintenance.closed) {
       throw new BadRequest('Sorry but you can not close this this Maintenance request through an edit. You must go through the delete')
     }
     return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, body, { new: true })
@@ -37,22 +37,10 @@ class MaintenancesService {
 
   async remove(id, body) {
     delete body.closed
-    const maintenance = await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { closed: true }, { new: true })
+    const maintenance = await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: [] }, { new: true })
     if (!maintenance) {
       throw new BadRequest('Error deleting maintenance.')
     }
-    return maintenance
-  }
-
-  /*
- NON-MAINTENANCE
- */
-  async findTasksById(id) {
-    const maintenance = await dbContext.Maintenances.findById(id)
-    if (!maintenance) {
-      throw new BadRequest('No maintenance found with that ID')
-    }
-
     return maintenance
   }
 }
