@@ -6,7 +6,7 @@
           <h5 class="card-title">
             {{ rental.address.street }}
           </h5>
-          <a href="#" class="btn btn-dark">Rental Info</a>
+          <a href="#" class="btn btn-dark p-0 px-1">Rental Info</a>
         </div>
       </div>
     </router-link>
@@ -14,10 +14,9 @@
 </template>
 
 <script>
-import { reactive } from '@vue/reactivity'
+import { reactive, computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
-import { computed } from '@vue/runtime-core'
 import { rentalsService } from '../services/RentalsService'
 
 export default {
@@ -33,7 +32,8 @@ export default {
       account: computed(() => AppState.account),
       rentals: computed(() => AppState.rentals),
       notes: computed(() => AppState.notes),
-      user: computed(() => AppState.user)
+      user: computed(() => AppState.user),
+      task: computed(() => AppState.task)
 
     })
     return {

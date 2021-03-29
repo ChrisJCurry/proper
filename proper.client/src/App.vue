@@ -7,8 +7,9 @@
   </main>
   <footer>
     <CreateNoteModal />
-    <RentalInfoModal />
-    <RentalModal />
+    <CreateMaintenanceModal />
+    <!-- <RentalInfoModal /> -->
+    <!-- <RentalModal /> -->
     <!-- <CreateTenantModal /> -->
   </footer>
 </template>

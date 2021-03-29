@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
-import AccountSchema from '../models/Account'
-import RentalSchema from '../models/Rental'
-import MaintenanceSchema from '../models/Maintenance'
-import OwnerSchema from '../models/Owner'
-import NoteSchema from '../models/Note'
-import TenantSchema from '../models/Tenant'
+import AccountSchema from './models/Account'
+import RentalSchema from './models/Rental'
+import MaintenanceSchema from './models/Maintenance'
+import OwnerSchema from './models/Owner'
+import NoteSchema from './models/Note'
+import TenantSchema from './models/Tenant'
 class DbContext {
   Note = mongoose.model('Note', NoteSchema)
   Account = mongoose.model('Account', AccountSchema);
