@@ -10,49 +10,56 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h3 class="modal-title">
-              New Rental Note!
-            </h3>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <form class="form-inline" @submit.prevent="createNote">
-              <div class="form-group">
-              </div>
+            <div class="container">
               <div class="row">
                 <div class="col-12">
-                  <textarea name="note-text"
-                            id="note-description"
-                            cols="35"
-                            rows="5"
-                            placeholder="Add a Note"
-                            aria-describedby="helpId"
-                            v-model="state.note.body"
-                            required
-                  >
-                  </textarea>
+                  <span type="button" class="close py-4" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </span>
+                  <h3 class="modal-title">
+                    New Rental Note!
+                  </h3>
                 </div>
               </div>
-              <div class="row m-btns">
-                <div class="col-6 text-center">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                  </button>
-                </div>
+            </div>
+          </div>
 
-                <div class="col-6 text-center">
-                  <button class="btn btn-success" type="submit">
-                    Create
-                  </button>
+          <div class="modal-body">
+            <div class="container">
+              <form class="form-inline" @submit.prevent="createNote">
+                <div class="form-group">
                 </div>
-              </div>
-            </form>
+                <div class="row">
+                  <div class="col-12">
+                    <textarea name="note-text"
+                              id="note-description"
+                              cols="35"
+                              rows="5"
+                              placeholder="Add a Note"
+                              aria-describedby="helpId"
+                              v-model="state.note.body"
+                              required
+                    >
+                  </textarea>
+                  </div>
+                </div>
+                <div class="row mt-2">
+                  <div class="col-6 text-center">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                      Close
+                    </button>
+                  </div>
+
+                  <div class="col-6 text-center">
+                    <button class="btn btn-success" type="submit">
+                      Create
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer">
       </div>
     </div>
   </div>
@@ -64,7 +71,6 @@ import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
 import { notesService } from '../services/NotesService'
-
 export default ({
   name: 'CreateNoteModal',
   setup() {

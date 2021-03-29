@@ -11,7 +11,7 @@
 import { computed, reactive } from 'vue'
 import { AppState } from '../AppState'
 export default {
-  name: 'TenantInfo',
+  name: 'Tenant',
   setup() {
     const state = reactive({
       rental: computed(() => AppState.rental)

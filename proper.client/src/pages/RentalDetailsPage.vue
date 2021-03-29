@@ -56,7 +56,8 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      rental: computed(() => AppState.rental)
+      rental: computed(() => AppState.rental),
+      notes: computed(() => AppState.notes)
     })
     onMounted(() => {
       rentalsService.getById(route.params.id)

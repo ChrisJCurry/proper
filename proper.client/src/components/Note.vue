@@ -1,29 +1,45 @@
 <template>
   <!-- <div v-if="note.creator"> -->
   <div class="container-fluid">
-    <div class="card mt-4">
-      <div class="row my-3 align-items-center">
-        <div class="col-2 text-right">
-          <h5>Rental Note: </h5>
-        </div>
-        <div class="col-3 text-left">
-          <h5>
-            {{ note.body }}
-          </h5>
-        </div>
-        <div class="col-2 text-center">
-          <h5>By: {{ note.creator.email }}</h5>
-        </div>
-        <div class="col-2 text-center mt-1">
-          <div v-if="state.user.email===note.creator.email">
-            <button class="btn btn-danger btn-sm" @click="deleteNote">
-              delete
-            </button>
+    <div class="modal fade"
+         id="create-note"
+         tabindex="-1"
+         role="dialog"
+         aria-labelledby="modelTitleId"
+         aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title">
+              New Rental Note!
+            </h3>
+            <div class="card mt-4">
+              <div class="row my-3 align-items-center">
+                <div class="col-2 text-right">
+                  <h5>Rental Note: </h5>
+                </div>
+                <div class="col-3 text-left">
+                  <h5>
+                    {{ note.body }}
+                  </h5>
+                </div>
+                <div class="col-2 text-center">
+                  <h5>By: {{ note.creator.email }}</h5>
+                </div>
+                <div class="col-2 text-center mt-1">
+                  <div v-if="state.user.email===note.creator.email">
+                    <button class="btn btn-danger btn-sm" @click="deleteNote">
+                      delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <!-- </div> -->
   </div>
 </template>
 
