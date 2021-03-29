@@ -32,5 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.rentals-page {
+  background-color: #A7C4A0;
+  background-size: cover ;
+}
 </style>
