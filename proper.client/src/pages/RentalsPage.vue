@@ -1,7 +1,7 @@
 <template>
   <div class="rentals-page">
     <div class="container-fluid">
-      <div class="row m-auto">
+      <div class="row">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
