@@ -48,8 +48,7 @@ export default class RentalsService {
     try {
       const res = await api.post('api/rentals', rental)
       AppState.rentals.push(res.data)
-      this.getAll()
-      return res.data._id
+      return res.data
     } catch (error) {
       logger.error(error)
     }

@@ -8,8 +8,6 @@
   <footer>
     <CreateNoteModal />
     <RentalInfoModal />
-    <RentalModal />
-    <CreateTenantModal />
   </footer>
 </template>
 
