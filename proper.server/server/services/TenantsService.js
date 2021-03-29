@@ -47,6 +47,14 @@ class TenantsService {
     }
     return tenant
   }
+
+  async hardDelete(id, body) {
+    const tenant = await dbContext.Tenants.findOneAndDelete({ _id: id })
+    if (!tenant) {
+      throw new BadRequest('Error deleting tenant.')
+    }
+    return tenant
+  }
 }
 
 export const tenantsService = new TenantsService()

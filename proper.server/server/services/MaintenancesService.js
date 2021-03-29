@@ -43,6 +43,14 @@ class MaintenancesService {
     }
     return maintenance
   }
+
+  async hardDelete(id, body) {
+    const maintenance = await dbContext.Maintenances.findOneAndDelete({ _id: id })
+    if (!maintenance) {
+      throw new BadRequest('Error deleting maintenance.')
+    }
+    return maintenance
+  }
 }
 
 export const maintenancesService = new MaintenancesService()

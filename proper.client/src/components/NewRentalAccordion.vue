@@ -231,22 +231,43 @@ import { rentalsService } from '../services/RentalsService'
 import { maintenancesService } from '../services/MaintenancesService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
+import { onBeforeRouteLeave } from 'vue-router'
 export default {
   name: 'NewRentalAccordion',
   setup() {
     const state = reactive({
       showCreateForm: true,
       showCreateTenant: true,
+      showWarning: false,
       newTenant: {},
       newOwner: {},
-      newRental: {},
+      newRental: { address: {} },
       address: {},
       ownerAddress: {},
       maintenance: {},
       newTask: {},
-      showWarning: false,
       owners: [],
-      tenants: []
+      tenants: [],
+      createdRental: false
+    })
+
+    onBeforeRouteLeave(async() => {
+      if (!state.createdRental) {
+        try {
+          if (state.maintenance.tasks) {
+            logger.log(state.maintenance)
+            await maintenancesService.deleteBeforeRentalCreation(state.maintenance.id)
+          }
+
+          if (state.tenants) {
+            logger.log(state.tenants)
+            state.tenants.forEach(async(tenant) => await tenantsService.deleteBeforeRentalCreation(tenant.id))
+          }
+          // await maintenancesService.delete()
+        } catch (err) {
+          logger.error(err)
+        }
+      }
     })
 
     return {
@@ -307,6 +328,7 @@ export default {
           await maintenancesService.edit(state.maintenance)
           state.newRental = {}
           state.address = {}
+          state.createdRental = true
         } catch (error) {
           logger.error(error)
         }
