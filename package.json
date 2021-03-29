@@ -1,15 +1,16 @@
-
-  {
+{
     "name": "proper",
     "version": "1.0.0",
     "scripts": {
-      "build": "npm run setup:client && npm run setup:server",
-      "setup:client": "cd proper.client && npm i",
-      "setup:server": "cd proper.server && npm i",
-      "start": "node proper.server/index.js"
+        "build": "npm run setup:client && npm run setup:server",
+        "setup:client": "cd proper.client && npm i",
+        "setup:server": "cd proper.server && npm i",
+        "start": "node proper.server/index.js"
     },
     "engines": {
-      "node": "^14.15.4"
+        "node": "^14.15.4"
+    },
+    "dependencies": {
+        "nodemailer": "^6.5.0"
     }
-  }
-  
+}

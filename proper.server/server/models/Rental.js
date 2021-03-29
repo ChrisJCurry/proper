@@ -3,6 +3,14 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const ObjectId = mongoose.SchemaTypes.ObjectId
 
+const Task = new Schema(
+  {
+    title: { type: String, required: true },
+    description: { type: String, required: true },
+    closed: { type: Boolean, required: true, default: false }
+  }, { timestamps: true, toJSON: { virtuals: true } }
+)
+
 const Rental = new Schema(
   {
     // address.street
@@ -14,6 +22,7 @@ const Rental = new Schema(
     address: { type: {} },
     rent: { type: Number },
     yearBuilt: { type: String },
+    tasks: [Task],
     tenants: [{ type: String, ref: 'Tenant' }],
     picture: { type: String },
     closed: { type: Boolean, default: false },

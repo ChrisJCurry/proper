@@ -47,8 +47,22 @@
         <Note v-for="note in state.notes" :key="note" :note="note" />
       </div>
       <div class="row">
-        <div class="col">
-          <Maintenance v-for="maintenance in state.maintenances" :key="maintenance" :maintenance="maintenance" />
+        <div class="col-12">
+          <div v-for="task in state.rental.tasks" :key="task.id">
+            <div class="card">
+              <div class="card-body">
+                <div class="card-text">
+                  title: {{ task.title }}
+                </div>
+                <div class="card-text">
+                  desc: {{ task.description }}
+                </div>
+                <div class="card-text">
+                  created: {{ new Date(task.createdAt).toLocaleString() }}
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -73,7 +87,7 @@ export default {
     })
     onMounted(() => {
       rentalsService.getById(route.params.id)
-      rentalsService.getMaintenancesById(route.params.id)
+      rentalsService.getTasksById(route.params.id)
     })
     return {
       state

@@ -32,5 +32,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
+.rentals-page {
+  background-image: url('../assets/img/boiseDowntown.jpg');
+  background-size: cover ;
+}
 </style>
