@@ -15,7 +15,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="accordion" id="accordionExample">
+            <div class="accordion" id="tenantInfo">
               <div class="card">
                 <div class="card-header" id="headingOne">
                   <h2 class="mb-0">
@@ -31,9 +31,9 @@
                   </h2>
                 </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <!-- <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#tenantInfo">
                   <TenantInfo />
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -53,7 +53,8 @@ export default {
   name: 'RentalInfoModal',
   setup() {
     const state = reactive({
-      tenant: computed(() => AppState.rental)
+      tenant: computed(() => AppState.rental),
+      rental: computed(() => AppState.rental)
     })
     return {
       state,

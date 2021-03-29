@@ -1,6 +1,7 @@
 import { maintenancesService } from '../services/MaintenancesService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
+import { logger } from '../utils/Logger'
 
 export class MaintenancesController extends BaseController {
   constructor() {
@@ -11,7 +12,8 @@ export class MaintenancesController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
-      .delete('', this.remove)
+      .delete('/:id', this.remove)
+      .delete('/:id/beforeRental', this.hardDelete)
   }
 
   async getAll(req, res, next) {
@@ -54,6 +56,15 @@ export class MaintenancesController extends BaseController {
   async remove(req, res, next) {
     try {
       const maintenance = await maintenancesService.remove(req.params.id)
+      res.send(maintenance)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async hardDelete(req, res, next) {
+    try {
+      const maintenance = await maintenancesService.hardDelete(req.params.id)
       res.send(maintenance)
     } catch (error) {
       next(error)

@@ -73,6 +73,19 @@ export default class TenantsService {
       logger.error(error)
     }
   }
+
+  async deleteBeforeRentalCreation(id) {
+    // DO NEED THIS, CHECK TO SEE IF STATE.MAINTENANCES IS EMPTY AND THEN RUN THIS IF SO
+    const res = window.confirm('Are you sure you want to stop creating this rental?')
+    if (!res) {
+      return
+    }
+    try {
+      await api.delete('api/tenants/' + id + '/beforeRental')
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 
 export const tenantsService = new TenantsService()

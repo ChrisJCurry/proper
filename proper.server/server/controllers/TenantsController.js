@@ -11,6 +11,7 @@ export class TenantsController extends BaseController {
       .get('/:id', this.getById)
       .post('', this.create)
       .delete('/:id', this.remove)
+      .delete('/:id/beforeRental', this.hardDelete)
       .put('/:id', this.edit)
   }
 
@@ -56,6 +57,15 @@ export class TenantsController extends BaseController {
     try {
       const tenant = await tenantsService.remove(req.params.id, req.body)
       res.send(tenant)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async hardDelete(req, res, next) {
+    try {
+      const maintenance = await tenantsService.hardDelete(req.params.id)
+      res.send(maintenance)
     } catch (error) {
       next(error)
     }

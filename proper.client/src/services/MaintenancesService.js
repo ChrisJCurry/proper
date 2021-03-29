@@ -78,6 +78,18 @@ export default class MaintenancesService {
       logger.error(error)
     }
   }
+
+  async deleteBeforeRentalCreation(id) {
+    const res = window.confirm('Are you sure you want to stop creating this rental?')
+    if (!res) {
+      return
+    }
+    try {
+      await api.delete('api/maintenances/' + id + '/beforeRental')
+    } catch (error) {
+      logger.error(error)
+    }
+  }
 }
 
 export const maintenancesService = new MaintenancesService()
