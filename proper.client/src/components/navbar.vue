@@ -23,9 +23,16 @@
             Rentals
           </router-link>
         </li>
-        <router-link :to="{name:'NewRentalPage'}" class="nav-link">
-          Create New Rental
-        </router-link>
+        <li class="nav-item">
+          <router-link :to="{ name: 'MaintenancesPage' }" class="nav-link">
+            Maintenance
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name:'NewRentalPage'}" class="nav-link">
+            Create New Rental
+          </router-link>
+        </li>
       </ul>
       <span class="navbar-text">
         <button
