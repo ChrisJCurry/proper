@@ -32,9 +32,11 @@
                 </div>
 
                 <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#tenantInfo">
-                  <div class="card-body">
-                    <p>Tenant Name: {{ state.rental.tenant.name }}</p>
-                    <p>Primary Contact: {{ state.rental.tenant.phoneNum }}</p>
+                  <div v-for="tenant in state.rental.tenants" :key="tenant.id">
+                    <div class="card-body">
+                      <p>Tenant Name: {{ tenant.name }}</p>
+                      <p>Primary Contact: {{ tenant.phoneNum }}</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -62,6 +64,7 @@ export default {
   setup(props) {
     const state = reactive({
       rental: computed(() => AppState.rental)
+
     })
     return {
       state,
