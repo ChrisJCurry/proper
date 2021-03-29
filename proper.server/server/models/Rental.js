@@ -11,6 +11,13 @@ const Task = new Schema(
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
 
+const Note = new Schema(
+  {
+    body: { type: String, required: true },
+    closed: { type: Boolean, required: true, default: false }
+  }, { timestamps: true, toJSON: { virtuals: true } }
+)
+
 const Rental = new Schema(
   {
     // address.street
@@ -23,6 +30,7 @@ const Rental = new Schema(
     rent: { type: Number },
     yearBuilt: { type: String },
     tasks: [Task],
+    notes: [Note],
     tenants: [{ type: String, ref: 'Tenant' }],
     picture: { type: String },
     closed: { type: Boolean, default: false },

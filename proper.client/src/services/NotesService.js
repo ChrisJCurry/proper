@@ -16,6 +16,7 @@ class NotesService {
   async createNote(noteData) {
     try {
       delete noteData.id
+      logger.log(noteData)
       const res = await api.post('api/notes', noteData)
       AppState.notes.push(res.data)
       return res.data._id

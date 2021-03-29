@@ -8,6 +8,5 @@ export class Rental {
     this.creatorId = data.creatorId
     this.tenants = data.tenants || ''
     this.picture = data.picture || ''
-    this.maintenances = data.maintenances || data.maintenance
   }
 }

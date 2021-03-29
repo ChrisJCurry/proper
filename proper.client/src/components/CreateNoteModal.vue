@@ -70,7 +70,7 @@ import { reactive, computed } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
-import { notesService } from '../services/NotesService'
+import { rentalsService } from '../services/RentalsService'
 export default ({
   name: 'CreateNoteModal',
   setup() {
@@ -84,7 +84,8 @@ export default ({
       async createNote() {
         try {
           state.note.rentalId = state.rental.id
-          await notesService.createNote(state.note)
+          state.rental.notes.push(state.note)
+          await rentalsService.edit(state.rental)
           state.note = {}
           $('#create-note').modal('hide')
           $('.modal-backdrop').remove()
