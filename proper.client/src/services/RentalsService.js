@@ -39,6 +39,15 @@ export default class RentalsService {
     }
   }
 
+  async getNotesById(id) {
+    try {
+      const res = await api.get(`api/rentals/${id}/notes`)
+      return res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
   // does what it says on the tin :)
   async getTenantsByRentalId(id) {
     try {
