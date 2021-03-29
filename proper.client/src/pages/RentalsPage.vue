@@ -33,7 +33,7 @@ export default {
 
 <style lang="scss" scoped>
 .rentals-page {
-  background-image: url('../assets/img/boiseDowntown.jpg');
+  background-color: #A7C4A0;
   background-size: cover ;
 }
 </style>
