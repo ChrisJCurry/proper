@@ -1,5 +1,5 @@
 <template>
-  <div class="landing-page flex-grow-1 d-flex flex-column align-items-center justify-content-center">
+  <div class="landing-page flex-grow-1">
   </div>
 </template>
 
