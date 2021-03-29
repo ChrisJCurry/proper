@@ -1,10 +1,12 @@
 <template>
   <div>
-    <div class="new-rental-page d-none d-xs-block flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-      <NewRentalAccordion />
+    <div class="new-rental-page">
+      <div class="d-lg-none">
+        <NewRentalAccordion />
+      </div>
     </div>
   </div>
-  <div class="d-none d-xl-block">
+  <div class="d-none d-lg-block">
     <h1>YOU'RE SEEING THIS ON DESKTOP</h1>
   </div>
 </template>
