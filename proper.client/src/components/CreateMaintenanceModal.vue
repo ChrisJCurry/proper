@@ -30,6 +30,11 @@
                 <div class="form-group">
                 </div>
                 <div class="row">
+                  <div class="col">
+                    <input type="text" placeholder="task title" v-model="state.task.title">
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-12">
                     <textarea name="task-text"
                               id="task-description"
@@ -37,7 +42,7 @@
                               rows="5"
                               placeholder="Add a task"
                               aria-describedby="helpId"
-                              v-model="state.task.body"
+                              v-model="state.task.description"
                               required
                     >
                   </textarea>
@@ -70,7 +75,7 @@ import { reactive, computed } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
-import { maintenancesService } from '../services/MaintenancesService'
+import { rentalsService } from '../services/RentalsService'
 export default ({
   name: 'CreateMaintenanceModal',
   setup() {
@@ -83,8 +88,8 @@ export default ({
 
       async createTask() {
         try {
-          state.maintenances.rental = state.rental
-          await maintenancesService.createTask(state.task)
+          state.rental.tasks.push(state.task)
+          await rentalsService.edit(state.rental)
           state.task = {}
           $('#create-maintenance').modal('hide')
           $('.modal-backdrop').remove()

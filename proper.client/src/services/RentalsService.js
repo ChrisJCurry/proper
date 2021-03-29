@@ -2,7 +2,6 @@ import { api } from './AxiosService'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { Rental } from '../models/Rental'
-import { Maintenance } from '../models/Maintenance'
 
 export default class RentalsService {
   /*
@@ -31,10 +30,10 @@ export default class RentalsService {
     }
   }
 
-  async getMaintenancesById(id) {
+  async getTasksById(id) {
     try {
-      const res = await api.get('api/rentals/' + id + '/maintenances')
-      AppState.maintenances = res.data.map(m => new Maintenance(m))
+      const res = await api.get('api/rentals/' + id + '/tasks')
+      return res.data
     } catch (error) {
       logger.error(error)
     }

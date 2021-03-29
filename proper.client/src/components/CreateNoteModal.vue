@@ -83,7 +83,7 @@ export default ({
 
       async createNote() {
         try {
-          state.note.rental = state.rental
+          state.note.rentalId = state.rental.id
           await notesService.createNote(state.note)
           state.note = {}
           $('#create-note').modal('hide')

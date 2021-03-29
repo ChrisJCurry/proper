@@ -2,7 +2,6 @@ import { rentalsService } from '../services/RentalsService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { ownersService } from '../services/OwnersService'
-import { maintenancesService } from '../services/MaintenancesService'
 import { tenantsService } from '../services/TenantsService'
 
 export class RentalsController extends BaseController {
@@ -12,7 +11,7 @@ export class RentalsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/maintenances', this.getMaintenanceById)
+      .get('/:id/tasks', this.getTasks)
       .get('/:id/tenants', this.getTenantsById)
       .post('', this.create)
       .delete('/:id', this.remove)
@@ -37,10 +36,11 @@ export class RentalsController extends BaseController {
     }
   }
 
-  async getMaintenanceById(req, res, next) {
+  async getTasks(req, res, next) {
     try {
-      const maintenance = await maintenancesService.find({ rentalId: req.params.id })
-      res.send(maintenance)
+      const rental = await rentalsService.find({ rentalId: req.params.id })
+      const tasks = rental.tasks
+      res.send(tasks)
     } catch (err) {
       next(err)
     }
