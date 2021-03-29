@@ -20,7 +20,7 @@
               </p>
               <div class="row">
                 <div class="col-6 p-0">
-                  <button class="btn btn-dark text-primary btn-block">
+                  <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
                     Details
                   </button>
                 </div>
