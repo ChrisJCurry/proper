@@ -39,6 +39,16 @@ export default class RentalsService {
     }
   }
 
+  // does what it says on the tin :)
+  async getTenantsByRentalId(id) {
+    try {
+      const res = await api.get('api/rentals/' + id + '/tenants')
+      AppState.tenant.push(res.data)
+    } catch (error) {
+      logger.log(error)
+    }
+  }
+
   /*
     Calls server-side controller, creates rental.
     Makes res.data go through rental model before being pushed into AppState rental.

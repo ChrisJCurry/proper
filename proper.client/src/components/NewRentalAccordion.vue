@@ -66,7 +66,15 @@
             <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.address.aptNum"></p>
             <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.address.city"></p>
             <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.address.country"></p>
-            <p><input class="mr-1" required placeholder="ZIP Code" type="text" v-model="state.address.zip"></p>
+            <p>
+              <input class="mr-1"
+                     required
+                     pattern="[0-9]{5}"
+                     placeholder="ZIP Code"
+                     type="text"
+                     v-model="state.address.zip"
+              >
+            </p>
             <p><input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent"></p>
             <p><input class="mr-1" required placeholder="Year Built" type="text" v-model="state.newRental.yearBuilt"></p>
           </div>
@@ -216,7 +224,6 @@ export default {
           state.newRental.tenants = state.tenants
           state.newRental.address = state.address
           state.newRental = await rentalsService.create(state.newRental)
-          state.maintenance.rentalId = state.newRental
           state.newRental = {}
           state.address = {}
           state.createdRental = true

@@ -9,7 +9,7 @@
     <CreateNoteModal />
     <RentalInfoModal />
     <RentalModal />
-    <CreateTenantModal />
+    <!-- <CreateTenantModal /> -->
   </footer>
 </template>
 
