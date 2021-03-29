@@ -39,7 +39,7 @@ export default class MaintenancesService {
     Calls server-side controller, creates new rental
     Makes res.data go through Maintenance model before being pushed into AppState maintenances.
   */
-  async create(maintenance) {
+  async createTask(maintenance) {
     try {
       const res = await api.post('api/maintenances/', maintenance)
       AppState.maintenances.push(res.data)

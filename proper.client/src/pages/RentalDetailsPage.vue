@@ -3,13 +3,13 @@
     <div class="container" v-if="state.rental.address">
       <div class="row mt-2 text-center">
         <div class="col-6">
-          <button class="btn btn-info" type="button" data-toggle="modal" data-target="#create-note">
+          <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#create-note">
             Add a Note
           </button>
         </div>
         <div class="col-6">
-          <button class="btn btn-info text-primary">
-            Add Maintenance Task
+          <button class="btn btn-info btn-block text-primary" data-toggle="modal" data-target="#create-maintenance">
+            Add a Task
           </button>
         </div>
       </div>
