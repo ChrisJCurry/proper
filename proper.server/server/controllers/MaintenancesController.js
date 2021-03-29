@@ -11,7 +11,8 @@ export class MaintenancesController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .post('', this.create)
       .put('/:id', this.update)
-      .delete('', this.remove)
+      .delete('/:id', this.remove)
+      .delete('/:id/beforeRental', this.hardDelete)
   }
 
   async getAll(req, res, next) {
@@ -54,6 +55,15 @@ export class MaintenancesController extends BaseController {
   async remove(req, res, next) {
     try {
       const maintenance = await maintenancesService.remove(req.params.id)
+      res.send(maintenance)
+    } catch (error) {
+      next(error)
+    }
+  }
+
+  async hardDelete(req, res, next) {
+    try {
+      const maintenance = await maintenancesService.hardDelete(req.params.id)
       res.send(maintenance)
     } catch (error) {
       next(error)

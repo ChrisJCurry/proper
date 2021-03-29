@@ -39,7 +39,7 @@ export default class MaintenancesService {
     Calls server-side controller, creates new rental
     Makes res.data go through Maintenance model before being pushed into AppState maintenances.
   */
-  async create(maintenance) {
+  async createTask(maintenance) {
     try {
       const res = await api.post('api/maintenances/', maintenance)
       AppState.maintenances.push(res.data)
@@ -74,6 +74,18 @@ export default class MaintenancesService {
     try {
       await api.delete('api/maintenances/' + id)
       this.getById(id)
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async deleteBeforeRentalCreation(id) {
+    const res = window.confirm('Are you sure you want to stop creating this rental?')
+    if (!res) {
+      return
+    }
+    try {
+      await api.delete('api/maintenances/' + id + '/beforeRental')
     } catch (error) {
       logger.error(error)
     }

@@ -1,7 +1,7 @@
 <template>
-  <div class="create-note-modal">
+  <div class="create-maintenance-modal">
     <div class="modal fade"
-         id="create-note"
+         id="create-maintenance"
          tabindex="-1"
          role="dialog"
          aria-labelledby="modelTitleId"
@@ -17,7 +17,7 @@
                     <span aria-hidden="true">&times;</span>
                   </span>
                   <h3 class="modal-title">
-                    New Rental Note!
+                    New Maintenance Task!
                   </h3>
                 </div>
               </div>
@@ -26,18 +26,18 @@
 
           <div class="modal-body">
             <div class="container">
-              <form class="form-inline" @submit.prevent="createNote">
+              <form class="form-inline" @submit.prevent="createTask">
                 <div class="form-group">
                 </div>
                 <div class="row">
                   <div class="col-12">
-                    <textarea name="note-text"
-                              id="note-description"
+                    <textarea name="task-text"
+                              id="task-description"
                               cols="35"
                               rows="5"
-                              placeholder="Add a Note"
+                              placeholder="Add a task"
                               aria-describedby="helpId"
-                              v-model="state.note.body"
+                              v-model="state.task.body"
                               required
                     >
                   </textarea>
@@ -70,23 +70,23 @@ import { reactive, computed } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
-import { notesService } from '../services/NotesService'
+import { maintenancesService } from '../services/MaintenancesService'
 export default ({
-  name: 'CreateNoteModal',
+  name: 'CreateMaintenanceModal',
   setup() {
     const state = reactive({
-      note: {},
+      task: {},
       rental: computed(() => AppState.rental)
     })
     return {
       state,
 
-      async createNote() {
+      async createTask() {
         try {
-          state.note.rental = state.rental
-          await notesService.createNote(state.note)
-          state.note = {}
-          $('#create-note').modal('hide')
+          state.maintenances.rental = state.rental
+          await maintenancesService.createTask(state.task)
+          state.task = {}
+          $('#create-maintenance').modal('hide')
           $('.modal-backdrop').remove()
         } catch (error) {
           logger.error(error)
@@ -98,7 +98,5 @@ export default ({
 </script>
 
 <style scoped>
-.m-btns{
-  justify-content: space-between;
-}
+
 </style>

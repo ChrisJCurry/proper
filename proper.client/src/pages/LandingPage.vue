@@ -12,9 +12,9 @@ export default {
 <style scoped lang="scss">
 .landing-page{
   text-align: center;
-  background-image: url();
+  background-image: url('../assets/img/boiseDowntown.jpg');
   background-size: cover ;
-  user-select: none;
+  user-select: none ;
   > img{
     height: 200px;
     width: 200px;

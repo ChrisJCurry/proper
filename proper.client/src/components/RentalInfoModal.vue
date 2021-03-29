@@ -15,24 +15,29 @@
             </button>
           </div>
           <div class="modal-body">
-            <div class="accordion" id="accordionExample">
+            <div class="accordion" id="tenantInfo">
               <div class="card">
-                <div class="card-header" id="headingOne">
+                <div class="card-header bg-dark" id="headingOne">
                   <h2 class="mb-0">
-                    <button class="btn btn-link"
+                    <button class="btn btn-block btn-link"
                             type="button"
                             data-toggle="collapse"
                             data-target="#collapseOne"
                             aria-expanded="true"
                             aria-controls="collapseOne"
                     >
-                      Collapsible Group Item #1
+                      Tenant Info
                     </button>
                   </h2>
                 </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                  <TenantInfo />
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#tenantInfo">
+                  <div v-for="tenant in state.rental.tenants" :key="tenant.id">
+                    <div class="card-body">
+                      <p>Tenant Name: {{ tenant.name }}</p>
+                      <p>Primary Contact: {{ tenant.phoneNum }}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -49,14 +54,23 @@
 import $ from 'jquery'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import { rentalsService } from '../services/RentalsService'
 export default {
   name: 'RentalInfoModal',
-  setup() {
+  props: {
+    // eslint-disable-next-line vue/require-default-prop
+    rental: { type: Object }
+  },
+  setup(props) {
     const state = reactive({
-      tenant: computed(() => AppState.rental)
+      rental: computed(() => AppState.rental)
+
     })
     return {
       state,
+      async getAllTenantsByRentalId(id) {
+        await rentalsService.getTenantsByRentalId(id)
+      },
       closeModal() {
         $('#rental-info').modal('hide')
         $('.modal-backdrop').remove()

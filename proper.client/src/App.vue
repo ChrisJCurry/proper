@@ -7,6 +7,7 @@
   </main>
   <footer>
     <CreateNoteModal />
+    <CreateMaintenanceModal />
     <!-- <RentalInfoModal /> -->
     <!-- <RentalModal /> -->
     <!-- <CreateTenantModal /> -->

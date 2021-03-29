@@ -1,9 +1,18 @@
 <template>
   <div class="rental-details-page">
     <div class="container" v-if="state.rental.address">
-      <button class="btn btn-info my-2" type="button" data-toggle="modal" data-target="#create-note">
-        Add a Note
-      </button>
+      <div class="row mt-2 text-center">
+        <div class="col-6">
+          <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#create-note">
+            Add a Note
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="btn btn-info btn-block text-primary" data-toggle="modal" data-target="#create-maintenance">
+            Add a Task
+          </button>
+        </div>
+      </div>
       <div class="row mt-3">
         <div class="col-12">
           <img class="img-fluid" :src="state.rental.picture" alt="">
@@ -20,7 +29,7 @@
               </p>
               <div class="row">
                 <div class="col-6 p-0">
-                  <button class="btn btn-dark text-primary btn-block">
+                  <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
                     Details
                   </button>
                 </div>
@@ -38,7 +47,9 @@
         <Note v-for="note in state.notes" :key="note" :note="note" />
       </div>
       <div class="row">
-        <Maintenance v-for="maintenance in state.maintenances" :key="maintenance" :maintenance="maintenance" />
+        <div class="col">
+          <Maintenance v-for="maintenance in state.maintenances" :key="maintenance" :maintenance="maintenance" />
+        </div>
       </div>
     </div>
   </div>
@@ -56,10 +67,13 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      rental: computed(() => AppState.rental)
+      rental: computed(() => AppState.rental),
+      notes: computed(() => AppState.notes),
+      maintenances: computed(() => AppState.maintenances)
     })
     onMounted(() => {
       rentalsService.getById(route.params.id)
+      rentalsService.getMaintenancesById(route.params.id)
     })
     return {
       state
