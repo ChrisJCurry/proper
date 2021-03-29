@@ -16,6 +16,14 @@ class MaintenancesService {
     return maintenance
   }
 
+  async create(maintenance) {
+    const newMaintenance = await (await dbContext.Maintenances.create(maintenance)).populate('creator', 'name email')
+    if (!newMaintenance) {
+      throw new BadRequest(`You may be missing one of the required properties ${maintenance}`)
+    }
+    return newMaintenance
+  }
+
   async update(id, body, userInfo) {
     delete body.closed
     const maintenance = await dbContext.Maintenances.findOne({ _id: id })
@@ -24,7 +32,7 @@ class MaintenancesService {
     } if (maintenance && maintenance.closed) {
       throw new BadRequest("You can't update a closed maintenance task.")
     }
-    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: body.tasks }, { new: true })
+    return await dbContext.Maintenances.findOneAndUpdate({ _id: id }, { tasks: body.tasks, rentalId: body.rentalId }, { new: true })
   }
 
   async remove(id, body) {

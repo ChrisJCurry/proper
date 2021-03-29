@@ -1,7 +1,6 @@
 import { api } from './AxiosService'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
-import { post } from 'jquery'
 import { Rental } from '../models/Rental'
 
 export default class RentalsService {
@@ -46,8 +45,8 @@ export default class RentalsService {
   */
   async create(rental) {
     try {
-      const res = await api / post('api/rentals', rental)
-      AppState.rentals.push(res.data.map(r => new Rental(r)))
+      const res = await api.post('api/rentals', rental)
+      AppState.rentals.push(res.data)
       this.getAll()
       return res.data._id
     } catch (error) {
@@ -63,7 +62,7 @@ export default class RentalsService {
       const res = await api.put('api/rentals/' + rental.id, rental)
       this.getById(res.data._id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 
@@ -80,7 +79,7 @@ export default class RentalsService {
       await api.delete('api/rentals/' + id)
       this.getById(id)
     } catch (error) {
-      logger.log(error)
+      logger.error(error)
     }
   }
 }
