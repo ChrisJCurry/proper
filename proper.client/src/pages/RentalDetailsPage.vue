@@ -1,77 +1,75 @@
 <template>
-  <div class="rental-details-page">
-    <div class="container-fluid" v-if="state.rental.address">
-      <div class="row mt-2 text-center">
-        <div class="col-6">
-          <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#create-note">
-            Add a Note
-          </button>
-        </div>
-        <div class="col-6">
-          <button class="btn btn-info btn-block text-primary" data-toggle="modal" data-target="#create-maintenance">
-            Add a Task
-          </button>
+  <div class="container-fluid rental-details-page" v-if="state.rental.address">
+    <div class="row mt-2 text-center">
+      <div class="col-6">
+        <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#create-note">
+          Add a Note
+        </button>
+      </div>
+      <div class="col-6">
+        <button class="btn btn-info btn-block text-primary" data-toggle="modal" data-target="#create-maintenance">
+          Add a Task
+        </button>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <img class="img-fluid" :src="state.rental.picture" alt="">
+      </div>
+    </div>
+    <div class="row mt-1">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">
+              {{ state.rental.address.street }}
+            </h5>
+            <p class="card-text">
+            </p>
+            <div class="row">
+              <div class="col-6 p-0">
+                <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block" @click="toggle">
+                  Details
+                </button>
+              </div>
+              <div class="col-6 p-0">
+                <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+                  Notes
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="row mt-3">
-        <div class="col-12">
-          <img class="img-fluid" :src="state.rental.picture" alt="">
-        </div>
-      </div>
-      <div class="row mt-1">
-        <div class="col-12">
+    </div>
+
+    <div class="row">
+      <div class="col-12" v-if="state.showTasks">
+        <div v-for="task in state.rental.tasks" :key="task.id">
           <div class="card">
             <div class="card-body">
-              <h5 class="card-title">
-                {{ state.rental.address.street }}
-              </h5>
-              <p class="card-text">
-              </p>
-              <div class="row">
-                <div class="col-6 p-0">
-                  <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block" @click="toggle">
-                    Details
-                  </button>
-                </div>
-                <div class="col-6 p-0">
-                  <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
-                    Notes
-                  </button>
-                </div>
+              <div class="card-text">
+                title: {{ task.title }}
+              </div>
+              <div class="card-text">
+                desc: {{ task.description }}
+              </div>
+              <div class="card-text">
+                created: {{ new Date(task.createdAt).toLocaleString() }}
               </div>
             </div>
           </div>
         </div>
       </div>
-
-      <div class="row">
-        <div class="col-12" v-if="state.showTasks">
-          <div v-for="task in state.rental.tasks" :key="task.id">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-text">
-                  title: {{ task.title }}
-                </div>
-                <div class="card-text">
-                  desc: {{ task.description }}
-                </div>
-                <div class="card-text">
-                  created: {{ new Date(task.createdAt).toLocaleString() }}
-                </div>
+      <div class="col-12" v-if="state.showNotes">
+        <div v-for="note in state.rental.notes" :key="note.id">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-text">
+                desc: {{ note.body }}
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-12" v-if="state.showNotes">
-          <div v-for="note in state.rental.notes" :key="note.id">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-text">
-                  desc: {{ note.body }}
-                </div>
-                <div class="card-text">
-                  created: {{ new Date(note.createdAt).toLocaleString() }}
-                </div>
+              <div class="card-text">
+                created: {{ new Date(note.createdAt).toLocaleString() }}
               </div>
             </div>
           </div>
