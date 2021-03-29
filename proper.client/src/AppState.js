@@ -6,6 +6,8 @@ export const AppState = reactive({
   account: {},
   rentals: [],
   rental: {},
+  notes: [],
+  note: {},
   maintenances: [],
   maintenance: {}
 })

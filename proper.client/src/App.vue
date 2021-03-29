@@ -6,6 +6,10 @@
     <router-view />
   </main>
   <footer>
+    <CreateNoteModal />
+    <!-- <RentalInfoModal /> -->
+    <!-- <RentalModal /> -->
+    <!-- <CreateTenantModal /> -->
   </footer>
 </template>
 

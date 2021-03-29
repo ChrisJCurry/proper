@@ -6,7 +6,7 @@
           <h5 class="card-title">
             {{ rental.address.street }}
           </h5>
-          <a href="#" class="btn btn-dark">Go somewhere</a>
+          <a href="#" class="btn btn-dark">Rental Info</a>
         </div>
       </div>
     </router-link>
@@ -14,6 +14,11 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import { useRoute } from 'vue-router'
+import { AppState } from '../AppState'
+import { computed } from '@vue/runtime-core'
+import { rentalsService } from '../services/RentalsService'
 
 export default {
   name: 'Rental',
@@ -21,9 +26,28 @@ export default {
     rental: { type: Object, required: true }
   },
 
-  setup() {
-    return {
+  setup(props) {
+    const route = useRoute()
+    const state = reactive({
+      route: useRoute(),
+      account: computed(() => AppState.account),
+      rentals: computed(() => AppState.rentals),
+      notes: computed(() => AppState.notes),
+      user: computed(() => AppState.user)
 
+    })
+    return {
+      state,
+      route,
+
+      async edit() {
+        rentalsService.edit(state.rental)
+        state.edit = false
+      },
+
+      async delete() {
+        return await rentalsService.delete(props.rental.id)
+      }
     }
   },
   components: {}
