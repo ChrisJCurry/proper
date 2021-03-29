@@ -11,14 +11,14 @@ const Rental = new Schema(
     // address.state
     // address.zip
     // address.country
-    address: { type: {}, required: true },
-    rent: { type: Number, required: true },
-    yearBuilt: { type: String, required: true },
+    address: { type: {} },
+    rent: { type: Number },
+    yearBuilt: { type: String },
     tenants: [{ type: String, ref: 'Tenant' }],
-    picture: { type: String, required: false },
-    closed: { type: Boolean, required: true, default: false },
+    picture: { type: String },
+    closed: { type: Boolean, default: false },
     creatorId: { type: String, required: true },
-    ownerId: { type: ObjectId, required: true }
+    ownerId: { type: ObjectId }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )

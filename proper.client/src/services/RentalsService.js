@@ -2,6 +2,7 @@ import { api } from './AxiosService'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
 import { Rental } from '../models/Rental'
+import { Maintenance } from '../models/Maintenance'
 
 export default class RentalsService {
   /*
@@ -32,8 +33,8 @@ export default class RentalsService {
 
   async getMaintenancesById(id) {
     try {
-      // const res = await api.get('api/rentals/' + id + '/maintenances')
-      // AppState.maintenances = res.data.map(m => new Maintenance(m))
+      const res = await api.get('api/rentals/' + id + '/maintenances')
+      AppState.maintenances = res.data.map(m => new Maintenance(m))
     } catch (error) {
       logger.error(error)
     }
@@ -57,8 +58,7 @@ export default class RentalsService {
     try {
       const res = await api.post('api/rentals', rental)
       AppState.rentals.push(res.data)
-      this.getAll()
-      return res.data._id
+      return res.data
     } catch (error) {
       logger.error(error)
     }

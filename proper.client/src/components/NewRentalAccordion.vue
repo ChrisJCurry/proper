@@ -155,7 +155,7 @@
 </template>
 
 <script>
-import { reactive } from 'vue'
+import { onMounted, reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
@@ -170,7 +170,9 @@ export default {
       showWarning: false,
       newTenant: {},
       newOwner: {},
-      newRental: { address: {} },
+      newRental: {},
+      rent: 0,
+      yearBuilt: 0,
       address: {},
       ownerAddress: {},
       maintenance: {},
@@ -193,6 +195,11 @@ export default {
       }
     })
 
+    onMounted(async() => {
+      state.newRental = await rentalsService.create(state.newRental)
+      logger.log(state.newRental)
+    })
+
     return {
       state,
       async createOwner() {
@@ -208,6 +215,7 @@ export default {
       },
       async createTenant(newTenant) {
         try {
+          newTenant.rentalId = state.newRental.id
           newTenant = await tenantsService.create(newTenant)
           state.tenants.push(newTenant)
           state.newTenant = {}
@@ -219,7 +227,6 @@ export default {
         try {
           state.newOwner.address = state.ownerAddress
           state.newOwner = await ownersService.create(state.newOwner)
-          state.newRental.ownerId = state.newOwner.id
           state.newRental.tenants = []
           state.newRental.tenants = state.tenants
           state.newRental.address = state.address

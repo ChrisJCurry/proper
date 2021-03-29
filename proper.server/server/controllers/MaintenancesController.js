@@ -1,7 +1,6 @@
 import { maintenancesService } from '../services/MaintenancesService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { logger } from '../utils/Logger'
 
 export class MaintenancesController extends BaseController {
   constructor() {
