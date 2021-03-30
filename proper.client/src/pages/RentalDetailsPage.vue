@@ -14,12 +14,8 @@
     </div>
     <div class="row mt-3">
       <div class="col-12">
-        <img class="img-fluid" :src="state.rental.picture" alt="">
-      </div>
-    </div>
-    <div class="row mt-1">
-      <div class="col-12">
-        <div class="card">
+        <div class="card shadow">
+          <img class="card-img-top img-fluid" :src="state.rental.picture" alt="property">
           <div class="card-body">
             <h5 class="card-title">
               {{ state.rental.address.street }}
@@ -48,10 +44,13 @@
       </div>
     </div>
     <div v-if="state.showTasks">
+      <h4 class="text-center mt-3">
+        Tasks
+      </h4>
       <div class="row">
-        <div class="col-12" v-for="task in state.rental.tasks" :key="task.id">
+        <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
           <div class="card">
-            <div class="card-body">
+            <div class="card-body shadow">
               <div class="row">
                 <div class="col-3">
                   <div class="card-text text-right">
@@ -84,9 +83,12 @@
       </div>
     </div>
     <div v-if="state.showNotes">
+      <h4 class="text-center mt-3">
+        Notes
+      </h4>
       <div class="row">
         <div class="col-12 mt-2" v-for="note in state.rental.notes" :key="note.id">
-          <div class="card">
+          <div class="card shadow bg-white rounded">
             <div class="card-body">
               <div class="card-text">
                 <h4>note: {{ note.body }}</h4>
