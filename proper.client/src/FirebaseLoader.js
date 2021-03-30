@@ -1,9 +1,11 @@
 import firebase from 'firebase/app'
+// eslint-disable-next-line no-unused-vars
 import Storage from 'firebase/storage'
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDSeYaWTpFDfZRyWiTxc8ywkalJ3X60JOA',
   authDomain: 'proper-capstone.firebaseapp.com',
+  // databaseURL: 'https://proper-capstone-default-rtdb.firebaseio.com/',
   projectId: 'proper-capstone',
   storageBucket: 'proper-capstone.appspot.com',
   messagingSenderId: '803927515408',
@@ -11,5 +13,4 @@ const firebaseConfig = {
 }
 
 firebase.initializeApp(firebaseConfig)
-
 export const storage = firebase.storage()

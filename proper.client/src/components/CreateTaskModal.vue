@@ -1,7 +1,7 @@
 <template>
-  <div class="create-maintenance-modal">
+  <div class="create-task-modal">
     <div class="modal fade"
-         id="create-maintenance"
+         id="create-task"
          tabindex="-1"
          role="dialog"
          aria-labelledby="modelTitleId"
@@ -17,7 +17,7 @@
                     <span aria-hidden="true">&times;</span>
                   </span>
                   <h3 class="modal-title">
-                    New Maintenance Task!
+                    New Task
                   </h3>
                 </div>
               </div>
@@ -77,7 +77,7 @@ import $ from 'jquery'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
 export default ({
-  name: 'CreateMaintenanceModal',
+  name: 'CreateTaskModal',
   setup() {
     const state = reactive({
       task: {},
@@ -91,7 +91,7 @@ export default ({
           state.rental.tasks.push(state.task)
           await rentalsService.edit(state.rental)
           state.task = {}
-          $('#create-maintenance').modal('hide')
+          $('#create-task').modal('hide')
           $('.modal-backdrop').remove()
         } catch (error) {
           logger.error(error)

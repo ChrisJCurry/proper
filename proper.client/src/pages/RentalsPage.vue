@@ -1,8 +1,11 @@
 <template>
   <div class="rentals-page">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+      </div>
+      <div v-else>
+        <h1>Loading...</h1>
       </div>
     </div>
   </div>
@@ -49,4 +52,9 @@ export default {
     background-position: 0% 50%;
   }
 }
+
+h1 {
+    color: white;
+    text-shadow: 0 0 10px #fff
+  }
 </style>
