@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .rentals-page {
-  background: linear-gradient(-45deg, #09814A, #FC7753, #8f8389, #899985);
+  background: linear-gradient(-45deg, #8f8389, #899985);
   background-size: 100% 100%;
   animation: gradient 15s ease infinite;
 }

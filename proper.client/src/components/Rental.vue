@@ -1,9 +1,9 @@
 <template>
-  <div class="col rental mt-3">
+  <div class="col-6 rental mt-3">
     <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
       <div class="card" style="height: 13rem;">
         <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat'} ">
-          <h5 class="card-title">
+          <h5 class="card-title" v-if="rental.address">
             {{ rental.address.street }}
           </h5>
           <a href="#" class="btn btn-dark p-0 px-1">Rental Info</a>

@@ -28,8 +28,8 @@
             </p>
             <div class="row">
               <div class="col-6 p-0">
-                <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block" @click="toggle">
-                  Info
+                <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
+                  Other extraneous rental Info
                 </button>
               </div>
               <div class="col-6 p-0" v-if="state.showTasks">
@@ -47,35 +47,61 @@
         </div>
       </div>
     </div>
-    <div class="col-12" v-if="state.showTasks">
+    <div v-if="state.showTasks">
       <div class="row">
-        <div class="col-12" v-for="task in state.rental.tasks" :key="task.id">
+        <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
           <div class="card">
             <div class="card-body">
-              <div class="card-text">
-                task: {{ task.title }}
+              <div class="row">
+                <div class="col-3">
+                  <div class="card-text">
+                    <h4>Task: {{ task.title }}</h4>
+                  </div>
+                </div>
+                <div class="col-9">
+                  <div class="card-text">
+                    <h4>Details: {{ task.description }}</h4>
+                  </div>
+                </div>
               </div>
-              <div class="card-text">
-                desc: {{ task.description }}
-              </div>
-              <div class="card-text">
-                created: {{ new Date(task.createdAt).toLocaleString() }}
+              <div class="row">
+                <div class="col-10 text-right mt-3">
+                  <div class="card-text">
+                    <h6>Created: {{ new Date(task.createdAt).toLocaleString() }}</h6>
+                  </div>
+                </div>
+                <div class="col-2">
+                  <button class="btn btn-secondary">
+                    complete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="col-12" v-if="state.showNotes">
+    <div v-if="state.showNotes">
       <div class="row">
-        <div class="col-12" v-for="note in state.rental.notes" :key="note.id">
+        <div class="col-12 mt-2" v-for="note in state.rental.notes" :key="note.id">
           <div class="card">
             <div class="card-body">
-              <div class="card-text">
-                note: {{ note.description }}
-              </div>
-              <div class="card-text">
-                created: {{ new Date(note.createdAt).toLocaleString() }}
+              <div class="row">
+                <div class="col-6">
+                  <div class="card-text">
+                    <h4>note: {{ note.body }}</h4>
+                  </div>
+                </div>
+                <div class="col-4">
+                  <div class="card-text text-right">
+                    created: {{ new Date(note.createdAt).toLocaleString() }}
+                  </div>
+                </div>
+                <div class="col-2">
+                  <button class="btn btn-secondary">
+                    delete
+                  </button>
+                </div>
               </div>
             </div>
           </div>
