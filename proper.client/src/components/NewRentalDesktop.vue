@@ -88,23 +88,26 @@
         </h4>
       </div>
       <div class="card-body">
-        <p><input class="mr-1" required placeholder="Broadway" type="text" v-model="state.address.street"></p>
-        <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.address.aptNum"></p>
-        <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.address.city"></p>
-        <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.address.country"></p>
-        <p>
-          <input class="mr-1"
-                 required
-                 pattern="[0-9]{5}"
-                 placeholder="ZIP Code"
-                 type="text"
-                 v-model="state.address.zip"
-          >
-        </p>
-        <p><input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent"></p>
-        <p><input class="mr-1" required placeholder="Year Built" type="text" v-model="state.newRental.yearBuilt"></p>
+        <input class="mr-1" required placeholder="Broadway" type="text" v-model="state.address.street">
+        <input class="mr-1" required placeholder="#A113" type="text" v-model="state.address.aptNum">
+        <input class="mr-1" required placeholder="New York" type="text" v-model="state.address.city">
+        <input class="mr-1" required placeholder="United States of America" type="text" v-model="state.address.country">
+
+        <input class="mr-1"
+               required
+               pattern="[0-9]{5}"
+               placeholder="ZIP Code"
+               type="text"
+               v-model="state.address.zip"
+        >
+
+        <input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent">
+        <input class="mr-1" required placeholder="Year Built" type="text" v-model="state.newRental.yearBuilt">
       </div>
     </div>
+    <button @click.prevent="create" type="button" class="btn btn-block btn-dark text-primary">
+      Submit Form
+    </button>
   </div>
 </template>
 
