@@ -4,8 +4,8 @@
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
-      <div v-else>
-        <h1>Loading...</h1>
+      <div class="row" v-else>
+        <RentalSkeleton v-for="rental in state.rentals" :key="rental.id" />
       </div>
     </div>
   </div>

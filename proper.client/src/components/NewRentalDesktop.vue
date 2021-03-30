@@ -5,7 +5,7 @@
     </h4>
     <div class="card col-12">
       <form action="submit" class="form-group">
-        <label for="name"><h6>Owner Name:</h6></label>
+        <label class="mr-1" for="name"><h6>Owner Name:</h6></label>
         <input
           class="mr-1"
           id="name"
@@ -15,7 +15,7 @@
           v-model="state.newOwner.name"
         >
 
-        <label for="phoneNum"><h6>Phone Number:</h6></label>
+        <label class="mr-1" for="phoneNum"><h6>Phone Number:</h6></label>
         <input
           class="mr-1"
           id="phoneNum"
@@ -25,7 +25,7 @@
           pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
           v-model="state.newOwner.phone"
         >
-        <label for="street"><h6> Street:</h6></label>
+        <label class="mr-1" for="street"><h6> Street:</h6></label>
         <input id="street"
                class="mr-1"
                required
@@ -33,7 +33,7 @@
                type="text"
                v-model="state.ownerAddress.street"
         >
-        <label for="city">City Name:</label>
+        <label class="mr-1" for="city"><h6>City Name:</h6></label>
         <input id="city"
                class="mr-1"
                required
@@ -41,42 +41,44 @@
                type="text"
                v-model="state.ownerAddress.city"
         >
-        <label for="state">State: </label>
-        <input id="state"
-               class="mr-1"
-               required
-               placeholder="Eldamar"
-               type="text"
-               v-model="state.ownerAddress.state"
-        >
+        <p>
+          <label class="mr-2" for="state"><h6>State:</h6> </label>
+          <input id="state"
+                 class="mr-4"
+                 required
+                 placeholder="Eldamar"
+                 type="text"
+                 v-model="state.ownerAddress.state"
+          >
 
-        <label for="country">Country: </label>
-        <input id="country"
-               class="mr-1"
-               required
-               placeholder="Aman"
-               type="text"
-               v-model="state.ownerAddress.country"
-        >
+          <label class="mr-2" for="country"><h6>Country:</h6></label>
+          <input id="country"
+                 class="mr-4"
+                 required
+                 placeholder="Aman"
+                 type="text"
+                 v-model="state.ownerAddress.country"
+          >
 
-        <label for="zip">Postal Code: </label>
-        <input id="zip"
-               class="mr-1"
-               pattern="[0-9]{5}"
-               required
-               placeholder="0N341NG"
-               type="text"
-               v-model="state.ownerAddress.zip"
-        >
-
-        <input class="mr-1"
-               required
-               placeholder="john.doe@test.com"
-               type="email"
-               name="ownerEmail"
-               id="ownerEmail"
-               v-model="state.newOwner.email"
-        >
+          <label class="mr-2" for="zip"><h6> Postal Code:</h6></label>
+          <input id="zip"
+                 class="mr-4"
+                 pattern="[0-9]{5}"
+                 required
+                 placeholder="0N341NG"
+                 type="text"
+                 v-model="state.ownerAddress.zip"
+          >
+          <label class="mr-2" for="ownerEmail"><h6>E-Mail:</h6></label>
+          <input class="mr-4"
+                 required
+                 placeholder="john.doe@test.com"
+                 type="email"
+                 name="ownerEmail"
+                 id="ownerEmail"
+                 v-model="state.newOwner.email"
+          >
+        </p>
       </form>
     </div>
     <div class="card">
@@ -107,15 +109,16 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue'
+import { reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 export default {
   name: 'NewRentalDesktop',
   setup() {
+    const router = useRouter()
     const state = reactive({
       showCreateForm: true,
       showCreateTenant: true,
@@ -145,11 +148,11 @@ export default {
           logger.error(err)
         }
       }
-    })
-
-    onMounted(async() => {
-      state.newRental = await rentalsService.create(state.newRental)
-      logger.log(state.newRental)
+      state.newRental = {}
+      state.address = {}
+      state.ownerAddress = {}
+      state.tenants = []
+      state.newOwner = {}
     })
 
     return {
@@ -183,9 +186,9 @@ export default {
           state.newRental.tenants = state.tenants
           state.newRental.address = state.address
           state.newRental = await rentalsService.create(state.newRental)
-          state.newRental = {}
-          state.address = {}
           state.createdRental = true
+          document.getElementById('file').value = ''
+          router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
         } catch (error) {
           logger.error(error)
         }
