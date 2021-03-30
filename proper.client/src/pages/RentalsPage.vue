@@ -1,7 +1,7 @@
 <template>
   <div class="rentals-page">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
       <div v-else>
