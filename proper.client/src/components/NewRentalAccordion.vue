@@ -101,7 +101,7 @@
           </div>
         </div>
       </div>
-      <div class="card ">
+      <div class="card">
         <div class="card-header border-bottom border-dark bg-primary" id="headingThree">
           <h2 class="mb-0">
             <button class="btn btn-block text-left collapsed"
