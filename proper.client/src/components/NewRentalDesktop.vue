@@ -109,15 +109,16 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue'
+import { reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
 export default {
   name: 'NewRentalDesktop',
   setup() {
+    const router = useRouter()
     const state = reactive({
       showCreateForm: true,
       showCreateTenant: true,
@@ -147,11 +148,11 @@ export default {
           logger.error(err)
         }
       }
-    })
-
-    onMounted(async() => {
-      state.newRental = await rentalsService.create(state.newRental)
-      logger.log(state.newRental)
+      state.newRental = {}
+      state.address = {}
+      state.ownerAddress = {}
+      state.tenants = []
+      state.newOwner = {}
     })
 
     return {
@@ -185,9 +186,9 @@ export default {
           state.newRental.tenants = state.tenants
           state.newRental.address = state.address
           state.newRental = await rentalsService.create(state.newRental)
-          state.newRental = {}
-          state.address = {}
           state.createdRental = true
+          document.getElementById('file').value = ''
+          router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
         } catch (error) {
           logger.error(error)
         }
