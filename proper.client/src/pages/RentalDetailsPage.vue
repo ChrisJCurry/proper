@@ -29,11 +29,7 @@
             <div class="row">
               <div class="col-6 p-0">
                 <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
-<<<<<<< HEAD
                   Rental Info
-=======
-                  Info
->>>>>>> fa54db9717864bef3161c6c30fca0c1c2dc4c5f0
                 </button>
               </div>
               <div class="col-6 p-0" v-if="state.showTasks">
