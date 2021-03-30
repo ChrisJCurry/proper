@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-6 p-0">
                 <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
-                  Other extraneous rental Info
+                  Rental Info
                 </button>
               </div>
               <div class="col-6 p-0" v-if="state.showTasks">
@@ -49,31 +49,33 @@
     </div>
     <div v-if="state.showTasks">
       <div class="row">
-        <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
+        <div class="col-12" v-for="task in state.rental.tasks" :key="task.id">
           <div class="card">
             <div class="card-body">
               <div class="row">
                 <div class="col-3">
-                  <div class="card-text">
-                    <h4>Task: {{ task.title }}</h4>
+                  <div class="card-text text-right">
+                    <h6>{{ task.title }}: </h6>
                   </div>
                 </div>
                 <div class="col-9">
                   <div class="card-text">
-                    <h4>Details: {{ task.description }}</h4>
+                    <h6>{{ task.description }}</h6>
                   </div>
                 </div>
               </div>
               <div class="row">
-                <div class="col-10 text-right mt-3">
-                  <div class="card-text">
-                    <h6>Created: {{ new Date(task.createdAt).toLocaleString() }}</h6>
-                  </div>
-                </div>
-                <div class="col-2">
+                <div class="col-12 text-center">
                   <button class="btn btn-secondary">
-                    complete
+                    <h6 class="m-0">
+                      complete
+                    </h6>
                   </button>
+                </div>
+              </div>
+              <div class="row text-center">
+                <div class="col-12 ">
+                  <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
                 </div>
               </div>
             </div>
@@ -150,8 +152,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  moveCard {
-    position: absolute;
-    height: 300 px
-  }
+.font{
+  font-family: 'Open Sans Condensed', sans-serif;
+}
 </style>
