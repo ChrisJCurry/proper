@@ -1,12 +1,8 @@
 <template>
-  <div>
-    <div class="container-fluid new-rental-page">
-      <div class="d-lg-none">
-        <NewRentalAccordion />
-      </div>
-    </div>
+  <div class="container-fluid d-lg-none new-rental-page">
+    <NewRentalAccordion />
   </div>
-  <div class="container-fluid d-none d-lg-block">
+  <div class="container-fluid d-none d-lg-block p-0 new-rental-page">
     <NewRentalDesktop />
   </div>
 </template>
