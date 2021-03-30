@@ -7,7 +7,7 @@
     </div>
   </div>
   <div class="d-none d-lg-block">
-    <h1>YOU'RE SEEING THIS ON DESKTOP</h1>
+    <NewRentalDesktop />
   </div>
 </template>
 

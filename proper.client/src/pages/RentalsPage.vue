@@ -1,7 +1,7 @@
 <template>
   <div class="rentals-page">
     <div class="container-fluid">
-      <div class="row m-auto">
+      <div class="row">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
@@ -33,7 +33,20 @@ export default {
 
 <style lang="scss" scoped>
 .rentals-page {
-  background-color: #A7C4A0;
-  background-size: cover ;
+  background: linear-gradient(-45deg, #09814A, #FC7753, #8f8389, #899985);
+  background-size: 100% 100%;
+  animation: gradient 15s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>

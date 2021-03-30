@@ -29,12 +29,17 @@
             <div class="row">
               <div class="col-6 p-0">
                 <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block" @click="toggle">
-                  Details
+                  Info
                 </button>
               </div>
-              <div class="col-6 p-0">
+              <div class="col-6 p-0" v-if="state.showTasks">
                 <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
                   Notes
+                </button>
+              </div>
+              <div class="col-6 p-0" v-else>
+                <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+                  Tasks
                 </button>
               </div>
             </div>
