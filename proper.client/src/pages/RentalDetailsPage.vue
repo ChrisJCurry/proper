@@ -47,26 +47,38 @@
         </div>
       </div>
     </div>
-
-    <div class="row">
-      <div v-for="task in state.rental.tasks" :key="task.id">
-        <div class="card">
-          <div class="card-body">
-            <div class="card-text">
-              title: {{ task.title }}
-            </div>
-            <div class="card-text">
-              desc: {{ task.description }}
-            </div>
-            <div class="card-text">
-              created: {{ new Date(task.createdAt).toLocaleString() }}
+    <div class="col-12" v-if="state.showTasks">
+      <div class="row">
+        <div class="col-12" v-for="task in state.rental.tasks" :key="task.id">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-text">
+                task: {{ task.title }}
+              </div>
+              <div class="card-text">
+                desc: {{ task.description }}
+              </div>
+              <div class="card-text">
+                created: {{ new Date(task.createdAt).toLocaleString() }}
+              </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="col-12" v-if="state.showNotes">
-        <div class="row">
-          <Note v-for="note in state.notes" :key="note" :note="note" />
+    </div>
+    <div class="col-12" v-if="state.showNotes">
+      <div class="row">
+        <div class="col-12" v-for="note in state.rental.notes" :key="note.id">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-text">
+                note: {{ note.description }}
+              </div>
+              <div class="card-text">
+                created: {{ new Date(note.createdAt).toLocaleString() }}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
