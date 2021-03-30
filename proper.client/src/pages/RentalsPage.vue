@@ -1,11 +1,11 @@
 <template>
-  <div class="rentals-page">
+  <div class="rentals-page flex-grow-1">
     <div class="container-fluid">
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
-      <div v-else>
-        <h1>Loading...</h1>
+      <div class="row" v-else>
+        <RentalSkeleton v-for="rental in state.rentals" :key="rental.id" />
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@ export default {
 
 <style lang="scss" scoped>
 .rentals-page {
-  background: linear-gradient(-45deg, #09814A, #FC7753, #8f8389, #899985);
+  background: linear-gradient(-45deg, #8f8389, #899985);
   background-size: 100% 100%;
   animation: gradient 15s ease infinite;
 }
