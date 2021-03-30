@@ -7,18 +7,18 @@
          aria-labelledby="modelTitleId"
          aria-hidden="true"
     >
-      <div class="modal-dialog-centered modal-sm" role="document">
+      <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-primary">
             <div class="container">
               <div class="row">
                 <div class="col-12">
                   <span type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </span>
-                  <h5 class="modal-title">
+                  <h4 class="modal-title">
                     New Rental Note
-                  </h5>
+                  </h4>
                 </div>
               </div>
             </div>
