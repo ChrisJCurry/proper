@@ -1,8 +1,11 @@
 <template>
   <div class="rentals-page">
     <div class="container-fluid">
-      <div class="row m-auto">
+      <div class="row m-auto" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+      </div>
+      <div v-else>
+        <h1>Loading...</h1>
       </div>
     </div>
   </div>
@@ -36,4 +39,9 @@ export default {
   background-image: url('../assets/img/boiseDowntown.jpg');
   background-size: cover ;
 }
+
+h1 {
+    color: white;
+    text-shadow: 0 0 10px #fff
+  }
 </style>
