@@ -1,8 +1,10 @@
 <template>
   <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
-      <div class="d-flex flex-column align-items-center">
-        <h3>Proper</h3>
+      <div class="d-flex flex-column align-items-center ">
+        <h1 class="nav-text">
+          Proper
+        </h1>
       </div>
     </router-link>
     <button
@@ -125,5 +127,9 @@ a:hover {
 }
 .nav-item .nav-link.router-link-exact-active{
   color: var(--primary);
+}
+.nav-text{
+  font-family: 'Kanit', sans-serif;
+  color: #A7C4A0;
 }
 </style>
