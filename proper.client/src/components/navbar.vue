@@ -24,8 +24,8 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'MaintenancesPage' }" class="nav-link">
-            Maintenance
+          <router-link :to="{ name: 'TasksPage' }" class="nav-link">
+            Tasks
           </router-link>
         </li>
         <li class="nav-item">

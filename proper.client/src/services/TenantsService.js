@@ -75,7 +75,7 @@ export default class TenantsService {
   }
 
   async deleteBeforeRentalCreation(id) {
-    // DO NEED THIS, CHECK TO SEE IF STATE.MAINTENANCES IS EMPTY AND THEN RUN THIS IF SO
+    // DO NEED THIS, CHECK TO SEE IF STATE.TASKS IS EMPTY AND THEN RUN THIS IF SO
     const res = window.confirm('Are you sure you want to stop creating this rental?')
     if (!res) {
       return

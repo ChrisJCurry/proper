@@ -175,7 +175,7 @@ export default {
       yearBuilt: 0,
       address: {},
       ownerAddress: {},
-      maintenance: {},
+      task: {},
       newTask: {},
       owners: [],
       tenants: [],

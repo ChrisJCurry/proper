@@ -6,7 +6,7 @@ import { Rental } from '../models/Rental'
 export default class RentalsService {
   /*
     Calls server-side controller, gets all rentals.
-    Makes res.data go through Maintenance model before being mapped into AppState rentals.
+    Makes res.data go through Task model before being mapped into AppState rentals.
   */
   async getAll() {
     try {

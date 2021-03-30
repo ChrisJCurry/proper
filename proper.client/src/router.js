@@ -18,9 +18,9 @@ const routes = [
     beforeEnter: authGuard
   },
   {
-    path: '/maintenance',
-    name: 'MaintenancesPage',
-    component: loadPage('MaintenancesPage'),
+    path: '/task',
+    name: 'TasksPage',
+    component: loadPage('TasksPage'),
     beforeEnter: authGuard
   },
   {
