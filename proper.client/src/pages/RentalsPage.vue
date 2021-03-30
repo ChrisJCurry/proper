@@ -35,7 +35,7 @@ export default {
 .rentals-page {
   background: linear-gradient(-45deg, #09814A, #FC7753, #8f8389, #899985);
   background-size: 100% 100%;
-  animation: gradient 5s ease infinite;
+  animation: gradient 15s ease infinite;
 }
 
 @keyframes gradient {
