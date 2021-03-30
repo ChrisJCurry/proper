@@ -5,7 +5,7 @@
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
       <div class="row" v-else>
-        <RentalSkeleton v-for="rental in state.rentals" :key="rental.id" />
+        <RentalSkeleton />
       </div>
     </div>
   </div>
