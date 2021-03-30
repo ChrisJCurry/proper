@@ -3,23 +3,72 @@
     <h4 class="card-title round card-header bg-primary">
       Owner Information
     </h4>
-    <div class="card col-12 d-grow-flex">
+    <div class="card col-12">
       <form action="submit" class="form-group">
-        <p><input class="mr-1" required placeholder="John Doe" type="text" v-model="state.newOwner.name"></p>
-        <p>
-          <input class="mr-1"
-                 required
-                 placeholder="(123) 456-7890"
-                 type="tel"
-                 pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
-                 v-model="state.newOwner.phone"
-          >
-        </p>
-        <p><input class="mr-1" required placeholder="Street" type="text" v-model="state.ownerAddress.street"></p>
-        <p><input class="mr-1" required placeholder="City" type="text" v-model="state.ownerAddress.city"></p>
-        <p><input class="mr-1" required placeholder="State" type="text" v-model="state.ownerAddress.state"></p>
-        <p><input class="mr-1" required placeholder="ZIP Code" type="text" v-model="state.ownerAddress.zip"></p>
-        <p><input class="mr-1" required placeholder="Country" type="text" v-model="state.ownerAddress.country"></p>
+        <label for="name"><h6>Owner Name:</h6></label>
+        <input
+          class="mr-1"
+          id="name"
+          required
+          placeholder="John Doe"
+          type="text"
+          v-model="state.newOwner.name"
+        >
+
+        <label for="phoneNum"><h6>Phone Number:</h6></label>
+        <input
+          class="mr-1"
+          id="phoneNum"
+          required
+          placeholder="(123) 456-7890"
+          type="tel"
+          pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+          v-model="state.newOwner.phone"
+        >
+        <label for="street"><h6> Street:</h6></label>
+        <input id="street"
+               class="mr-1"
+               required
+               placeholder="404 Not Found St"
+               type="text"
+               v-model="state.ownerAddress.street"
+        >
+        <label for="city">City Name:</label>
+        <input id="city"
+               class="mr-1"
+               required
+               placeholder="Alqualondë"
+               type="text"
+               v-model="state.ownerAddress.city"
+        >
+        <label for="state">State: </label>
+        <input id="state"
+               class="mr-1"
+               required
+               placeholder="Eldamar"
+               type="text"
+               v-model="state.ownerAddress.state"
+        >
+
+        <label for="country">Country: </label>
+        <input id="country"
+               class="mr-1"
+               required
+               placeholder="Aman"
+               type="text"
+               v-model="state.ownerAddress.country"
+        >
+
+        <label for="zip">Postal Code: </label>
+        <input id="zip"
+               class="mr-1"
+               pattern="[0-9]{5}"
+               required
+               placeholder="0N341NG"
+               type="text"
+               v-model="state.ownerAddress.zip"
+        >
+
         <input class="mr-1"
                required
                placeholder="john.doe@test.com"
