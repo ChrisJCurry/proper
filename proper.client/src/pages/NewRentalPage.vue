@@ -1,12 +1,12 @@
 <template>
   <div>
-    <div class="new-rental-page">
+    <div class="container-fluid new-rental-page">
       <div class="d-lg-none">
         <NewRentalAccordion />
       </div>
     </div>
   </div>
-  <div class="d-none d-lg-block">
+  <div class="container-fluid d-none d-lg-block">
     <NewRentalDesktop />
   </div>
 </template>
