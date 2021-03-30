@@ -12,6 +12,7 @@ export class RentalsController extends BaseController {
       .get('', this.getAll)
       .get('/:id', this.getById)
       .get('/:id/tasks', this.getTasks)
+      .get('/:id/notes', this.getNotes)
       .get('/:id/tenants', this.getTenantsById)
       .post('', this.create)
       .delete('/:id', this.remove)
@@ -41,6 +42,16 @@ export class RentalsController extends BaseController {
       const rental = await rentalsService.find({ rentalId: req.params.id })
       const tasks = rental.tasks
       res.send(tasks)
+    } catch (err) {
+      next(err)
+    }
+  }
+
+  async getNotes(req, res, next) {
+    try {
+      const rental = await rentalsService.find({ rentalId: req.params.id })
+      const notes = rental.notes
+      res.send(notes)
     } catch (err) {
       next(err)
     }
