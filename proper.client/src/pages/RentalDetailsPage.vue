@@ -1,5 +1,5 @@
 <template>
-  <div class="container-fluid rental-details-page" v-if="state.rental.address">
+  <div class="container rental-details-page" v-if="state.rental.address">
     <div class="row mt-2 text-center">
       <div class="col-6">
         <button class="btn btn-info btn-block" type="button" data-toggle="modal" data-target="#create-note">
@@ -7,7 +7,7 @@
         </button>
       </div>
       <div class="col-6">
-        <button class="btn btn-info btn-block text-primary" data-toggle="modal" data-target="#create-maintenance">
+        <button class="btn btn-info btn-block" data-toggle="modal" data-target="#create-maintenance">
           Add a Task
         </button>
       </div>
@@ -71,6 +71,9 @@
               <div class="card-text">
                 created: {{ new Date(note.createdAt).toLocaleString() }}
               </div>
+              <button class="btn btn-primary p-0" @click="toggle">
+                delete
+              </button>
             </div>
           </div>
         </div>
