@@ -1,7 +1,7 @@
 <template>
-  <div class="col-6 rental mt-3">
+  <div class="col-12 col-md-6 rental mt-3">
     <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
-      <div class="card" style="height: 13rem;">
+      <div class="card shadow p-3 mb-5 bg-white rounded" style="height: 13rem;">
         <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat'} ">
           <h5 class="card-title" v-if="rental.address">
             {{ rental.address.street }}

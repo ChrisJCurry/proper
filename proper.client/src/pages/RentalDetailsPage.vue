@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-6 p-0">
                 <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
-                  Other extraneous rental Info
+                  Info
                 </button>
               </div>
               <div class="col-6 p-0" v-if="state.showTasks">
@@ -86,22 +86,18 @@
         <div class="col-12 mt-2" v-for="note in state.rental.notes" :key="note.id">
           <div class="card">
             <div class="card-body">
-              <div class="row">
-                <div class="col-6">
-                  <div class="card-text">
-                    <h4>note: {{ note.body }}</h4>
-                  </div>
+              <div class="card-text">
+                <h4>note: {{ note.body }}</h4>
+              </div>
+              <div class="col-4">
+                <div class="card-text text-right">
+                  created: {{ new Date(note.createdAt).toLocaleString() }}
                 </div>
-                <div class="col-4">
-                  <div class="card-text text-right">
-                    created: {{ new Date(note.createdAt).toLocaleString() }}
-                  </div>
-                </div>
-                <div class="col-2">
-                  <button class="btn btn-secondary">
-                    delete
-                  </button>
-                </div>
+              </div>
+              <div class="col-2">
+                <button class="btn btn-secondary">
+                  delete
+                </button>
               </div>
             </div>
           </div>
