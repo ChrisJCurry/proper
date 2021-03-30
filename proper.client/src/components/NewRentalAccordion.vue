@@ -1,5 +1,5 @@
 <template>
-  <div class="new-rental-accordion row">
+  <div class="new-rental-accordion row" id="rental-accordion">
     <div class="accordion col-xl-12" id="accordionExample">
       <div class="card">
         <div class="border-bottom border-dark card-header bg-primary" id="headingOne">
@@ -147,6 +147,26 @@
           </div>
         </div>
       </div>
+      <div class="card">
+        <div class="border-bottom border-dark card-header bg-primary" id="headingTwo">
+          <h2 class="mb-0">
+            <button class="btn btn-block text-left collapsed"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#collapseFour"
+                    aria-expanded="false"
+                    aria-controls="collapseFour"
+            >
+              Add a picture?
+            </button>
+          </h2>
+        </div>
+        <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+          <div class="card-body">
+            <input type="file" id="file" placeholder="Inset file here" @change="upload" accept="image/*" />
+          </div>
+        </div>
+      </div>
       <button @click.prevent="create" type="button" class="btn btn-block btn-dark text-primary">
         Submit Form
       </button>
@@ -160,10 +180,16 @@ import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
-import { onBeforeRouteLeave } from 'vue-router'
+import { onBeforeRouteLeave, useRouter } from 'vue-router'
+
+// eslint-disable-next-line no-unused-vars
+import firebase from 'firebase'
+import uploadFile from '../FileUploader'
+
 export default {
   name: 'NewRentalAccordion',
   setup() {
+    const router = useRouter()
     const state = reactive({
       showCreateForm: true,
       showCreateTenant: true,
@@ -179,7 +205,10 @@ export default {
       newTask: {},
       owners: [],
       tenants: [],
-      createdRental: false
+      createdRental: false,
+      imageData: null,
+      img1: '',
+      uploadValue: 0
     })
 
     onBeforeRouteLeave(async() => {
@@ -193,10 +222,14 @@ export default {
           logger.error(err)
         }
       }
+      state.newRental = {}
+      state.address = {}
+      state.ownerAddress = {}
+      state.tenants = []
+      state.newOwner = {}
     })
 
     onMounted(async() => {
-      state.newRental = await rentalsService.create(state.newRental)
       logger.log(state.newRental)
     })
 
@@ -231,9 +264,10 @@ export default {
           state.newRental.tenants = state.tenants
           state.newRental.address = state.address
           state.newRental = await rentalsService.create(state.newRental)
-          state.newRental = {}
-          state.address = {}
           state.createdRental = true
+          document.getElementById('file').value = ''
+          logger.log(state.newRental)
+          router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
         } catch (error) {
           logger.error(error)
         }
@@ -245,10 +279,16 @@ export default {
         } catch (error) {
           logger.error(error)
         }
+      },
+      async upload() {
+        const file = event.target.files[0]
+        const res = await uploadFile(file, 'images/' + file.lastModified, {
+          rentalId: state.newRental.id
+        })
+        state.newRental.picture = res.url
       }
     }
-  },
-  components: {}
+  }
 }
 </script>
 
