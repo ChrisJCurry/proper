@@ -3,7 +3,7 @@
     <div class="accordion col-xl-12" id="accordionExample">
       <div class="card">
         <div class="border-bottom border-dark card-header bg-primary" id="headingOne">
-          <h2 class="">
+          <h2>
             <button class="btn btn-block text-left"
                     type="button"
                     data-toggle="collapse"
@@ -201,7 +201,7 @@ export default {
       yearBuilt: 0,
       address: {},
       ownerAddress: {},
-      maintenance: {},
+      task: {},
       newTask: {},
       owners: [],
       tenants: [],

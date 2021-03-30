@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-3 text-left">
                   <h5>
-                    {{ note.body }}
+                    {{ rental.note.body }}
                   </h5>
                 </div>
                 <div class="col-2 text-center">
@@ -63,8 +63,9 @@ export default {
     return {
       state,
       async deleteNote() {
-        notesService.delete(props.note)
+        await notesService.delete(props.note)
       }
+
     }
   }
 }

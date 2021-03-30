@@ -1,6 +1,13 @@
 <template>
-  <div class="new-rental-page flex-grow-1 d-flex flex-column align-items-center justify-content-center">
-    <NewRentalAccordion />
+  <div>
+    <div class="new-rental-page">
+      <div class="d-lg-none">
+        <NewRentalAccordion />
+      </div>
+    </div>
+  </div>
+  <div class="d-none d-lg-block">
+    <NewRentalDesktop />
   </div>
 </template>
 
@@ -8,7 +15,9 @@
 export default {
   name: 'NewRentalPage',
   setup() {
-    return {}
+    return {
+      // d-none d-med-block
+    }
   },
   components: {}
 }
@@ -19,4 +28,5 @@ export default {
   background-image: url('../assets/img/boiseDowntown.jpg');
   background-size: cover ;
   }
+
 </style>

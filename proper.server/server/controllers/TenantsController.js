@@ -64,8 +64,8 @@ export class TenantsController extends BaseController {
 
   async hardDelete(req, res, next) {
     try {
-      const maintenance = await tenantsService.hardDelete(req.params.id)
-      res.send(maintenance)
+      const task = await tenantsService.hardDelete(req.params.id)
+      res.send(task)
     } catch (error) {
       next(error)
     }

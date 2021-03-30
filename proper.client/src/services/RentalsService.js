@@ -6,7 +6,7 @@ import { Rental } from '../models/Rental'
 export default class RentalsService {
   /*
     Calls server-side controller, gets all rentals.
-    Makes res.data go through Maintenance model before being mapped into AppState rentals.
+    Makes res.data go through Task model before being mapped into AppState rentals.
   */
   async getAll() {
     try {
@@ -33,6 +33,15 @@ export default class RentalsService {
   async getTasksById(id) {
     try {
       const res = await api.get('api/rentals/' + id + '/tasks')
+      return res.data
+    } catch (error) {
+      logger.error(error)
+    }
+  }
+
+  async getNotesById(id) {
+    try {
+      const res = await api.get(`api/rentals/${id}/notes`)
       return res.data
     } catch (error) {
       logger.error(error)

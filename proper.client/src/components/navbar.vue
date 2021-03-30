@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center">
         <h3>Proper</h3>
@@ -24,8 +24,8 @@
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{ name: 'MaintenancesPage' }" class="nav-link">
-            Maintenance
+          <router-link :to="{ name: 'TasksPage' }" class="nav-link">
+            Tasks
           </router-link>
         </li>
         <li class="nav-item">
