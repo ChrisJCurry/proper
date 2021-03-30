@@ -49,19 +49,17 @@
     </div>
 
     <div class="row">
-      <div class="col-12" v-if="state.showTasks">
-        <div v-for="task in state.rental.tasks" :key="task.id">
-          <div class="card">
-            <div class="card-body">
-              <div class="card-text">
-                title: {{ task.title }}
-              </div>
-              <div class="card-text">
-                desc: {{ task.description }}
-              </div>
-              <div class="card-text">
-                created: {{ new Date(task.createdAt).toLocaleString() }}
-              </div>
+      <div v-for="task in state.rental.tasks" :key="task.id">
+        <div class="card">
+          <div class="card-body">
+            <div class="card-text">
+              title: {{ task.title }}
+            </div>
+            <div class="card-text">
+              desc: {{ task.description }}
+            </div>
+            <div class="card-text">
+              created: {{ new Date(task.createdAt).toLocaleString() }}
             </div>
           </div>
         </div>
@@ -109,7 +107,7 @@ export default {
 
     }
   },
-  components: {}
+  components: { }
 }
 </script>
 
