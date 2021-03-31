@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div style="height: 12vh" class="text-white">
+      <div style="height: 15vh" class="text-white">
         Property Management Software, manage rentals
       </div>
     </div>
@@ -28,23 +28,22 @@
               </h5>
               <p class="card-text">
               </p>
-              <div class="row">
-                <div class="col-6 p-0">
-                  <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
-                    Rental Info
-                  </button>
-                </div>
-                <div class="col-6 p-0" v-if="state.showTasks">
-                  <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+              <div class="row justify-content-center">
+                <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                  <button class="btn btn-primary text-dark" @click="toggle">
                     Notes
                   </button>
-                </div>
-                <div class="col-6 p-0" v-else>
-                  <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+
+                  <button type="button" data-toggle="modal" data-target="#rental-info-modal" class="btn btn-dark text-primary">
+                    Rental Info
+                  </button>
+
+                  <button class="btn btn-primary text-dark" @click="toggle">
                     Tasks
                   </button>
                 </div>
               </div>
+              <RentalInfoModal />
             </div>
           </div>
         </div>
@@ -57,33 +56,20 @@
           <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
             <div class="card">
               <div class="card-body shadow">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text text-center">
-                      <h6>{{ task.title }}: </h6>
-                    </div>
-                  </div>
+                <div class="card-title text-center">
+                  <h6>{{ task.title }}: </h6>
                 </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text text-center">
-                      <h6>{{ task.description }}</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <div class="col-12 ">
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 text-center">
-                    <button class="btn btn-secondary p-0 py-2">
-                      <small class="p-0 px-2">
-                        complete
-                      </small>
-                    </button>
-                  </div>
+
+                <div class="card-text text-center">
+                  <h6>{{ task.description }}</h6>
+                  <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+
+                  <button class="btn btn-secondary p-0 py-2">
+                    <small class="p-0 px-2">
+                      complete
+                    </small>
+                  </button>
+
                   <div class="col-6">
                     {{ task.dueDate }}
                   </div>
@@ -93,33 +79,24 @@
           </div>
         </div>
       </div>
-      <div v-if="state.showNotes">
-        <h4 class="text-center mt-3">
-          Notes
-        </h4>
-        <div class="row">
-          <div class="col-12 mt-2" v-for="note in state.rental.notes" :key="note.id">
-            <div class="card shadow bg-white rounded">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text">
-                      <h4>{{ note.body }}</h4>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="card-text text-right mt-2">
-                        <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
-                      </div>
-                    </div>
-                    <div class="col-6 text-right mt-3">
-                      <button class="btn btn-secondary">
-                        delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
+    </div>
+    <div v-if="state.showNotes">
+      <h4 class="text-center mt-3">
+        Notes
+      </h4>
+      <div class="row">
+        <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
+          <div class="card shadow bg-white rounded">
+            <div class="card-body">
+              <div class="card-title">
+                <h4>{{ note.body }}</h4>
+              </div>
+
+              <div class="card-text text-center mt-2">
+                <button class="btn btn-secondary">
+                  delete
+                </button>
+                <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
             </div>
           </div>
