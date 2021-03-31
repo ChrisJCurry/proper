@@ -24,7 +24,7 @@
             </p>
             <div class="row">
               <div class="col-6 p-0">
-                <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
+                <button type="button" data-toggle="modal" data-target="#rental-info-modal" class="btn btn-dark text-primary btn-block">
                   Rental Info
                 </button>
               </div>
@@ -38,6 +38,7 @@
                   Tasks
                 </button>
               </div>
+              <RentalInfoModal />
             </div>
           </div>
         </div>
