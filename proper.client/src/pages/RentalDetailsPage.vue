@@ -95,7 +95,7 @@
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-sm btn-dark mt-1">
+              <button class="btn btn-sm btn-dark mt-2">
                 Delete
               </button>
             </div>
