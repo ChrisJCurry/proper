@@ -84,7 +84,7 @@
       <h4 class="text-center mt-3">
         Notes
       </h4>
-      <div class="row">
+      <div class="row text-center">
         <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
           <div class="card shadow bg-white rounded">
             <div class="card-body">
@@ -95,8 +95,8 @@
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-small btn-primary text-center">
-                delete
+              <button class="btn btn-sm btn-dark mt-1">
+                Delete
               </button>
             </div>
           </div>
