@@ -29,7 +29,7 @@
               <p class="card-text">
               </p>
               <div class="row justify-content-center">
-                <div class="btn-group" role="group" aria-label="Basic example">
+                <div class="btn-group btn-block" role="group" aria-label="Basic example">
                   <button class="btn btn-primary text-dark" @click="toggle">
                     Notes
                   </button>
@@ -56,33 +56,20 @@
           <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
             <div class="card">
               <div class="card-body shadow">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text text-center">
-                      <h6>{{ task.title }}: </h6>
-                    </div>
-                  </div>
+                <div class="card-title text-center">
+                  <h6>{{ task.title }}: </h6>
                 </div>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text text-center">
-                      <h6>{{ task.description }}</h6>
-                    </div>
-                  </div>
-                </div>
-                <div class="row text-center">
-                  <div class="col-12 ">
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-6 text-center">
-                    <button class="btn btn-secondary p-0 py-2">
-                      <small class="p-0 px-2">
-                        complete
-                      </small>
-                    </button>
-                  </div>
+
+                <div class="card-text text-center">
+                  <h6>{{ task.description }}</h6>
+                  <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+
+                  <button class="btn btn-sm btn-dark mt-2">
+                    <small class="p-0 px-2">
+                      Complete
+                    </small>
+                  </button>
+
                   <div class="col-6">
                     {{ task.dueDate }}
                   </div>
@@ -92,34 +79,25 @@
           </div>
         </div>
       </div>
-      <div v-if="state.showNotes">
-        <h4 class="text-center mt-3">
-          Notes
-        </h4>
-        <div class="row">
-          <div class="col-12 mt-2" v-for="note in state.rental.notes" :key="note.id">
-            <div class="card shadow bg-white rounded">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-12">
-                    <div class="card-text">
-                      <h4>{{ note.body }}</h4>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6">
-                      <div class="card-text text-right mt-2">
-                        <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
-                      </div>
-                    </div>
-                    <div class="col-6 text-right mt-3">
-                      <button class="btn btn-secondary">
-                        delete
-                      </button>
-                    </div>
-                  </div>
-                </div>
+    </div>
+    <div v-if="state.showNotes">
+      <h4 class="text-center mt-3">
+        Notes
+      </h4>
+      <div class="row text-center">
+        <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
+          <div class="card shadow bg-white rounded">
+            <div class="card-body">
+              <h5 class="card-title">
+                {{ note.body }}
+              </h5>
+
+              <div class="card-text text-center mt-2">
+                <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
+              <button class="btn btn-sm btn-dark mt-2">
+                Delete
+              </button>
             </div>
           </div>
         </div>

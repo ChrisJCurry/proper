@@ -39,7 +39,6 @@
                      placeholder="john.doe@test.com"
                      type="email"
                      name="ownerEmail"
-                     id="ownerEmail"
                      v-model="state.newOwner.email"
                      @keydown.enter="accordionPageTwo"
                      @keydown.tab="accordionPageTwo"

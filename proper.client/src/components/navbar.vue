@@ -35,6 +35,11 @@
             Create New Rental
           </router-link>
         </li>
+        <li class="nav-item">
+          <router-link :to="{name:'MessagePage'}" class="nav-link">
+            Messages
+          </router-link>
+        </li>
       </ul>
       <span class="navbar-text">
         <button
