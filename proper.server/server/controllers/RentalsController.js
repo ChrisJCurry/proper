@@ -71,7 +71,7 @@ export class RentalsController extends BaseController {
     req.body.ownerId = owner.id
     try {
       req.body.creatorId = req.userInfo.id
-      const rental = await rentalsService.create(req.body)
+      const rental = await rentalsService.create(req.body, req.userInfo.email)
       res.send(rental)
     } catch (err) {
       next(err)

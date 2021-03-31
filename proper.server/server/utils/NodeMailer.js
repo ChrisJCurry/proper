@@ -14,14 +14,19 @@ const config = {
 
 const transporter = nodemailer.createTransport(config)
 
-const mailOptions = {
+// STRECH GOAL send mail when creating a new rental!
 
-  from: process.env.EMAIL,
-  to: 'contact@chrisjcurry.me',
-  subject: 'Nodemailer Project',
-  text: 'Hi from your nodemailer project',
-  html: '<h1>HELLO</h1>'
-}
+// we will not need this after we can call it later from a service
+// sendMail(mailOptions)
+
+// const mailOptions = {
+
+//   from: process.env.EMAIL,
+//   to: 'contact@chrisjcurry.me',
+//   subject: 'Nodemailer Project',
+//   text: 'Hi from your nodemailer project',
+//   html: '<h1>HELLO</h1>'
+// }
 
 export function sendMail(mailOptions) {
   transporter.sendMail(mailOptions, (err, data) => {
@@ -32,6 +37,3 @@ export function sendMail(mailOptions) {
     }
   })
 }
-
-// we will not need this after we can call it later from a service
-sendMail(mailOptions)
