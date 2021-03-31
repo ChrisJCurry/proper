@@ -24,6 +24,7 @@ export default {
       appState: computed(() => AppState)
     }
   }
+
 }
 </script>
 <style lang="scss">
