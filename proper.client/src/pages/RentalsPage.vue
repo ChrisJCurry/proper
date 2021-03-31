@@ -21,6 +21,14 @@ export default {
   setup() {
     const state = reactive({
       rentals: computed(() => AppState.rentals),
+      // NOTE use this to get all tasks for your rentals
+      tasks: computed(() => {
+        const coll = []
+        AppState.rentals.forEach(r => {
+          coll.push(...r.tasks)
+        })
+        return coll
+      }),
       filterOpen: true
     })
     onMounted(async() => {
