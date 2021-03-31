@@ -33,6 +33,7 @@
                   <div class="col-12">
                     <input type="text" placeholder="Task Title" v-model="state.task.title">
                   </div>
+                  <Datepicker v-model="dueDate" />
                 </div>
                 <div class="row mt-3">
                   <div class="col-12">
@@ -85,14 +86,14 @@ import { rentalsService } from '../services/RentalsService'
 export default ({
   name: 'CreateTaskModal',
   setup() {
-    const picked = ref(new Date())
+    const dueDate = ref(new Date())
     const state = reactive({
       task: {},
       rental: computed(() => AppState.rental)
     })
     return {
       state,
-      picked,
+      dueDate,
       async createTask() {
         try {
           state.rental.tasks.push(state.task)
