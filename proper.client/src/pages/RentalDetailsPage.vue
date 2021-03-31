@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div style="height: 12vh" class="text-white">
+      <div style="height: 15vh" class="text-white">
         Property Management Software, manage rentals
       </div>
     </div>
@@ -28,23 +28,22 @@
               </h5>
               <p class="card-text">
               </p>
-              <div class="row">
-                <div class="col-6 p-0">
-                  <button type="button" data-toggle="modal" data-target="#rental-info" class="btn btn-dark text-primary btn-block">
-                    Rental Info
-                  </button>
-                </div>
-                <div class="col-6 p-0" v-if="state.showTasks">
-                  <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+              <div class="row justify-content-center">
+                <div class="btn-group" role="group" aria-label="Basic example">
+                  <button class="btn btn-primary text-dark" @click="toggle">
                     Notes
                   </button>
-                </div>
-                <div class="col-6 p-0" v-else>
-                  <button class="btn btn-primary text-dark p-1 btn-block" @click="toggle">
+
+                  <button type="button" data-toggle="modal" data-target="#rental-info-modal" class="btn btn-dark text-primary">
+                    Rental Info
+                  </button>
+
+                  <button class="btn btn-primary text-dark" @click="toggle">
                     Tasks
                   </button>
                 </div>
               </div>
+              <RentalInfoModal />
             </div>
           </div>
         </div>

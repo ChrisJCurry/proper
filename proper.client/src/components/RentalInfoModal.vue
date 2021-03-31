@@ -1,7 +1,7 @@
 <template>
   <div class="rental-info-modal">
     <div class="modal fade"
-         id="rental-info"
+         id="rental-info-modal"
          tabindex="-1"
          role="dialog"
          aria-labelledby="rentalInfo"
