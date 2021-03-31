@@ -64,9 +64,9 @@
                   <h6>{{ task.description }}</h6>
                   <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
 
-                  <button class="btn btn-secondary p-0 py-2">
+                  <button class="btn btn-sm btn-dark mt-2">
                     <small class="p-0 px-2">
-                      complete
+                      Complete
                     </small>
                   </button>
 
@@ -88,16 +88,16 @@
         <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
           <div class="card shadow bg-white rounded">
             <div class="card-body">
-              <div class="card-title">
-                <h4>{{ note.body }}</h4>
-              </div>
+              <h5 class="card-title">
+                {{ note.body }}
+              </h5>
 
               <div class="card-text text-center mt-2">
-                <button class="btn btn-secondary">
-                  delete
-                </button>
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
+              <button class="btn btn-small btn-primary text-center">
+                delete
+              </button>
             </div>
           </div>
         </div>
