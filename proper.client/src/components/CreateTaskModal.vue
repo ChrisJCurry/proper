@@ -39,7 +39,7 @@
                   <div class="col-12">
                     <textarea name="task-text"
                               id="task-description"
-                              cols="35"
+                              cols="51"
                               rows="5"
                               placeholder="Add a Task"
                               aria-describedby="helpId"

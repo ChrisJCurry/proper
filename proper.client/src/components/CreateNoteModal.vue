@@ -33,7 +33,7 @@
                   <div class="col-12">
                     <textarea name="note-text"
                               id="note-description"
-                              cols="35"
+                              cols="60"
                               rows="5"
                               placeholder="Add a Note"
                               aria-describedby="helpId"
