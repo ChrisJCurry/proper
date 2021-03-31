@@ -33,7 +33,7 @@
                   <div class="col-12">
                     <textarea name="note-text"
                               id="note-description"
-                              cols="60"
+                              cols="30"
                               rows="5"
                               placeholder="Add a Note"
                               aria-describedby="helpId"
@@ -49,7 +49,6 @@
                       Close
                     </button>
                   </div>
-
                   <div class="col-6 text-center">
                     <button class="btn btn-success" type="submit">
                       Create
