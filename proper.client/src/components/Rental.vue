@@ -1,12 +1,13 @@
 <template>
   <div class="col-12 col-md-6 rental mt-3">
     <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
-      <div class="card shadow rounded" style="height: 13rem;">
-        <div class="card-body" :style="{'background-image': `url(${rental.picture})`, 'background-size': 'contain', 'background-repeat': 'no-repeat'} ">
+      <div class="card shadow">
+        <img class="card-img-top" :src="rental.picture" alt="property">
+        <div class="card-body">
           <h5 class="card-title" v-if="rental.address">
             {{ rental.address.street }}
           </h5>
-          <a href="#" class="btn btn-dark p-0 px-1">Rental Info</a>
+          <a href="#" class="btn btn-dark">Rental Info</a>
         </div>
       </div>
     </router-link>
@@ -56,7 +57,6 @@ export default {
 
 <style lang="scss" scoped>
   a {
-    color: white;
-    text-shadow: 0 0 10px #fff
+    color: black
   }
 </style>
