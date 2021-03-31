@@ -31,8 +31,9 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input type="text" placeholder="task title" v-model="state.task.title">
+                    <input type="text" placeholder="Task Title" v-model="state.task.title">
                   </div>
+                  <Datepicker v-model="picked" />
                 </div>
                 <div class="row mt-3">
                   <div class="col-12">
@@ -40,7 +41,7 @@
                               id="task-description"
                               cols="35"
                               rows="5"
-                              placeholder="Add a task"
+                              placeholder="Add a Task"
                               aria-describedby="helpId"
                               v-model="state.task.description"
                               required
@@ -71,7 +72,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
@@ -79,13 +80,14 @@ import { rentalsService } from '../services/RentalsService'
 export default ({
   name: 'CreateTaskModal',
   setup() {
+    const picked = ref(new Date())
     const state = reactive({
       task: {},
       rental: computed(() => AppState.rental)
     })
     return {
       state,
-
+      picked,
       async createTask() {
         try {
           state.rental.tasks.push(state.task)
