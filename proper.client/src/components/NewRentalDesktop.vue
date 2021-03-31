@@ -298,6 +298,7 @@ import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
+
 export default {
   name: 'NewRentalDesktop',
   setup() {

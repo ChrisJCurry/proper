@@ -1,5 +1,6 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
+import { sendMail } from '../utils/NodeMailer'
 
 class RentalsService {
   async find(query = {}) {
@@ -18,11 +19,12 @@ class RentalsService {
     return rental
   }
 
-  async create(rental) {
+  async create(rental, userEmail) {
     const newRental = await (await dbContext.Rentals.create(rental)).populate('creator', 'name email').populate('rentalId')
     if (!newRental) {
       throw new BadRequest(`You may be missing one of the required properties ${rental}`)
     }
+    sendMail({ from: 'alexfost94@gmail.com', to: `${userEmail}`, text: `${newRental}` })
     return newRental
   }
 

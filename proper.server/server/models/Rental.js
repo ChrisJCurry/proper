@@ -7,7 +7,8 @@ const Task = new Schema(
   {
     title: { type: String, required: true },
     description: { type: String, required: true },
-    closed: { type: Boolean, required: true, default: false }
+    closed: { type: Boolean, required: true, default: false },
+    dueDate: { type: String, required: true }
   }, { timestamps: true, toJSON: { virtuals: true } }
 )
 

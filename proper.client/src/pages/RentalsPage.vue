@@ -1,5 +1,10 @@
 <template>
   <div class="rentals-page flex-grow-1">
+    <div class="row">
+      <div style="height: 15vh" class="text-white">
+        Property Management Software, manage rentals
+      </div>
+    </div>
     <div class="container-fluid">
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
@@ -21,6 +26,14 @@ export default {
   setup() {
     const state = reactive({
       rentals: computed(() => AppState.rentals),
+      // NOTE use this to get all tasks for your rentals
+      tasks: computed(() => {
+        const coll = []
+        AppState.rentals.forEach(r => {
+          coll.push(...r.tasks)
+        })
+        return coll
+      }),
       filterOpen: true
     })
     onMounted(async() => {
