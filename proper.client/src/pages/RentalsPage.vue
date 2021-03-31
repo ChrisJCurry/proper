@@ -1,7 +1,7 @@
 <template>
   <div class="rentals-page flex-grow-1">
     <div class="row">
-      <div style="height: 12vh" class="text-white">
+      <div style="height: 15vh" class="text-white">
         Property Management Software, manage rentals
       </div>
     </div>
