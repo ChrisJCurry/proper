@@ -1,6 +1,10 @@
 <template>
   <div class="container-fluid">
     <div class="row">
+      <div style="height: 12vh" class="text-white">
+        Property Management Software, manage rentals
+      </div>
+
       <div class="col-12">
         <h4 class="text-center mt-3">
           Tasks
