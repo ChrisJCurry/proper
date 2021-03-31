@@ -41,6 +41,8 @@
                      name="ownerEmail"
                      id="ownerEmail"
                      v-model="state.newOwner.email"
+                     @keydown.enter="accordionPageTwo"
+                     @keydown.tab="accordionPageTwo"
               >
             </form>
           </div>
@@ -55,6 +57,7 @@
                     data-target="#collapseTwo"
                     aria-expanded="false"
                     aria-controls="collapseTwo"
+                    id="accordion-two-button"
             >
               Rental Info
             </button>
@@ -62,7 +65,16 @@
         </div>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
           <div class="card-body">
-            <p><input class="mr-1" required placeholder="Broadway" type="text" v-model="state.address.street"></p>
+            <p>
+              <input class="mr-1"
+                     id="street-name"
+                     required
+                     autofocus
+                     placeholder="Broadway"
+                     type="text"
+                     v-model="state.address.street"
+              >
+            </p>
             <p><input class="mr-1" required placeholder="#A113" type="text" v-model="state.address.aptNum"></p>
             <p><input class="mr-1" required placeholder="New York" type="text" v-model="state.address.city"></p>
             <p><input class="mr-1" required placeholder="United States of America" type="text" v-model="state.address.country"></p>
@@ -76,11 +88,20 @@
               >
             </p>
             <p><input class="mr-1" required placeholder="$1400" type="text" v-model="state.newRental.rent"></p>
-            <p><input class="mr-1" required placeholder="Year Built" type="text" v-model="state.newRental.yearBuilt"></p>
+            <p>
+              <input class="mr-1"
+                     required
+                     placeholder="Year Built"
+                     type="text"
+                     v-model="state.newRental.yearBuilt"
+                     @keydown.enter="accordionPageThree"
+                     @keydown.tab="accordionPageThree"
+              >
+            </p>
           </div>
         </div>
       </div>
-      <div class="card ">
+      <div class="card">
         <div class="card-header border-bottom border-dark bg-primary" id="headingThree">
           <h2 class="mb-0">
             <button class="btn btn-block text-left collapsed"
@@ -89,6 +110,7 @@
                     data-target="#collapseThree"
                     aria-expanded="false"
                     aria-controls="collapseThree"
+                    id="accordion-three-button"
             >
               Tenant Info
             </button>
@@ -102,7 +124,7 @@
               </button>
             </span>
             <form @submit.prevent="createTenant(state.newTenant)" v-if="state.showCreateTenant">
-              <input required placeholder="Tenant Name" type="text" v-model="state.newTenant.name">
+              <input id="tenant-name" required placeholder="Tenant Name" type="text" v-model="state.newTenant.name">
               <p>
                 <input class="mt-1"
                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -235,6 +257,18 @@ export default {
 
     return {
       state,
+      accordionPageTwo() {
+        document.getElementById('accordion-two-button').click()
+        setTimeout(() => {
+          document.getElementById('street-name').focus()
+        }, 1)
+      },
+      accordionPageThree() {
+        document.getElementById('accordion-three-button').click()
+        setTimeout(() => {
+          document.getElementById('tenant-name').focus()
+        }, 1)
+      },
       async createOwner() {
         try {
           state.newOwner.address = state.ownerAddress

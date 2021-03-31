@@ -9,16 +9,16 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-primary">
             <div class="container">
               <div class="row">
                 <div class="col-12">
-                  <span type="button" class="close py-4" data-dismiss="modal" aria-label="Close">
+                  <span type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </span>
-                  <h3 class="modal-title">
-                    New Rental Note!
-                  </h3>
+                  <h4 class="modal-title">
+                    New Rental Note
+                  </h4>
                 </div>
               </div>
             </div>
@@ -33,7 +33,7 @@
                   <div class="col-12">
                     <textarea name="note-text"
                               id="note-description"
-                              cols="35"
+                              cols="60"
                               rows="5"
                               placeholder="Add a Note"
                               aria-describedby="helpId"
@@ -43,7 +43,7 @@
                   </textarea>
                   </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                   <div class="col-6 text-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                       Close

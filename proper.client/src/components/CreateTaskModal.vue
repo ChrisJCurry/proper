@@ -9,16 +9,16 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header bg-primary border-bottom">
             <div class="container">
               <div class="row">
                 <div class="col-12">
                   <span type="button" class="close py-4" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </span>
-                  <h3 class="modal-title">
+                  <h4 class="modal-title">
                     New Task
-                  </h3>
+                  </h4>
                 </div>
               </div>
             </div>
@@ -31,16 +31,17 @@
                 </div>
                 <div class="row">
                   <div class="col">
-                    <input type="text" placeholder="task title" v-model="state.task.title">
+                    <input type="text" placeholder="Task Title" v-model="state.task.title">
                   </div>
+                  <Datepicker v-model="dueDate" />
                 </div>
-                <div class="row">
+                <div class="row mt-3">
                   <div class="col-12">
                     <textarea name="task-text"
                               id="task-description"
-                              cols="35"
+                              cols="51"
                               rows="5"
-                              placeholder="Add a task"
+                              placeholder="Add a Task"
                               aria-describedby="helpId"
                               v-model="state.task.description"
                               required
@@ -48,7 +49,7 @@
                   </textarea>
                   </div>
                 </div>
-                <div class="row mt-2">
+                <div class="row mt-3">
                   <div class="col-6 text-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                       Close
@@ -71,7 +72,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
@@ -79,13 +80,14 @@ import { rentalsService } from '../services/RentalsService'
 export default ({
   name: 'CreateTaskModal',
   setup() {
+    const dueDate = ref(new Date())
     const state = reactive({
       task: {},
       rental: computed(() => AppState.rental)
     })
     return {
       state,
-
+      dueDate,
       async createTask() {
         try {
           state.rental.tasks.push(state.task)
