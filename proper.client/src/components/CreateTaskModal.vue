@@ -30,7 +30,7 @@
                 <div class="form-group">
                 </div>
                 <div class="row">
-                  <div class="col">
+                  <div class="col-12">
                     <input type="text" placeholder="Task Title" v-model="state.task.title">
                   </div>
                   <Datepicker v-model="dueDate" />
@@ -39,7 +39,7 @@
                   <div class="col-12">
                     <textarea name="task-text"
                               id="task-description"
-                              cols="51"
+                              cols="30"
                               rows="5"
                               placeholder="Add a Task"
                               aria-describedby="helpId"
@@ -47,9 +47,15 @@
                               required
                     >
                   </textarea>
+                    <div class="row">
+                      <div class="col-6">
+                        <small>Due: </small>
+                        <Datepicker v-model="picked" />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="row mt-3">
+                <div class="row mt-3 justify-">
                   <div class="col-6 text-center">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">
                       Close
@@ -105,5 +111,4 @@ export default ({
 </script>
 
 <style scoped>
-
 </style>

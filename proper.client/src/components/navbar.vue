@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center ">
         <h1 class="nav-text">

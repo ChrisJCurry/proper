@@ -40,6 +40,7 @@
                 </button>
               </div>
               <div class="col-6">
+                <small>{{ task.dueDate }}</small>
               </div>
             </div>
           </div>
