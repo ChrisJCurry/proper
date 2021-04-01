@@ -21,12 +21,10 @@ class TasksService {
     return task
   }
 
-  async edit(id, update) {
-    const task = await this.findById(id)
-    if (task.creatorId !== update.creatorId) {
-      throw new BadRequest("This isn't your task, so you can't edit it. Sorry.")
-    }
-    return await dbContext.Tasks.findByIdAndUpdate(id, { body: update.body }, { new: true })
+  async edit(id) {
+    const task = await dbContext.Tasks.findById(id)
+
+    return await dbContext.Tasks.findByIdAndUpdate(id, { closed: !task.closed }, { new: true })
   }
 
   async delete(id, creatorId) {

@@ -54,24 +54,50 @@
         </h4>
         <div class="row">
           <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
-            <div class="card">
-              <div class="card-body shadow">
-                <div class="card-title text-center">
-                  <h6>{{ task.title }}: </h6>
+            <div v-if="task.closed">
+              <div class="card overlay" :id="task.id">
+                <div class="card-body shadow">
+                  <div class="card-title text-center">
+                    <h6>{{ task.title }}: </h6>
+                  </div>
+
+                  <div class="card-text text-center">
+                    <h6>{{ task.description }}</h6>
+                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+
+                    <button class="btn btn-sm btn-dark mt-2">
+                      <small class="p-0 px-2" @click="disableTask(task)">
+                        Complete
+                      </small>
+                    </button>
+
+                    <div class="col-6">
+                      {{ task.dueDate }}
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="card" :id="task.id">
+                <div class="card-body shadow">
+                  <div class="card-title text-center">
+                    <h6>{{ task.title }}: </h6>
+                  </div>
 
-                <div class="card-text text-center">
-                  <h6>{{ task.description }}</h6>
-                  <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+                  <div class="card-text text-center">
+                    <h6>{{ task.description }}</h6>
+                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
 
-                  <button class="btn btn-sm btn-dark mt-2">
-                    <small class="p-0 px-2" @click="removeTask(task)">
-                      Complete
-                    </small>
-                  </button>
+                    <button class="btn btn-sm btn-dark mt-2">
+                      <small class="p-0 px-2" @click="disableTask(task)">
+                        Complete
+                      </small>
+                    </button>
 
-                  <div class="col-6">
-                    {{ task.dueDate }}
+                    <div class="col-6">
+                      {{ task.dueDate }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -140,8 +166,8 @@ export default {
       async removeNote(note) {
         await notesService.delete(note)
       },
-      async removeTask(task) {
-        await tasksService.delete(task)
+      async disableTask(task) {
+        await tasksService.edit(task)
       }
 
     }
@@ -153,5 +179,12 @@ export default {
 <style lang="scss" scoped>
 .font{
   font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: .8;
 }
 </style>
