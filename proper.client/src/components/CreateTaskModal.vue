@@ -30,7 +30,7 @@
                 <div class="form-group">
                 </div>
                 <div class="row">
-                  <div class="col-12">
+                  <div class="col-6 ml-1">
                     <input type="text" placeholder="Task Title" v-model="state.task.title">
                   </div>
                   <Datepicker v-model="dueDate" />
@@ -55,18 +55,16 @@
                     </div>
                   </div>
                 </div>
-                <div class="row mt-3 justify-">
-                  <div class="col-6 text-center">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                      Close
-                    </button>
-                  </div>
+                <div class="col-6 text-center">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                    Close
+                  </button>
+                </div>
 
-                  <div class="col-6 text-center">
-                    <button class="btn btn-success" type="submit">
-                      Create
-                    </button>
-                  </div>
+                <div class="col-6 text-center">
+                  <button class="btn btn-success" type="submit">
+                    Create
+                  </button>
                 </div>
               </form>
             </div>

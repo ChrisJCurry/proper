@@ -3,6 +3,14 @@ import { BadRequest } from '../utils/Errors'
 import { sendMail } from '../utils/NodeMailer'
 
 class RentalsService {
+  async findTenantsById(id) {
+    const rental = await dbContext.Rentals.findById(id).populate('tenants')
+    if (!rental) {
+      throw new BadRequest('You have sent the wrong id' + id)
+    }
+    return rental.tenants
+  }
+
   async find(query = {}) {
     const rentals = await dbContext.Rentals.find(query).populate('creator', 'name email')
     if (!rentals) {

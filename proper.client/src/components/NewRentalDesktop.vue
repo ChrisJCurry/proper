@@ -320,7 +320,6 @@ export default {
       tenants: [],
       createdRental: false
     })
-
     onBeforeRouteLeave(async() => {
       if (!state.createdRental) {
         try {
@@ -363,18 +362,20 @@ export default {
         }
       },
       async create() {
-        try {
-          state.newOwner.address = state.ownerAddress
-          state.newOwner = await ownersService.create(state.newOwner)
-          state.newRental.tenants = []
-          state.newRental.tenants = state.tenants
-          state.newRental.address = state.address
-          state.newRental = await rentalsService.create(state.newRental)
-          state.createdRental = true
-          document.getElementById('file').value = ''
-          router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
-        } catch (error) {
-          logger.error(error)
+        if (state.newOwner && state.newRental) {
+          try {
+            state.newOwner.address = state.ownerAddress
+            state.newOwner = await ownersService.create(state.newOwner)
+            state.newRental.tenants = []
+            state.newRental.tenants = state.tenants
+            state.newRental.address = state.address
+            state.newRental = await rentalsService.create(state.newRental)
+            state.createdRental = true
+            document.getElementById('file').value = ''
+            router.push({ name: 'RentalDetailsPage', params: { id: state.newRental._id } })
+          } catch (error) {
+            logger.error(error)
+          }
         }
       },
       async removeTenant(tenant) {

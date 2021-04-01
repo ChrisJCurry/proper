@@ -52,7 +52,8 @@ export default class RentalsService {
   async getTenantsByRentalId(id) {
     try {
       const res = await api.get('api/rentals/' + id + '/tenants')
-      AppState.tenant.push(res.data)
+      AppState.rental.tenants = res.data
+      AppState.tenant = res.data
     } catch (error) {
       logger.log(error)
     }

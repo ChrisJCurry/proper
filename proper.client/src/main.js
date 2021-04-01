@@ -10,6 +10,7 @@ import popper from 'popper.js'
 
 const root = createApp(App)
 registerGlobalComponents(root)
+
 root.component('Datepicker', Datepicker)
 root
   .use(router, bootstrap, jquery, popper)
