@@ -14,7 +14,9 @@
       </div>
     </div>
     <div v-else>
-      Desktop!! Brought to you by Kurt McGurt!
+      <DesktopCarousel :rentals="state.rentals" />
+      <DesktopRentalTable :rentals="state.rentals" />
+      <DesktopRentalTasks :rentals="state.rentals" />
     </div>
   </div>
 </template>
@@ -52,7 +54,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lan
+    DesktopCarouselg="scss" scoped>
 .rentals-page {
   background: linear-gradient(-45deg, #8f8389, #899985);
   background-size: 100% 100%;
