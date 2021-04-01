@@ -36,6 +36,9 @@ class MessagesService {
     // @ts-ignore
     socketService.messageUser(message.creatorId, 'new:message', message)
 
+    // @ts-ignore
+    socketService.messageUser(message.toId, 'new:notif', message)
+
     return message
   }
 }

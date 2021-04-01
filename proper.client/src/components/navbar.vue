@@ -40,6 +40,11 @@
             Messages
           </router-link>
         </li>
+        <li class="nav-item">
+          <h1 id="notification" class="d-none">
+            ! {{ account.length }}
+          </h1>
+        </li>
       </ul>
       <span class="navbar-text">
         <button
@@ -101,6 +106,7 @@ export default {
     return {
       state,
       user: computed(() => AppState.user),
+      account: computed(() => AppState.newMessageUsers),
       async login() {
         AuthService.loginWithPopup()
       },
