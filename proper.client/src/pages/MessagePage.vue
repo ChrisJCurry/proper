@@ -21,7 +21,7 @@
           </div>
         </div>
         <div v-for="message in state.messages[state.to._id]" :key="message._id">
-          {{ message.creator.name }}: {{ message.body }} {{ new Date(message.createdAt).toLocaleString() }}
+          <span class="font-weight-bold">{{ message.creator.name }}</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
         </div>
         <div class="row mt-5">
           <div class="col">
@@ -62,7 +62,6 @@ import { computed, onMounted, reactive } from 'vue'
 import { messagesService } from '../services/MessagesService'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService'
-import { logger } from '../utils/Logger'
 export default {
   name: 'MessagePage',
   setup() {
@@ -86,7 +85,6 @@ export default {
         state.showNewMessage = false
         state.showInbox = true
         state.to = await accountService.getByEmail(toEmail)
-        logger.log('State.to: ', state.to)
         setTimeout(() => {
           document.getElementById('message').focus()
         }, 1)
@@ -95,12 +93,6 @@ export default {
       async sendMessage() {
         await messagesService.create(state.message, state.to._id)
         state.message = {}
-      },
-      calcHeight(value) {
-        const numberOfLineBreaks = (value.match(/\n/g) || []).length
-        // min-height + lines x line-height + padding + border
-        const newHeight = 20 + numberOfLineBreaks * 20 + 12 + 2
-        return newHeight
       }
 
     }

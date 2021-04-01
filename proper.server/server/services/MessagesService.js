@@ -8,9 +8,7 @@ class MessagesService {
     const messageObj = {
       $or: [{ toId: userId }, { creatorId: userId }]
     }
-    logger.log('messageObj: ', messageObj)
     const messages = await dbContext.Messages.find(messageObj).populate('creator', 'name email')
-    logger.log('messages', messages)
     if (!messages) {
       throw new BadRequest('Not a valid Id')
     }

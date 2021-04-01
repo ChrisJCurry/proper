@@ -25,7 +25,6 @@ export class AccountController extends BaseController {
   }
 
   async getByUserIdAndToId(req, res, next) {
-    logger.log(req.userInfo.id, req.params.toId)
     try {
       const messages = await messagesService.findByUserIdAndToId(req.userInfo.id, req.params.toId)
       res.send(messages)
@@ -37,7 +36,6 @@ export class AccountController extends BaseController {
   async getByEmail(req, res, next) {
     try {
       const account = await accountService.findProfile(req.params.email)
-      logger.log(account)
       res.send(account)
     } catch (error) {
       next(error)

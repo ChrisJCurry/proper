@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
@@ -37,7 +36,6 @@ class SocketService extends SocketHandler {
   }
 
   async newMessage(payload) {
-    logger.log('Socket: ', payload)
     if (AppState.account.id === payload.creatorId) {
       if (AppState.messages[payload.toId]) {
         AppState.messages[payload.toId].push(payload)
