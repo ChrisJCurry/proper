@@ -21,7 +21,16 @@
           </div>
         </div>
         <div v-for="message in state.messages[state.to._id]" :key="message._id">
-          <span class="font-weight-bold">{{ message.creator.name }}</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
+          <div class="row">
+            <div class="col-8">
+              <div v-if="message.creatorId === state.account.id">
+                <span class="font-weight-bold">You</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
+              </div>
+              <div v-else>
+                <span class="font-weight-bold">{{ message.creator.name }}</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
+              </div>
+            </div>
+          </div>
         </div>
         <div class="row mt-5">
           <div class="col">

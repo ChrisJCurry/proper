@@ -1,6 +1,5 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
-import { logger } from '../utils/Logger'
 import socketService from '../services/SocketService'
 
 class MessagesService {

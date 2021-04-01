@@ -2,7 +2,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { messagesService } from '../services/MessagesService'
 import BaseController from '../utils/BaseController'
-import { logger } from '../utils/Logger'
 
 export class MessagesController extends BaseController {
   constructor() {
