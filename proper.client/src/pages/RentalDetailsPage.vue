@@ -53,7 +53,7 @@
           Tasks
         </h4>
         <div class="row">
-          <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
+          <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
             <div class="card">
               <div class="card-body shadow">
                 <div class="card-title text-center">
@@ -85,7 +85,7 @@
         Notes
       </h4>
       <div class="row text-center">
-        <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
+        <div class="col-12 col-md-6 mt-2" v-for="note in state.notes" :key="note.id">
           <div class="card shadow bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">
@@ -110,9 +110,10 @@
 
 import { useRoute } from 'vue-router'
 import { rentalsService } from '../services/RentalsService'
+import { tasksService } from '../services/TasksService'
 import { onMounted, reactive, computed } from 'vue'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+import { notesService } from '../services/NotesService'
 
 export default {
   name: 'RentalDetailsPage',
@@ -127,9 +128,8 @@ export default {
     })
     onMounted(async() => {
       await rentalsService.getById(route.params.id)
-      await rentalsService.getTasksById(route.params.id)
-      await rentalsService.getNotesById(route.params.id)
-      logger.log(state.rental)
+      await tasksService.getTasksByRentalId(route.params.id)
+      await notesService.getNotesByRentalId(route.params.id)
     })
     return {
       state,

@@ -4,9 +4,18 @@ import { logger } from '../utils/Logger'
 import { Note } from '../models/Note'
 
 class NotesService {
+  async getAll() {
+    try {
+      const res = await api.get('api/notes')
+      AppState.notes = res.data.map(n => new Note(n))
+    } catch (err) {
+      logger.log(err)
+    }
+  }
+
   async getNotesByRentalId(rentalId) {
     try {
-      const res = await api.get('api/rentals/' + rentalId + '/notes')
+      const res = await api.get('api/notes/' + rentalId + '/notes')
       AppState.notes = res.data.map(n => new Note(n))
     } catch (error) {
       logger.error(error)
@@ -16,7 +25,6 @@ class NotesService {
   async createNote(noteData) {
     try {
       delete noteData.id
-      logger.log(noteData)
       const res = await api.post('api/notes', noteData)
       AppState.notes.push(res.data)
       return res.data._id

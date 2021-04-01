@@ -35,8 +35,8 @@ export default {
       // NOTE use this to get all tasks for your rentals
       tasks: computed(() => {
         const coll = []
-        AppState.rentals.forEach(r => {
-          coll.push(...r.tasks)
+        AppState.tasks.forEach(r => {
+          coll.push(...r)
         })
         return coll
       }),

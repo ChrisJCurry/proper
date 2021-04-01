@@ -3,22 +3,6 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 const ObjectId = mongoose.SchemaTypes.ObjectId
 
-const Task = new Schema(
-  {
-    title: { type: String, required: true },
-    description: { type: String, required: true },
-    closed: { type: Boolean, required: true, default: false },
-    dueDate: { type: String, required: true }
-  }, { timestamps: true, toJSON: { virtuals: true } }
-)
-
-const Note = new Schema(
-  {
-    body: { type: String, required: true },
-    closed: { type: Boolean, required: true, default: false }
-  }, { timestamps: true, toJSON: { virtuals: true } }
-)
-
 const Rental = new Schema(
   {
     // address.street
@@ -30,8 +14,6 @@ const Rental = new Schema(
     address: { type: {} },
     rent: { type: Number },
     yearBuilt: { type: String },
-    tasks: [Task],
-    notes: [Note],
     tenants: [{ type: String, ref: 'Tenant' }],
     picture: { type: String, required: true, default: 'https://firebasestorage.googleapis.com/v0/b/proper-capstone.appspot.com/o/images%2F1617123687903%2F234.jpg?alt=media&token=ec493c05-a85f-4df4-b42a-83b3c93a8ccf' }, // use default image for styling
     closed: { type: Boolean, default: false },

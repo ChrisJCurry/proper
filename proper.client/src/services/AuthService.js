@@ -5,6 +5,7 @@ import router from '../router'
 import { setBearer } from './AxiosService'
 import { accountService } from './AccountService'
 import { socketService } from './SocketService'
+import { messagesService } from './MessagesService'
 
 export const AuthService = initialize({
   domain,
@@ -25,4 +26,5 @@ AuthService.on(AuthService.AUTH_EVENTS.AUTHENTICATED, async function() {
   await accountService.getAccount()
   // NOTE if there is something you want to do once the user is authenticated, place that here
   socketService.authenticate(AuthService.bearer)
+  AppState.readMessages[AppState.account._id] = await messagesService.getByUserId(AppState.account._id)
 })
