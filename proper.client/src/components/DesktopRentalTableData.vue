@@ -18,10 +18,10 @@
         55512345678
       </td>
       <td>
-        Avaliable? <!-- bool-->
+        <!-- {{tenant.occupied}} -->
       </td>
       <td>
-        <button class="btn btn-success">
+        <button @click="nodemailerstuff" class="btn btn-success">
           E-Mail Tenant
         </button>
       </td>

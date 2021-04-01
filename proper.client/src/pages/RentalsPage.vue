@@ -1,10 +1,5 @@
 <template>
   <div class="rentals-page flex-grow-1">
-    <div class="row">
-      <div style="height: 15vh" class="text-white">
-        Property Management Software, manage rentals
-      </div>
-    </div>
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
