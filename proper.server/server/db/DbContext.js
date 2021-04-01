@@ -4,6 +4,7 @@ import RentalSchema from '../models/Rental'
 import OwnerSchema from '../models/Owner'
 import NoteSchema from '../models/Note'
 import TenantSchema from '../models/Tenant'
+import MessageSchema from '../models/Message'
 class DbContext {
   Note = mongoose.model('Note', NoteSchema)
   Account = mongoose.model('Account', AccountSchema);
@@ -11,6 +12,8 @@ class DbContext {
   Owners = mongoose.model('Owner', OwnerSchema)
 
   Tenants = mongoose.model('Tenant', TenantSchema)
+
+  Messages = mongoose.model('Message', MessageSchema)
 }
 
 export const dbContext = new DbContext()

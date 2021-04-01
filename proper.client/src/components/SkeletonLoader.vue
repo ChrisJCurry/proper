@@ -38,7 +38,7 @@
 
 <script>
 export default {
-  name: 'RentalSkeleton',
+  name: 'SkeletonLoader',
   setup() {
     return {}
   },
