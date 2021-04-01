@@ -1,6 +1,6 @@
 <template>
   <div class="landing-page flex-grow-1">
-    <button class="loginBtn btn btn-dark border border-info btn-lg btn-block" @click="login">
+    <button class="loginBtn btn btn-dark border border-info btn-lg btn-block" @click="login" v-if="!user.isAuthenticated">
       Login
     </button>
   </div>

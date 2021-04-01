@@ -18,29 +18,41 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText" @click="collapseOnClick">
+    <div class="collapse navbar-collapse" id="navbarText">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item" v-if="state.viewportWidth <= 700">
+        <li class="nav-item"
+            @click="collapseOnClick"
+            v-if="state.viewportWidth <= 700"
+        >
           <router-link :to="{ name: 'RentalsPage' }" class="nav-link">
             Rentals
           </router-link>
         </li>
-        <li class="nav-item" v-if="state.viewportWidth <= 700">
+        <li class="nav-item"
+            @click="collapseOnClick"
+            v-if="state.viewportWidth <= 700"
+        >
           <router-link :to="{ name: 'TasksPage' }" class="nav-link">
             Maintenance
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"
+            @click="collapseOnClick"
+        >
           <router-link :to="{ name: 'NewRentalPage' }" class="nav-link">
             Create New Rental
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"
+            @click="collapseOnClick"
+        >
           <router-link :to="{name:'MessagesPage'}" class="nav-link">
             Messages
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item"
+            @click="collapseOnClick"
+        >
           <h1 id="notification" class="d-none">
             ! {{ account.length }}
           </h1>
@@ -58,7 +70,7 @@
         <div class="dropdown" v-else>
           <div
             class="dropdown-toggle"
-            @click="state.dropOpen = !state.dropOpen"
+            @click.prevent="state.dropOpen = !state.dropOpen"
           >
             <img
               :src="user.picture"
@@ -117,7 +129,7 @@ export default {
       },
 
       collapseOnClick() {
-        $('#navbarText').click(function() {
+        $('ul').click(function() {
           $('.navbar-collapse').collapse('hide')
         })
       }
