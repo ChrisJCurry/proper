@@ -20,18 +20,18 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText" @click="collapseOnClick">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item" v-if="state.viewportWidth <= 700">
           <router-link :to="{ name: 'RentalsPage' }" class="nav-link">
             Rentals
           </router-link>
         </li>
-        <li class="nav-item">
+        <li class="nav-item" v-if="state.viewportWidth <= 700">
           <router-link :to="{ name: 'TasksPage' }" class="nav-link">
             Maintenance
           </router-link>
         </li>
         <li class="nav-item">
-          <router-link :to="{name:'NewRentalPage'}" class="nav-link">
+          <router-link :to="{ name: 'NewRentalPage' }" class="nav-link">
             Create New Rental
           </router-link>
         </li>
@@ -84,15 +84,17 @@
 <script>
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
-import { computed, reactive } from 'vue'
+import { computed, reactive, onMounted } from 'vue'
 import $ from 'jquery'
 
 export default {
   name: 'Navbar',
   setup() {
     const state = reactive({
-      dropOpen: false
+      dropOpen: false,
+      viewportWidth: window.innerWidth
     })
+    onMounted(() => { window.addEventListener('resize', () => { state.viewportWidth = window.innerWidth }) })
     return {
       state,
       user: computed(() => AppState.user),
