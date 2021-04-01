@@ -1,67 +1,90 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div class="col-3">
-        <button type="button" class="btn btn-primary" @click="(state.showInbox = true), (state.showNewMessage = false)">
-          Inbox
-        </button>
+      <div style="height: 15vh" class="text-white">
+        Property Management Software, manage rentals
       </div>
-      <div class="col-3">
-        <button type="button" class="btn btn-primary" @click="(state.showNewMessage = true), (state.showInbox = false)">
-          New Message
+    </div>
+    <div class="row">
+      <div class="col-12 text-right">
+        <button type="button" class="btn btn-primary text-sizing " @click="(state.showNewMessage = true), (state.showInbox = false)">
+          New
         </button>
       </div>
     </div>
     <div v-if="state.showInbox">
       <div class="mt-5">
         <div class="row">
-          <div class="col-12" v-if="state.to">
-            <img :src="state.to.picture" alt="">
+          <div class="col-12 text-center" v-if="state.to">
+            <div>
+              Conversation With:
+            </div>
+            <img class="image-size" :src="state.to.picture" alt="avatar">
             {{ state.to.name }}
           </div>
         </div>
-        <div v-for="message in state.messages[state.to._id]" :key="message._id">
-          <div class="row">
-            <div class="col-8">
-              <div v-if="message.creatorId === state.account.id">
-                <span class="font-weight-bold">You</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
+        <div class="container-fluid border border-dark shadow">
+          <div v-for="message in state.messages[state.to._id]" :key="message._id">
+            <div class="row" v-if="message.creatorId === state.account.id">
+              <div class="col-12 text-right mt-3" v-if="message.creatorId === state.account.id">
+                <span class="text-sizing">{{ message.body }}</span>
+                <div class="row">
+                  <div class="col-12 text-sizing">
+                    {{ new Date(message.createdAt).toLocaleTimeString() }}
+                  </div>
+                </div>
               </div>
-              <div v-else>
-                <span class="font-weight-bold">{{ message.creator.name }}</span>: {{ message.body }} at {{ new Date(message.createdAt).toLocaleTimeString() }}
+            </div>
+            <div v-else>
+              <div class="col-8 mt-3">
+                <span class="text-sizing">
+                  {{ message.body }}
+                  <div class="row">
+                    <div class="col-12 text-sizing">
+                      {{ new Date(message.createdAt).toLocaleTimeString() }}</div>
+                  </div>
+                </span>
               </div>
             </div>
           </div>
         </div>
-        <div class="row mt-5">
-          <div class="col">
-            <form @submit.prevent="sendMessage">
-              <div class="form-row">
-                <div class="col-10">
-                  <textarea id="message" v-model="state.message.body" rows="5"></textarea>
-                </div>
-                <div class="col-2">
-                  <button type="submit" class="btn btn-primary ml-4">
-                    Send
-                  </button>
-                </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col">
+          <form @submit.prevent="sendMessage">
+            <div class="form-row">
+              <div class="col-2">
+                <button type="submit" class="btn btn-primary mb-3 text-sizing">
+                  Send
+                </button>
               </div>
-            </form>
-          </div>
+              <div class="col-lg-8 col-sm">
+                <textarea class="text-sizing"
+                          id="message"
+                          v-model="state.message.body"
+                          cols="20"
+                          rows="2"
+                          aria-hidden="true"
+                >
+                 </textarea>
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>
-    <div v-if="state.showNewMessage" class="mt-5">
-      Users:
-      <div v-for="account in state.accounts" :key="account._id">
-        <div v-if="account._id != state.account._id">
-          <button type="button" class="btn btn-primary" @click="openMessage(account.email)">
-            {{ account.email }}
-          </button>
-        </div>
+  </div>
+  <div v-if="state.showNewMessage" class="mt-5">
+    Users:
+    <div v-for="account in state.accounts" :key="account._id">
+      <div v-if="account._id != state.account._id">
+        <button type="button" class="btn btn-primary" @click="openMessage(account.email)">
+          {{ account.email }}
+        </button>
       </div>
-    </div>
-    <div v-else>
-      <SkeletonLoader />
+      <div v-else>
+        <SkeletonLoader />
+      </div>
     </div>
   </div>
 </template>
@@ -121,9 +144,33 @@ export default {
 
 <style lang="scss" scoped>
 textarea {
-  width: 100%;
-  overflow: hidden;
+  border: 2px solid;
+  width: 95%;
   resize: none;
+  overflow: auto;
+
 }
 
+.image-size{
+  height: 2.5rem;
+  width: 2.5rem;
+}
+.container{
+  height: 70%;
+  width: 100%;
+  box-shadow: .2rem .2rem .2rem ;
+}
+.shadow{
+  box-shadow: .2rem .2rem .2rem ;
+}
+@media screen and (max-width: 992px) {
+.text-sizing{
+  font-size: 1.1rem;
+}
+}
+@media screen and (min-width: 992px) {
+.text-sizing{
+  font-size: 3.5rem;
+}
+}
 </style>
