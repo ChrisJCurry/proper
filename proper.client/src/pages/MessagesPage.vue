@@ -1,17 +1,11 @@
 <template>
   <div class="container-fluid">
-<<<<<<< HEAD
-    <div class="row">
-      <div style="height: 15vh" class="text-white">
-        Property Management Software, manage rentals
-=======
     <div class="row mt-5"></div>
     <div class="row mt-5">
       <div class="col-3">
         <button type="button" class="btn btn-primary" @click="(state.showInbox = true), (state.showNewMessage = false)">
           Inbox
         </button>
->>>>>>> da014f23eaea6bc27b7a55d899ba78d6397766d5
       </div>
     </div>
     <div class="row">
