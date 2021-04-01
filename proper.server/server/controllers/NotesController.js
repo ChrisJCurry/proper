@@ -11,6 +11,7 @@ export class NotesController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
+      .get('/:id/notes', this.getNotesByRentalId)
       .put('/:id', this.edit)
       .post('', this.create)
       .delete('/:id', this.delete)
@@ -31,6 +32,15 @@ export class NotesController extends BaseController {
       res.send(note)
     } catch (error) {
       next(error)
+    }
+  }
+
+  async getNotesByRentalId(req, res, next) {
+    try {
+      const notes = await notesService.find({ rentalId: req.params.id })
+      res.send(notes)
+    } catch (err) {
+      next(err)
     }
   }
 
