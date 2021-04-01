@@ -1,5 +1,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { accountService } from '../services/AccountService'
+import { messagesService } from '../services/MessagesService'
 import BaseController from '../utils/BaseController'
 import { logger } from '../utils/Logger'
 
@@ -11,6 +12,7 @@ export class AccountController extends BaseController {
       .get('', this.getUserAccount)
       .get('/all', this.getAll)
       .get('/:email', this.getByEmail)
+      .get('/messages/:toId', this.getByUserIdAndToId)
   }
 
   async getUserAccount(req, res, next) {
@@ -22,10 +24,18 @@ export class AccountController extends BaseController {
     }
   }
 
+  async getByUserIdAndToId(req, res, next) {
+    try {
+      const messages = await messagesService.findByUserIdAndToId(req.userInfo.id, req.params.toId)
+      res.send(messages)
+    } catch (err) {
+      next(err)
+    }
+  }
+
   async getByEmail(req, res, next) {
     try {
       const account = await accountService.findProfile(req.params.email)
-      logger.log(account)
       res.send(account)
     } catch (error) {
       next(error)

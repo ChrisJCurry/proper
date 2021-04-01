@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
@@ -36,9 +35,20 @@ class SocketService extends SocketHandler {
     AppState.posts.splice(index, 1, payload)
   }
 
-  newMessage(payload) {
-    logger.log('Socket: ', payload)
-    AppState.messages.push(payload)
+  async newMessage(payload) {
+    if (AppState.account.id === payload.creatorId) {
+      if (AppState.messages[payload.toId]) {
+        AppState.messages[payload.toId].push(payload)
+      } else {
+        AppState.messages[payload.toId] = []
+      }
+    } else {
+      if (AppState.messages[payload.creatorId]) {
+        AppState.messages[payload.creatorId].push(payload)
+      } else {
+        AppState.messages[payload.creatorId] = []
+      }
+    }
   }
 }
 

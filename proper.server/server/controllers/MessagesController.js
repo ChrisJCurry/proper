@@ -26,11 +26,9 @@ export class MessagesController extends BaseController {
     try {
       req.body.creatorId = req.userInfo.id
       req.body.creator = req.userInfo
-      logger.log('ToId: ', req.body.toId)
       const message = await messagesService.create(req.body)
       // @ts-ignore says it doesn't exist, but clearly it does. Linter?
       message.creator = req.userInfo
-      logger.log(message)
       return res.send(message)
     } catch (error) {
       next(error)
