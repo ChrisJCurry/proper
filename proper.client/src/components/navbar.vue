@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center ">
         <h1 class="nav-text">
@@ -18,9 +18,9 @@
     >
       <span class="navbar-toggler-icon" />
     </button>
-    <div class="collapse navbar-collapse" id="navbarText">
+    <div class="collapse navbar-collapse" id="navbarText" @click="collapseOnClick">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
+        <li class="nav-item " @click="collapseOnClick">
           <router-link :to="{ name: 'RentalsPage' }" class="nav-link">
             Rentals
           </router-link>
@@ -33,11 +33,6 @@
         <li class="nav-item">
           <router-link :to="{name:'NewRentalPage'}" class="nav-link">
             Create New Rental
-          </router-link>
-        </li>
-        <li class="nav-item">
-          <router-link :to="{name:'MessagePage'}" class="nav-link">
-            Messages
           </router-link>
         </li>
       </ul>
@@ -90,6 +85,8 @@
 import { AuthService } from '../services/AuthService'
 import { AppState } from '../AppState'
 import { computed, reactive } from 'vue'
+import $ from 'jquery'
+
 export default {
   name: 'Navbar',
   setup() {
@@ -104,6 +101,12 @@ export default {
       },
       async logout() {
         await AuthService.logout({ returnTo: window.location.origin })
+      },
+
+      collapseOnClick() {
+        $('#navbarText').click(function() {
+          $('.navbar-collapse').collapse('hide')
+        })
       }
     }
   }
