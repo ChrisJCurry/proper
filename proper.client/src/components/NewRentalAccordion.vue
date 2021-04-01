@@ -122,7 +122,7 @@
                 New Tenant
               </button>
             </span>
-            <form @submit.prevent="createTenant(state.newTenant)" v-if="state.showCreateTenant">
+            <form @submit.prevent="createTenant" v-if="state.showCreateTenant">
               <input id="tenant-name" required placeholder="Tenant Name" type="text" v-model="state.newTenant.name">
               <p>
                 <input class="mt-1"
@@ -196,7 +196,7 @@
 </template>
 
 <script>
-import { onMounted, reactive } from 'vue'
+import { reactive } from 'vue'
 import { logger } from '../utils/Logger'
 import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
@@ -250,10 +250,6 @@ export default {
       state.newOwner = {}
     })
 
-    onMounted(async() => {
-      logger.log(state.newRental)
-    })
-
     return {
       state,
       accordionPageTwo() {
@@ -279,10 +275,10 @@ export default {
           logger.error(error)
         }
       },
-      async createTenant(newTenant) {
+      async createTenant() {
         try {
-          newTenant.rentalId = state.newRental.id
-          newTenant = await tenantsService.create(newTenant)
+          state.newTenant.rentalId = state.newRental.id
+          const newTenant = await tenantsService.create(state.newTenant)
           state.tenants.push(newTenant)
           state.newTenant = {}
         } catch (error) {
@@ -293,13 +289,13 @@ export default {
         try {
           state.newOwner.address = state.ownerAddress
           state.newOwner = await ownersService.create(state.newOwner)
-          state.newRental.tenants = []
           state.newRental.tenants = state.tenants
+          logger.log('tenants :', state.newRental.tenants)
           state.newRental.address = state.address
           state.newRental = await rentalsService.create(state.newRental)
           state.createdRental = true
           document.getElementById('file').value = ''
-          logger.log(state.newRental)
+          logger.log('newly created rental :', state.newRental)
           router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
         } catch (error) {
           logger.error(error)
