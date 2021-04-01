@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-xl navbar-dark bg-dark fixed-top">
+  <nav class="navbar navbar-expand-xl navbar-dark bg-dark">
     <router-link class="navbar-brand d-flex" :to="{ name: 'RentalsPage' }">
       <div class="d-flex flex-column align-items-center ">
         <h1 class="nav-text">
@@ -34,6 +34,16 @@
           <router-link :to="{ name: 'NewRentalPage' }" class="nav-link">
             Create New Rental
           </router-link>
+        </li>
+        <li class="nav-item">
+          <router-link :to="{name:'MessagesPage'}" class="nav-link">
+            Messages
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <h1 id="notification" class="d-none">
+            ! {{ account.length }}
+          </h1>
         </li>
       </ul>
       <span class="navbar-text">
@@ -98,6 +108,7 @@ export default {
     return {
       state,
       user: computed(() => AppState.user),
+      account: computed(() => AppState.newMessageUsers),
       async login() {
         AuthService.loginWithPopup()
       },

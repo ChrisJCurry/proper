@@ -5,13 +5,16 @@
         Property Management Software, manage rentals
       </div>
     </div>
-    <div class="container-fluid">
+    <div class="container-fluid" v-if="state.viewportWidth <= 700">
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
       <div class="row" v-else>
         <SkeletonLoader />
       </div>
+    </div>
+    <div v-else>
+      Desktop!! Brought to you by Kurt McGurt!
     </div>
   </div>
 </template>
@@ -25,6 +28,7 @@ export default {
   name: 'RentalsPage',
   setup() {
     const state = reactive({
+      viewportWidth: window.innerWidth,
       rentals: computed(() => AppState.rentals),
       // NOTE use this to get all tasks for your rentals
       tasks: computed(() => {
@@ -38,6 +42,7 @@ export default {
     })
     onMounted(async() => {
       await rentalsService.getAll()
+      window.addEventListener('resize', () => { state.viewportWidth = window.innerWidth })
     })
     return {
       state

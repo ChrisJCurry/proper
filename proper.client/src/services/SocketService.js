@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
@@ -10,6 +11,7 @@ class SocketService extends SocketHandler {
       .on('remove:post', this.removePost)
       .on('update:post', this.updatePost)
       .on('new:message', this.newMessage)
+      .on('new:notif', this.newNotification)
   }
 
   authenticate(bearerToken) {
@@ -35,19 +37,41 @@ class SocketService extends SocketHandler {
     AppState.posts.splice(index, 1, payload)
   }
 
-  async newMessage(payload) {
+  newMessage(payload) {
     if (AppState.account.id === payload.creatorId) {
       if (AppState.messages[payload.toId]) {
         AppState.messages[payload.toId].push(payload)
       } else {
         AppState.messages[payload.toId] = []
+        AppState.messages[payload.toId].push(payload)
       }
     } else {
       if (AppState.messages[payload.creatorId]) {
         AppState.messages[payload.creatorId].push(payload)
       } else {
         AppState.messages[payload.creatorId] = []
+        AppState.messages[payload.creatorId].push(payload)
       }
+    }
+  }
+
+  newNotification(payload) {
+    if (AppState.readMessages[payload.toId].length !== AppState.messages[payload.creatorId]) {
+      document.getElementById('notification').classList.add('d-sm-block')
+      document.getElementById('notification').classList.remove('d-none')
+      if (AppState.newMessageUsers.length < 1) {
+        logger.log('got here')
+        AppState.newMessageUsers.push(payload.creatorId)
+        return
+      }
+      for (let i = 0; i < AppState.newMessageUsers.length; i++) {
+        logger.log(AppState.newMessageUsers[i])
+        if (payload.creatorId === AppState.newMessageUsers[i]) {
+          logger.log('already added')
+          return
+        }
+      }
+      AppState.newMessageUsers.push(payload.creatorId)
     }
   }
 }
