@@ -24,7 +24,7 @@
         </tr>
       </thead>
       <tbody>
-        <DesktopRentalTableData v-for="tenant in state.tenants" :key="tenant.id" :rental="rental" />
+        <DesktopRentalTableData />
       </tbody>
     </table>
   </div>

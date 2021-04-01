@@ -1,10 +1,5 @@
 <template>
   <div class="rentals-page flex-grow-1">
-    <div class="row">
-      <div style="height: 15vh" class="text-white">
-        Property Management Software, manage rentals
-      </div>
-    </div>
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
       <div class="row" v-if="state.rentals.length > 0">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
@@ -14,7 +9,9 @@
       </div>
     </div>
     <div v-else>
-      Desktop!! Brought to you by Kurt McGurt!
+      <DesktopCarousel :rentals="state.rentals" />
+      <DesktopRentalTable :rentals="state.rentals" />
+      <DesktopRentalTasks :rentals="state.rentals" />
     </div>
   </div>
 </template>
@@ -52,7 +49,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lan
+    DesktopCarouselg="scss" scoped>
 .rentals-page {
   background: linear-gradient(-45deg, #8f8389, #899985);
   background-size: 100% 100%;
