@@ -60,7 +60,7 @@ export class TasksController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      const task = await tasksService.edit(req.params.id, req.body)
+      const task = await tasksService.edit(req.params.id)
       res.send(task)
     } catch (error) {
       next(error)

@@ -1,6 +1,7 @@
 <template>
   <div class="container-fluid">
-    <div class="row">
+    <div class="row mt-5"></div>
+    <div class="row mt-5">
       <div class="col-3">
         <button type="button" class="btn btn-primary" @click="(state.showInbox = true), (state.showNewMessage = false)">
           Inbox

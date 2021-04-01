@@ -27,9 +27,18 @@ class TasksService {
       delete taskData.id
       const res = await api.post('api/tasks', taskData)
       AppState.tasks.push(res.data)
-      return res.data._id
+      return res.data
     } catch (err) {
       logger.error(err)
+    }
+  }
+
+  async edit(task) {
+    try {
+      const res = await api.put('api/tasks/' + task.id)
+      this.getTasksByRentalId(res.data.rentalId)
+    } catch (error) {
+      logger.error(error)
     }
   }
 
