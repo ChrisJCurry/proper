@@ -20,7 +20,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarText" @click="collapseOnClick">
       <ul class="navbar-nav mr-auto">
-        <li class="nav-item " @click="collapseOnClick">
+        <li class="nav-item">
           <router-link :to="{ name: 'RentalsPage' }" class="nav-link">
             Rentals
           </router-link>
