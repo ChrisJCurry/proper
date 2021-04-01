@@ -65,7 +65,7 @@
                   <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
 
                   <button class="btn btn-sm btn-dark mt-2">
-                    <small class="p-0 px-2">
+                    <small class="p-0 px-2" @click="removeTask(task)">
                       Complete
                     </small>
                   </button>
@@ -85,7 +85,7 @@
         Notes
       </h4>
       <div class="row text-center">
-        <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
+        <div class="col-12 col-md-6 mt-2" v-for="note in state.notes" :key="note.id">
           <div class="card shadow bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">
@@ -95,7 +95,7 @@
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-sm btn-dark mt-2">
+              <button class="btn btn-sm btn-dark mt-2" @click="removeNote(note)">
                 Delete
               </button>
             </div>
@@ -113,7 +113,7 @@ import { rentalsService } from '../services/RentalsService'
 import { tasksService } from '../services/TasksService'
 import { onMounted, reactive, computed } from 'vue'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+import { notesService } from '../services/NotesService'
 
 export default {
   name: 'RentalDetailsPage',
@@ -129,14 +129,19 @@ export default {
     onMounted(async() => {
       await rentalsService.getById(route.params.id)
       await tasksService.getTasksByRentalId(route.params.id)
-      logger.log('Tasks: ', AppState.tasks)
-      await rentalsService.getNotesById(route.params.id)
+      await notesService.getNotesByRentalId(route.params.id)
     })
     return {
       state,
       toggle() {
         state.showNotes = !state.showNotes
         state.showTasks = !state.showTasks
+      },
+      async removeNote(note) {
+        await notesService.delete(note)
+      },
+      async removeTask(task) {
+        await tasksService.delete(task)
       }
 
     }

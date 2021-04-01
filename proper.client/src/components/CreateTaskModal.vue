@@ -76,7 +76,7 @@
 </template>
 
 <script>
-import { reactive, computed } from 'vue'
+import { reactive, computed, ref } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
@@ -84,7 +84,7 @@ import { tasksService } from '../services/TasksService'
 export default ({
   name: 'CreateTaskModal',
   setup() {
-    const dueDate = new Date()
+    const dueDate = ref(new Date())
     const state = reactive({
       task: {},
       tasks: computed(() => AppState.tasks),

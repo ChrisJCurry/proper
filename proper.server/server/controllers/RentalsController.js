@@ -10,7 +10,6 @@ export class RentalsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/notes', this.getNotes)
       .get('/:id/tenants', this.getTenantsById)
       .post('', this.create)
       .delete('/:id', this.remove)

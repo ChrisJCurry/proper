@@ -5,6 +5,7 @@ export class Task {
     this.description = data.description
     this.rentalId = data.rentalId
     this.creatorId = data.creatorId
+    this.createdAt = data.createdAt
     this.creator = data.creator
   }
 }
