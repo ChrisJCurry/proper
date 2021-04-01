@@ -72,7 +72,7 @@ import { messagesService } from '../services/MessagesService'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService'
 export default {
-  name: 'MessagePage',
+  name: 'MessagesPage',
   setup() {
     const state = reactive({
       showInbox: false,
