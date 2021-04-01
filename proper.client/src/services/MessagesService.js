@@ -14,11 +14,12 @@ class MessagesService {
     }
   }
 
-  getByUserIdAndToId(userId, toId) {
-    const messages = AppState.messages.filter(m => (m.creatorId === userId && m.toId === toId) || (m.creatorId === toId && m.toId === userId))
-    logger.log('Messages: ', messages)
-    AppState.messages = messages
-    return messages
+  async getByUserIdAndToId(userId, toId) {
+    const res = await api.get('account/messages/' + toId)
+    logger.log(res.data)
+    // logger.log('Messages: ', messages)
+    // AppState.messages[userId] = messages
+    // return messages
   }
 
   async create(message, toId) {

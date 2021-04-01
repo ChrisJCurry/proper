@@ -20,7 +20,7 @@
             {{ state.to.name }}
           </div>
         </div>
-        <div v-for="message in state.messages" :key="message._id">
+        <div v-for="message in state.messages[state.to._id]" :key="message._id">
           {{ message.creator.name }}: {{ message.body }} {{ new Date(message.createdAt).toLocaleString() }}
         </div>
         <div class="row mt-5">
@@ -72,7 +72,6 @@ export default {
       account: computed(() => AppState.account),
       accounts: computed(() => AppState.accounts),
       messages: computed(() => AppState.messages),
-      toId: '',
       to: {},
       message: { body: '' }
     })
@@ -87,7 +86,7 @@ export default {
         state.showNewMessage = false
         state.showInbox = true
         state.to = await accountService.getByEmail(toEmail)
-        logger.log('hallo', state.to)
+        logger.log('State.to: ', state.to)
         setTimeout(() => {
           document.getElementById('message').focus()
         }, 1)

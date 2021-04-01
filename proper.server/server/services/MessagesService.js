@@ -17,10 +17,26 @@ class MessagesService {
     return messages
   }
 
+  async findByUserIdAndToId(userId, toId) {
+    const messageObj = {
+      $and: [
+        { $or: [{ toId: userId }, { creatorId: userId }] },
+        { $or: [{ toId: toId }, { creatorId: toId }] }
+      ]
+    }
+
+    const messages = await dbContext.Messages.find(messageObj).populate('creator', 'name email')
+    if (!messages) {
+      throw new BadRequest('No valid messages found')
+    }
+    return messages
+  }
+
   async create(rawMessage) {
     const message = await dbContext.Messages.create(rawMessage)
     // @ts-ignore
     socketService.messageUser(message.toId, 'new:message', message)
+    // @ts-ignore
     socketService.messageUser(message.creatorId, 'new:message', message)
 
     return message
