@@ -65,7 +65,7 @@
                   <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
 
                   <button class="btn btn-sm btn-dark mt-2">
-                    <small class="p-0 px-2">
+                    <small class="p-0 px-2" @click="removeTask(task)">
                       Complete
                     </small>
                   </button>
@@ -95,7 +95,7 @@
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-sm btn-dark mt-2">
+              <button class="btn btn-sm btn-dark mt-2" @click="removeNote(note)">
                 Delete
               </button>
             </div>
@@ -136,6 +136,12 @@ export default {
       toggle() {
         state.showNotes = !state.showNotes
         state.showTasks = !state.showTasks
+      },
+      async removeNote(note) {
+        await notesService.delete(note)
+      },
+      async removeTask(task) {
+        await tasksService.delete(task)
       }
 
     }
