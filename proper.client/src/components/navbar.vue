@@ -100,6 +100,9 @@ export default {
       async logout() {
         await AuthService.logout({ returnTo: window.location.origin })
       }
+      //       $('.navbar').on('click', function(){
+      //     $('.navbar-collapse').collapse('hide');
+      // });
     }
   }
 }

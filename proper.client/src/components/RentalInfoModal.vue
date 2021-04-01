@@ -9,13 +9,17 @@
     >
       <div class="modal-dialog" role="document">
         <div class="modal-content text-between">
-          <div class="modal-header">
+          <div class="modal-header bg-primary">
+            <h4>
+              Rental Info
+            </h4>
             <button @click="closeModal" type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body">
             <div class="accordion" id="tenantInfo">
+              <!-- ACCORDION ONE -->
               <div class="card">
                 <div class="card-header bg-dark" id="headingOne">
                   <h2 class="mb-0">
@@ -31,7 +35,7 @@
                   </h2>
                 </div>
 
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#tenantInfo">
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne">
                   <div v-for="tenant in state.rental.tenants" :key="tenant.id">
                     <div class="card-body">
                       <p>Tenant Name: {{ tenant.name }}</p>
@@ -40,9 +44,36 @@
                   </div>
                 </div>
               </div>
+              <!-- ACCORDION TWO -->
+              <div class="card">
+                <div class="card-header bg-dark" id="headingTwo">
+                  <h2 class="mb-0">
+                    <button class="btn btn-block btn-link"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#collapseTwo"
+                            aria-expanded="true"
+                            aria-controls="collapseTwo"
+                    >
+                      Tenant Info
+                    </button>
+                  </h2>
+                </div>
+
+                <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#tenantInfo">
+                  <div v-for="tenant in state.rental.tenants" :key="tenant.id">
+                    <div class="card-body">
+                      <p>Tenant Name: {{ tenant.name }}</p>
+                      <p>Primary Contact: {{ tenant.phoneNum }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- ACCORDION TWO ENDS -->
             </div>
-          </div>
-          <div class="modal-footer">
+            <!-- ACCORDION ENDS -->
+            <div class="modal-footer">
+            </div>
           </div>
         </div>
       </div>
