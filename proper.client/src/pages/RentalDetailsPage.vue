@@ -53,25 +53,51 @@
           Tasks
         </h4>
         <div class="row">
-          <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
-            <div class="card">
-              <div class="card-body shadow">
-                <div class="card-title text-center">
-                  <h6>{{ task.title }}: </h6>
+          <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
+            <div v-if="task.closed">
+              <div class="card overlay" :id="task.id">
+                <div class="card-body shadow">
+                  <div class="card-title text-center">
+                    <h6>{{ task.title }}: </h6>
+                  </div>
+
+                  <div class="card-text text-center">
+                    <h6>{{ task.description }}</h6>
+                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+
+                    <button class="btn btn-sm btn-dark mt-2">
+                      <small class="p-0 px-2" @click="disableTask(task)">
+                        Complete
+                      </small>
+                    </button>
+
+                    <div class="col-6">
+                      {{ task.dueDate }}
+                    </div>
+                  </div>
                 </div>
+              </div>
+            </div>
+            <div v-else>
+              <div class="card" :id="task.id">
+                <div class="card-body shadow">
+                  <div class="card-title text-center">
+                    <h6>{{ task.title }}: </h6>
+                  </div>
 
-                <div class="card-text text-center">
-                  <h6>{{ task.description }}</h6>
-                  <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+                  <div class="card-text text-center">
+                    <h6>{{ task.description }}</h6>
+                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
 
-                  <button class="btn btn-sm btn-dark mt-2">
-                    <small class="p-0 px-2">
-                      Complete
-                    </small>
-                  </button>
+                    <button class="btn btn-sm btn-dark mt-2">
+                      <small class="p-0 px-2" @click="disableTask(task)">
+                        Complete
+                      </small>
+                    </button>
 
-                  <div class="col-6">
-                    {{ task.dueDate }}
+                    <div class="col-6">
+                      {{ task.dueDate }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -85,7 +111,7 @@
         Notes
       </h4>
       <div class="row text-center">
-        <div class="col-12 col-md-6 mt-2" v-for="note in state.rental.notes" :key="note.id">
+        <div class="col-12 col-md-6 mt-2" v-for="note in state.notes" :key="note.id">
           <div class="card shadow bg-white rounded">
             <div class="card-body">
               <h5 class="card-title">
@@ -95,7 +121,7 @@
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-sm btn-dark mt-2">
+              <button class="btn btn-sm btn-dark mt-2" @click="removeNote(note)">
                 Delete
               </button>
             </div>
@@ -110,9 +136,10 @@
 
 import { useRoute } from 'vue-router'
 import { rentalsService } from '../services/RentalsService'
+import { tasksService } from '../services/TasksService'
 import { onMounted, reactive, computed } from 'vue'
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
+import { notesService } from '../services/NotesService'
 
 export default {
   name: 'RentalDetailsPage',
@@ -127,15 +154,20 @@ export default {
     })
     onMounted(async() => {
       await rentalsService.getById(route.params.id)
-      await rentalsService.getTasksById(route.params.id)
-      await rentalsService.getNotesById(route.params.id)
-      logger.log(state.rental)
+      await tasksService.getTasksByRentalId(route.params.id)
+      await notesService.getNotesByRentalId(route.params.id)
     })
     return {
       state,
       toggle() {
         state.showNotes = !state.showNotes
         state.showTasks = !state.showTasks
+      },
+      async removeNote(note) {
+        await notesService.delete(note)
+      },
+      async disableTask(task) {
+        await tasksService.edit(task)
       }
 
     }
@@ -147,5 +179,12 @@ export default {
 <style lang="scss" scoped>
 .font{
   font-family: 'Open Sans Condensed', sans-serif;
+}
+
+.overlay {
+  width: 100%;
+  height: 100%;
+  background-color: gray;
+  opacity: .8;
 }
 </style>

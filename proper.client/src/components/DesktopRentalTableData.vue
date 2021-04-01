@@ -1,24 +1,27 @@
 <template>
   <div class="desktop-rental-table-data">
     <tr>
-      <th scope="row">
+      <td scope="row">
         Apartment Number Here
-      </th>
+      </td>
       <td>
-        {{ tenant.address }}
+        <!-- {{ tenant.address }} -->
+        12345 Seasame Street Boulevard Road
       </td>
       <!--TODO NULL CHECK WITH V-IF-->
       <td>
-        {{ tenant.name }}
+        <!-- {{ tenant.name }} -->
+        Steve from Minecraft
       </td>
       <td>
-        {{ tenant.primarycontact }}
+        <!-- {{ tenant.primarycontact }} -->
+        55512345678
       </td>
       <td>
-        Avaliable? <!-- bool-->
+        <!-- {{tenant.occupied}} -->
       </td>
       <td>
-        <button class="btn btn-success">
+        <button @click="nodemailerstuff" class="btn btn-success">
           E-Mail Tenant
         </button>
       </td>

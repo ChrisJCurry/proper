@@ -1,17 +1,17 @@
 
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { notesService } from '../services/NotesService'
+import { tasksService } from '../services/TasksService'
 import BaseController from '../utils/BaseController'
 import { logger } from '../utils/Logger'
 
-export class NotesController extends BaseController {
+export class TasksController extends BaseController {
   constructor() {
-    super('api/notes')
+    super('api/tasks')
     this.router
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/notes', this.getNotesByRentalId)
+      .get('/:id/tasks', this.getTasksByRentalId)
       .put('/:id', this.edit)
       .post('', this.create)
       .delete('/:id', this.delete)
@@ -19,28 +19,28 @@ export class NotesController extends BaseController {
 
   async getAll(req, res, next) {
     try {
-      const notes = await notesService.find()
-      res.send(notes)
+      const tasks = await tasksService.find()
+      res.send(tasks)
     } catch (error) {
       next(error)
+    }
+  }
+
+  async getTasksByRentalId(req, res, next) {
+    try {
+      const tasks = await tasksService.find({ rentalId: req.params.id })
+      res.send(tasks)
+    } catch (err) {
+      next(err)
     }
   }
 
   async getById(req, res, next) {
     try {
-      const note = await notesService.findById(req.params.id)
-      res.send(note)
+      const task = await tasksService.findById(req.params.id)
+      res.send(task)
     } catch (error) {
       next(error)
-    }
-  }
-
-  async getNotesByRentalId(req, res, next) {
-    try {
-      const notes = await notesService.find({ rentalId: req.params.id })
-      res.send(notes)
-    } catch (err) {
-      next(err)
     }
   }
 
@@ -48,11 +48,11 @@ export class NotesController extends BaseController {
     try {
       req.body.creatorId = req.userInfo.id
       req.body.creator = req.userInfo
-      const note = await notesService.create(req.body)
+      const task = await tasksService.create(req.body)
       // @ts-ignore says it doesn't exist, but clearly it does. Linter?
-      note.creator = req.userInfo
-      logger.log(note)
-      return res.send(note)
+      task.creator = req.userInfo
+      logger.log(task)
+      return res.send(task)
     } catch (error) {
       next(error)
     }
@@ -60,8 +60,8 @@ export class NotesController extends BaseController {
 
   async edit(req, res, next) {
     try {
-      const note = await notesService.edit(req.params.id, req.body)
-      res.send(note)
+      const task = await tasksService.edit(req.params.id)
+      res.send(task)
     } catch (error) {
       next(error)
     }
@@ -69,8 +69,8 @@ export class NotesController extends BaseController {
 
   async delete(req, res, next) {
     try {
-      const note = await notesService.delete(req.params.id, req.userInfo.id)
-      return res.send(note)
+      const task = await tasksService.delete(req.params.id, req.userInfo.id)
+      return res.send(task)
     } catch (error) {
       next(error)
     }

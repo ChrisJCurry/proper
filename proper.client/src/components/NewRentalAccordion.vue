@@ -222,8 +222,6 @@ export default {
       yearBuilt: 0,
       address: {},
       ownerAddress: {},
-      task: {},
-      newTask: {},
       owners: [],
       tenants: [],
       createdRental: false,

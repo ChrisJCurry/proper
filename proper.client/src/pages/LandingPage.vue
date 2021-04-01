@@ -1,11 +1,25 @@
 <template>
   <div class="landing-page flex-grow-1">
+    <button class="loginBtn btn btn-dark border border-info btn-lg btn-block" @click="login" v-if="!user.isAuthenticated">
+      Login
+    </button>
   </div>
 </template>
 
 <script>
+
+import { AuthService } from '../services/AuthService'
+
 export default {
-  name: 'LandingPage'
+  name: 'LandingPage',
+  setup() {
+    return {
+      async login() {
+        AuthService.loginWithPopup()
+      }
+
+    }
+  }
 }
 </script>
 
@@ -19,5 +33,9 @@ export default {
     height: 200px;
     width: 200px;
   }
+}
+.loginBtn {
+  position: absolute;
+  bottom: 75px;
 }
 </style>

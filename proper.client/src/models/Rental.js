@@ -8,7 +8,6 @@ export class Rental {
     this.creatorId = data.creatorId
     this.tenants = data.tenants || ''
     this.picture = data.picture || ''
-    this.tasks = data.tasks
     this.notes = data.notes
   }
 }
