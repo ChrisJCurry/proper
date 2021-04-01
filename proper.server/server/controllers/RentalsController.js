@@ -10,7 +10,6 @@ export class RentalsController extends BaseController {
       .use(Auth0Provider.getAuthorizedUserInfo)
       .get('', this.getAll)
       .get('/:id', this.getById)
-      .get('/:id/tasks', this.getTasks)
       .get('/:id/notes', this.getNotes)
       .get('/:id/tenants', this.getTenantsById)
       .post('', this.create)
@@ -33,16 +32,6 @@ export class RentalsController extends BaseController {
       res.send(rental)
     } catch (error) {
       next(error)
-    }
-  }
-
-  async getTasks(req, res, next) {
-    try {
-      const rental = await rentalsService.find({ rentalId: req.params.id })
-      const tasks = rental.tasks
-      res.send(tasks)
-    } catch (err) {
-      next(err)
     }
   }
 

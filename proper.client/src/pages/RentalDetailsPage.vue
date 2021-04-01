@@ -53,7 +53,7 @@
           Tasks
         </h4>
         <div class="row">
-          <div class="col-12 mt-2" v-for="task in state.rental.tasks" :key="task.id">
+          <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
             <div class="card">
               <div class="card-body shadow">
                 <div class="card-title text-center">
@@ -110,6 +110,7 @@
 
 import { useRoute } from 'vue-router'
 import { rentalsService } from '../services/RentalsService'
+import { tasksService } from '../services/TasksService'
 import { onMounted, reactive, computed } from 'vue'
 import { AppState } from '../AppState'
 import { logger } from '../utils/Logger'
@@ -127,9 +128,9 @@ export default {
     })
     onMounted(async() => {
       await rentalsService.getById(route.params.id)
-      await rentalsService.getTasksById(route.params.id)
+      await tasksService.getTasksByRentalId(route.params.id)
+      logger.log('Tasks: ', AppState.tasks)
       await rentalsService.getNotesById(route.params.id)
-      logger.log(state.rental)
     })
     return {
       state,

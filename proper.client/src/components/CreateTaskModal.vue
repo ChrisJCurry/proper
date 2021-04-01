@@ -50,7 +50,7 @@
                     <div class="row">
                       <div class="col-6">
                         <small>Due: </small>
-                        <Datepicker v-model="picked" />
+                        <Datepicker v-model="dueDate" />
                       </div>
                     </div>
                   </div>
@@ -76,17 +76,18 @@
 </template>
 
 <script>
-import { reactive, computed, ref } from 'vue'
+import { reactive, computed } from 'vue'
 import { logger } from '../utils/Logger'
 import $ from 'jquery'
 import { AppState } from '../AppState'
-import { rentalsService } from '../services/RentalsService'
+import { tasksService } from '../services/TasksService'
 export default ({
   name: 'CreateTaskModal',
   setup() {
-    const dueDate = ref(new Date())
+    const dueDate = new Date()
     const state = reactive({
       task: {},
+      tasks: computed(() => AppState.tasks),
       rental: computed(() => AppState.rental)
     })
     return {
@@ -94,8 +95,9 @@ export default ({
       dueDate,
       async createTask() {
         try {
-          state.rental.tasks.push(state.task)
-          await rentalsService.edit(state.rental)
+          state.task.dueDate = dueDate
+          state.task.rentalId = state.rental.id
+          await tasksService.createTask(state.task)
           state.task = {}
           $('#create-task').modal('hide')
           $('.modal-backdrop').remove()
