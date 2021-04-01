@@ -39,7 +39,7 @@
                   <div v-for="tenant in state.rental.tenants" :key="tenant.id">
                     <div class="card-body">
                       <p>Tenant Name: {{ tenant.name }}</p>
-                      <p>Primary Contact: {{ tenant.phoneNum }}</p>
+                      <p>Primary Contact: {{ tenant.phone }}</p>
                     </div>
                   </div>
                 </div>
@@ -55,16 +55,16 @@
                             aria-expanded="true"
                             aria-controls="collapseTwo"
                     >
-                      Tenant Info
+                      Rental Info
                     </button>
                   </h2>
                 </div>
 
                 <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#tenantInfo">
-                  <div v-for="tenant in state.rental.tenants" :key="tenant.id">
-                    <div class="card-body">
-                      <p>Tenant Name: {{ tenant.name }}</p>
-                      <p>Primary Contact: {{ tenant.phoneNum }}</p>
+                  <div>
+                    <div class="card-body" v-if="state.rental.address">
+                      <p>Street: {{ state.rental.address.street }}</p>
+                      <p>City: {{ state.rental.address.city }}</p>
                     </div>
                   </div>
                 </div>
@@ -84,8 +84,9 @@
 <script>
 import $ from 'jquery'
 import { AppState } from '../AppState'
-import { computed, reactive } from 'vue'
+import { computed, onMounted, reactive } from 'vue'
 import { rentalsService } from '../services/RentalsService'
+import { logger } from '../utils/Logger'
 export default {
   name: 'RentalInfoModal',
   props: {
@@ -94,8 +95,13 @@ export default {
   },
   setup(props) {
     const state = reactive({
-      rental: computed(() => AppState.rental)
+      rental: computed(() => AppState.rental),
+      tenant: computed(() => AppState.tenant)
 
+    })
+    onMounted(async() => {
+      await rentalsService.getTenantsByRentalId(state.rental.id)
+      logger.log(state.tenant)
     })
     return {
       state,

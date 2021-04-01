@@ -2,7 +2,6 @@ import { rentalsService } from '../services/RentalsService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { ownersService } from '../services/OwnersService'
-import { tenantsService } from '../services/TenantsService'
 
 export class RentalsController extends BaseController {
   constructor() {
@@ -59,7 +58,7 @@ export class RentalsController extends BaseController {
 
   async getTenantsById(req, res, next) {
     try {
-      const tenants = await tenantsService.find({ rentalId: req.params.id })
+      const tenants = await rentalsService.findTenantsById(req.params.id)
       res.send(tenants)
     } catch (err) {
       next(err)
