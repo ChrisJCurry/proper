@@ -23,7 +23,7 @@
       </tr>
     </thead>
     <tbody>
-      <DesktopRentalTableData v-for="tenant in state.tenant" :key="tenant.id" :tenant="tenant" />
+      <DesktopRentalTableData v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
     </tbody>
   </table>
 </template>
@@ -38,8 +38,8 @@ export default {
   setup() {
     const route = useRoute()
     const state = reactive({
-      tenant: computed(() => AppState.tenants),
-      rental: computed(() => AppState.rentals)
+      tenants: computed(() => AppState.tenants),
+      rentals: computed(() => AppState.rentals)
     })
     onMounted(async() => {
       await rentalsService.getAll()

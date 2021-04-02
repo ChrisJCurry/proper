@@ -8,10 +8,10 @@
     </td>
     <!--TODO NULL CHECK WITH V-IF-->
     <td>
-      {{ rental.tenant[0] }}
+      {{ state.tenant.name }}
     </td>
     <td>
-      {{ rental.tenant[0] }}
+      {{ rental.tenants[1] }}
     </td>
     <td v-if="rental.tenant">
       <span v-if="!rental.closed">
@@ -30,13 +30,24 @@
 </template>
 
 <script>
+import { computed, onMounted, reactive } from 'vue'
+import { rentalsService } from '../services/RentalsService'
+import { AppState } from '../AppState'
 export default {
   name: 'DesktopRentalTableData',
   props: {
     rental: { type: Object, required: true }
   },
-  setup() {
-    return {}
+  setup(props) {
+    const state = reactive({
+      tenant: computed(() => AppState.tenants)
+    })
+    onMounted(async() => {
+      await rentalsService.getTenantsByRentalId(props.rental.tenants)
+    })
+    return {
+      state
+    }
   },
   components: {}
 }
