@@ -1,6 +1,5 @@
 import { dbContext } from '../db/DbContext'
 import { BadRequest } from '../utils/Errors'
-import { logger } from '../utils/Logger'
 class TasksService {
   async find(query = {}) {
     const tasks = await dbContext.Tasks.find(query).populate('creator')
@@ -17,7 +16,6 @@ class TasksService {
 
   async create(rawTask) {
     const task = dbContext.Tasks.create(rawTask)
-    logger.log(task)
     return task
   }
 

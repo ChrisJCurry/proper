@@ -1,7 +1,6 @@
 import { rentalsService } from '../services/RentalsService'
 import BaseController from '../utils/BaseController'
 import { Auth0Provider } from '@bcwdev/auth0provider'
-import { ownersService } from '../services/OwnersService'
 
 export class RentalsController extends BaseController {
   constructor() {
@@ -54,8 +53,6 @@ export class RentalsController extends BaseController {
   }
 
   async create(req, res, next) {
-    const owner = await ownersService.findById('605cc781dbf6ad63cc0ae8ee')
-    req.body.ownerId = owner.id
     try {
       req.body.creatorId = req.userInfo.id
       const rental = await rentalsService.create(req.body, req.userInfo.email)

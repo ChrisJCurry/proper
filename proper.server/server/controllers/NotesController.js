@@ -2,7 +2,6 @@
 import { Auth0Provider } from '@bcwdev/auth0provider'
 import { notesService } from '../services/NotesService'
 import BaseController from '../utils/BaseController'
-import { logger } from '../utils/Logger'
 
 export class NotesController extends BaseController {
   constructor() {
@@ -51,7 +50,6 @@ export class NotesController extends BaseController {
       const note = await notesService.create(req.body)
       // @ts-ignore says it doesn't exist, but clearly it does. Linter?
       note.creator = req.userInfo
-      logger.log(note)
       return res.send(note)
     } catch (error) {
       next(error)
