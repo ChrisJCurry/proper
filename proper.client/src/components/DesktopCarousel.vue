@@ -3,12 +3,6 @@
     <div class="carousel-inner">
       <Rental class="carousel-item" :class="checkActive(index)" v-for="(rental, index) in state.rentals" :key="rental.id" :rental="rental" />
     </div>
-    <div class="carousel-inner">
-      <Rental class="carousel-item" :class="checkActive(index-1)" v-for="(rental, index) in state.rentals" :key="rental.id" :rental="rental" />
-    </div>
-    <div class="carousel-inner">
-      <Rental class="carousel-item" :class="checkActive(index+1)" v-for="(rental, index) in state.rentals" :key="rental.id" :rental="rental" />
-    </div>
     <a @click.prevent="changeIndex(-1)" href="#desktopcarouselcontrols" role="button" data-slide="prev" class="carousel-control-prev">
       <span class="carousel-control-prev-icon"></span>
       <span class="sr-only">Previous</span>
