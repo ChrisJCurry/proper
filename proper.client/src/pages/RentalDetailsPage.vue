@@ -56,15 +56,15 @@
           <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
             <div v-if="task.closed">
               <div class="card overlay" :id="task.id">
-                <div class="card-body muted">
-                  <h6 class="card-title text-center bg-primary">
+                <div class="card-body p-0 muted">
+                  <h6 class="card-header text-center bg-primary">
                     {{ task.title }}
                   </h6>
 
-                  <div class="card-text mt-1">
+                  <div class="card-text mt-1 ml-2">
                     {{ task.description }}
                   </div>
-                  <ul class="list-group list-group-flush mt-3 ml-3">
+                  <ul class="list-group list-group-flush mt-3 ml-5">
                     <li class="mt-1">
                       Created: {{ new Date(task.createdAt).toLocaleString() }}
                     </li>
@@ -89,15 +89,15 @@
             </div>
             <div v-else>
               <div class="card" :id="task.id">
-                <div class="card-body shadow">
-                  <h6 class="card-title text-center bg-primary">
+                <div class="card-body p-0 shadow">
+                  <h6 class="card-header text-center bg-primary">
                     {{ task.title }}
                   </h6>
 
-                  <div class="card-text mt-1">
+                  <div class="card-text mt-1 ml-2">
                     {{ task.description }}
                   </div>
-                  <ul class="list-group list-group-flush mt-3 ml-3">
+                  <ul class="list-group list-group-flush mt-3 ml-5">
                     <li class="mt-1 small">
                       Created: {{ new Date(task.createdAt).toLocaleString() }}
                     </li>
@@ -107,7 +107,7 @@
                     </li>
                   </ul>
 
-                  <button class="btn btn-primary text-dark btn-block mt-3" @click="disableTask(task)">
+                  <button class="btn btn-dark btn-block mt-3" @click="disableTask(task)">
                     Complete
                   </button>
                 </div>
@@ -124,7 +124,7 @@
       <div class="row text-center">
         <div class="col-12" v-for="note in state.notes" :key="note.id">
           <div class="card shadow bg-white rounded mt-2">
-            <div class="card-body">
+            <div class="card-body p-0">
               <div class="card-text mt-1">
                 {{ note.body }}
               </div>
