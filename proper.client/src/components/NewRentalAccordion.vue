@@ -206,6 +206,7 @@ import { onBeforeRouteLeave, useRouter } from 'vue-router'
 // eslint-disable-next-line no-unused-vars
 import firebase from 'firebase'
 import uploadFile from '../FileUploader'
+const Compress = require('@ssmithereens/client-compress')
 
 export default {
   name: 'NewRentalAccordion',
@@ -308,11 +309,30 @@ export default {
         }
       },
       async upload() {
-        const file = event.target.files[0]
-        const res = await uploadFile(file, 'images/' + file.lastModified, {
-          rentalId: state.newRental.id
+        const files = event.target.files
+        const fileArray = Array.from(files)
+        logger.log(fileArray)
+        const options = {
+          targetSize: 0.2,
+          quality: 0.75,
+          maxWidth: 800,
+          maxHeight: 600
+        }
+
+        const compress = new Compress(options)
+        compress.compress(fileArray).then(async(conversions) => {
+          const { photo, info } = conversions[0]
+          console.log({ photo, info })
+
+          const objectUrl = URL.createObjectURL(photo.data)
+
+          logger.log(objectUrl)
+
+          const res = await uploadFile(photo.data, 'images/rentals/', {
+            rentalId: state.newRental.id
+          })
+          state.newRental.picture = res.url
         })
-        state.newRental.picture = res.url
       }
     }
   }
