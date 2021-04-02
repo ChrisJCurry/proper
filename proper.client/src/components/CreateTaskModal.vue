@@ -10,64 +10,37 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header bg-primary border-bottom">
-            <div class="container">
-              <div class="row">
-                <div class="col-12">
-                  <span type="button" class="close py-4" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </span>
-                  <h4 class="modal-title">
-                    New Task
-                  </h4>
-                </div>
-              </div>
-            </div>
+            <h4 class="modal-title">
+              New Task
+            </h4>
+            <span type="button" class="close py-3" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </span>
           </div>
 
           <div class="modal-body">
-            <div class="container">
-              <form class="form-inline" @submit.prevent="createTask">
-                <div class="form-group">
-                </div>
-                <div class="row">
-                  <div class="col-6 ml-1">
-                    <input type="text" placeholder="Task Title" v-model="state.task.title">
-                  </div>
-                  <Datepicker v-model="dueDate" />
-                </div>
-                <div class="row mt-3">
-                  <div class="col-12">
-                    <textarea name="task-text"
-                              id="task-description"
-                              cols="30"
-                              rows="5"
-                              placeholder="Add a Task"
-                              aria-describedby="helpId"
-                              v-model="state.task.description"
-                              required
-                    >
+            <form class="form-inline" @submit.prevent="createTask">
+              <div class="form-group">
+                <input class="mb-3" type="text" placeholder="Task Title" v-model="state.task.title">
+                <textarea name="task-text"
+                          id="task-description"
+                          cols="30"
+                          rows="5"
+                          placeholder="Add a Task"
+                          aria-describedby="helpId"
+                          v-model="state.task.description"
+                          required
+                >
                   </textarea>
-                    <div class="row">
-                      <div class="col-6">
-                        <small>Due: </small>
-                        <Datepicker v-model="dueDate" />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 text-center">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">
-                    Close
-                  </button>
-                </div>
-
-                <div class="col-6 text-center">
-                  <button class="btn btn-success" type="submit">
-                    Create
-                  </button>
-                </div>
-              </form>
-            </div>
+                <small>Complete by: </small>
+                <Datepicker v-model="dueDate" />
+              </div>
+              <div>
+                <button class="btn btn-success btn-block" type="submit">
+                  Create
+                </button>
+              </div>
+            </form>
           </div>
         </div>
       </div>

@@ -58,7 +58,7 @@
               <div class="card overlay" :id="task.id">
                 <div class="card-body shadow">
                   <div class="card-title text-center">
-                    <h6>{{ task.title }}: </h6>
+                    <h3>{{ task.title }}: </h3>
                   </div>
 
                   <div class="card-text text-center">
@@ -67,12 +67,11 @@
 
                     <button class="btn btn-sm btn-dark mt-2">
                       <small class="p-0 px-2" @click="disableTask(task)">
-                        Complete
+                        Reactivate
                       </small>
                     </button>
-
-                    <div class="col-6">
-                      {{ task.dueDate }}
+                    <div>
+                      <small>{{ new Date(task.dueDate).toLocaleString() }}</small>
                     </div>
                   </div>
                 </div>
@@ -95,8 +94,8 @@
                       </small>
                     </button>
 
-                    <div class="col-6">
-                      {{ task.dueDate }}
+                    <div>
+                      <small>{{ new Date(task.dueDate).toLocaleString() }}</small>
                     </div>
                   </div>
                 </div>
