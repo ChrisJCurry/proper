@@ -1,14 +1,12 @@
 <template>
-  <div class="desktop-page">
-    <div class="container-fluid">
-      <DesktopCarousel />
-    </div>
-    <div class="container-fluid">
-      <DesktopRentalTable />
-    </div>
-    <div class="container-fluid">
-      <DesktopRentalTasks />
-    </div>
+  <div class="container-fluid">
+    <DesktopCarousel />
+  </div>
+  <div class="container-fluid">
+    <DesktopRentalTable />
+  </div>
+  <div class="container-fluid">
+    <DesktopRentalTasks />
   </div>
 </template>
 
