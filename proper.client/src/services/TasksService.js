@@ -35,7 +35,8 @@ class TasksService {
 
   async edit(task) {
     try {
-      await api.put('api/tasks/' + task.id)
+      const res = await api.put('api/tasks/' + task.id)
+      return res.data
     } catch (error) {
       logger.error(error)
     }

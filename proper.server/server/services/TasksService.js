@@ -27,8 +27,8 @@ class TasksService {
     return await dbContext.Tasks.findByIdAndUpdate(id, { closed: !task.closed }, { new: true })
   }
 
-  async delete(id, creatorId) {
-    const res = await dbContext.Tasks.findOneAndDelete({ _id: id, creatorId: creatorId })
+  async delete(id) {
+    const res = await dbContext.Tasks.findOneAndDelete({ _id: id })
     return res
   }
 }
