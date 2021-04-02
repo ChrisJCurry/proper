@@ -53,51 +53,63 @@
           Tasks
         </h4>
         <div class="row">
-          <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
+          <div class="col-12 mt-4" v-for="task in state.tasks" :key="task.id">
             <div v-if="task.closed">
               <div class="card overlay" :id="task.id">
-                <div class="card-body shadow">
-                  <div class="card-title text-center">
-                    <h3>{{ task.title }}: </h3>
+                <div class="card-body p-0 muted">
+                  <h6 class="card-header text-center bg-primary">
+                    {{ task.title }}
+                  </h6>
+
+                  <div class="card-text mt-1 ml-2">
+                    {{ task.description }}
                   </div>
+                  <ul class="list-group list-group-flush mt-3 ml-5">
+                    <li class="mt-1">
+                      Created: {{ new Date(task.createdAt).toLocaleString() }}
+                    </li>
 
-                  <div class="card-text text-center">
-                    <h6>{{ task.description }}</h6>
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
-
-                    <button class="btn btn-sm btn-dark mt-2">
-                      <small class="p-0 px-2" @click="disableTask(task)">
+                    <li class="mt-1">
+                      Due: {{ new Date(task.dueDate).toLocaleString() }}
+                    </li>
+                  </ul>
+                  <div class="btn-group btn-block btn-warning mt-3" role="group" aria-label="Basic example">
+                    <button class="btn btn-dark" @click="disableTask(task)">
+                      <h6 class="m-0">
                         Reactivate
-                      </small>
+                      </h6>
                     </button>
-                    <div>
-                      <small>{{ new Date(task.dueDate).toLocaleString() }}</small>
-                    </div>
+
+                    <button class="btn btn-warning" type="button" @click="removeTask(task)">
+                      Delete Task
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
             <div v-else>
               <div class="card" :id="task.id">
-                <div class="card-body shadow">
-                  <div class="card-title text-center">
-                    <h6>{{ task.title }}: </h6>
+                <div class="card-body p-0 shadow">
+                  <h6 class="card-header text-center bg-primary">
+                    {{ task.title }}
+                  </h6>
+
+                  <div class="card-text mt-1 ml-2">
+                    {{ task.description }}
                   </div>
+                  <ul class="list-group list-group-flush mt-3 ml-5">
+                    <li class="mt-1 small">
+                      Created: {{ new Date(task.createdAt).toLocaleString() }}
+                    </li>
 
-                  <div class="card-text text-center">
-                    <h6>{{ task.description }}</h6>
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
+                    <li class="mt-1 small">
+                      Due: {{ new Date(task.dueDate).toLocaleString() }}
+                    </li>
+                  </ul>
 
-                    <button class="btn btn-sm btn-dark mt-2">
-                      <small class="p-0 px-2" @click="disableTask(task)">
-                        Complete
-                      </small>
-                    </button>
-
-                    <div>
-                      <small>{{ new Date(task.dueDate).toLocaleString() }}</small>
-                    </div>
-                  </div>
+                  <button class="btn btn-dark btn-block mt-3" @click="disableTask(task)">
+                    Complete
+                  </button>
                 </div>
               </div>
             </div>
@@ -110,17 +122,17 @@
         Notes
       </h4>
       <div class="row text-center">
-        <div class="col-12 col-md-6 mt-2" v-for="note in state.notes" :key="note.id">
-          <div class="card shadow bg-white rounded">
-            <div class="card-body">
-              <h5 class="card-title">
+        <div class="col-12" v-for="note in state.notes" :key="note.id">
+          <div class="card shadow bg-white rounded mt-2">
+            <div class="card-body p-0">
+              <div class="card-text mt-1">
                 {{ note.body }}
-              </h5>
+              </div>
 
               <div class="card-text text-center mt-2">
                 <small>created: {{ new Date(note.createdAt).toLocaleString() }}</small>
               </div>
-              <button class="btn btn-sm btn-dark mt-2" @click="removeNote(note)">
+              <button class="btn btn-sm btn-block btn-dark mt-2" @click="removeNote(note)">
                 Delete
               </button>
             </div>
@@ -168,6 +180,10 @@ export default {
       async disableTask(task) {
         await tasksService.edit(task)
         tasksService.getTasksByRentalId(task.rentalId)
+      },
+      async removeTask(task) {
+        await tasksService.delete(task)
+        await tasksService.getAll()
       }
 
     }
@@ -181,10 +197,7 @@ export default {
   font-family: 'Open Sans Condensed', sans-serif;
 }
 
-.overlay {
-  width: 100%;
-  height: 100%;
-  background-color: gray;
-  opacity: .8;
+.muted {
+  opacity: 0.40;
 }
 </style>

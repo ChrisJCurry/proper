@@ -1,21 +1,29 @@
 <template>
   <div class="rentals-page flex-grow-1">
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
-      <Suspense v-if="state.rentals">
-        <div class="row" v-if="state.rentals.length > 0">
-          <rentalPage v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
-        </div>
-      </Suspense>
-      <div class="row" v-else>
+      <div class="row" v-if="state.loading === true">
         <SkeletonLoader />
+      </div>
+
+      <div class="row" v-else>
+        <rentalPage v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
     <div v-else>
-      <Suspense v-if="state.rentals">
-        <desktopCarousel :rentals="state.rentals" />
-        <desktopRentalTable :rentals="state.rentals" />
-        <desktopRentalTasks :rentals="state.rentals" />
-      </Suspense>
+      <div v-if="state.loading === true">
+        <SkeletonLoader />
+      </div>
+      <div v-else>
+        <div class="container-fluid">
+          <desktopCarousel :rentals="state.rentals" />
+        </div>
+        <div class="container-fluid">
+          <desktopRentalTable :rentals="state.rentals" />
+        </div>
+        <div class="container-fluid">
+          <desktopRentalTasks :rentals="state.rentals" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -50,11 +58,14 @@ export default {
         })
         return coll
       }),
-      filterOpen: true
+      filterOpen: true,
+      loading: true
     })
     onMounted(async() => {
+      state.loading = true
       window.addEventListener('resize', () => { state.viewportWidth = window.innerWidth })
       await rentalsService.getAll()
+      state.loading = false
     })
     return {
       state

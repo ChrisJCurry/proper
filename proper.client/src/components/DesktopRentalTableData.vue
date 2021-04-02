@@ -1,39 +1,39 @@
 <template>
-  <div class="desktop-rental-table-data">
-    <tr>
-      <td scope="row">
-        Apartment Number Here
-      </td>
-      <td>
-        <!-- {{ tenant.address }} -->
-        12345 Seasame Street Boulevard Road
-      </td>
-      <!--TODO NULL CHECK WITH V-IF-->
-      <td>
-        <!-- {{ tenant.name }} -->
-        Steve from Minecraft
-      </td>
-      <td>
-        <!-- {{ tenant.primarycontact }} -->
-        55512345678
-      </td>
-      <td>
-        <!-- {{tenant.occupied}} -->
-      </td>
-      <td>
-        <button @click="nodemailerstuff" class="btn btn-success">
-          E-Mail Tenant
-        </button>
-      </td>
-    </tr>
-  </div>
+  <tr>
+    <td scope="row">
+      {{ rental.address.aptNum }}
+    </td>
+    <td>
+      {{ rental.address.street }}
+    </td>
+    <!--TODO NULL CHECK WITH V-IF-->
+    <td>
+      {{ rental.tenant[0] }}
+    </td>
+    <td>
+      {{ rental.tenant[0] }}
+    </td>
+    <td v-if="rental.tenant">
+      <span v-if="!rental.closed">
+        <h6 class="text-success">OCCUPIED</h6>
+      </span>
+      <span v-if="rental.closed">
+        <h6 class="text-warning">UNOCCUPIED</h6>
+      </span>
+    </td>
+    <td>
+      <button @click="nodemailerstuff" class="btn btn-success">
+        E-Mail Tenant
+      </button>
+    </td>
+  </tr>
 </template>
 
 <script>
 export default {
   name: 'DesktopRentalTableData',
   props: {
-    tenant: { type: Object, required: true }
+    rental: { type: Object, required: true }
   },
   setup() {
     return {}

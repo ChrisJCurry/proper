@@ -26,23 +26,23 @@
         </button>
       </div>
     </div>
-    <div class="row mt-3" v-if="state.tasks">
-      <div class="card shadow mt-3" v-for="task in state.tasks" :key="task.id">
+    <div class="row mt-4" v-if="state.tasks">
+      <div class="card mt-3" v-for="task in state.tasks" :key="task.id">
         <div v-if="task.closed">
-          <div class="card-body">
-            <h6 class="card-title text-center bg-primary">
+          <div class="card-body p-0 muted">
+            <h6 class="card-header text-center bg-primary">
               {{ task.title }}
             </h6>
 
-            <div class="card-text mt-1">
+            <div class="card-text mt-1 ml-2">
               {{ task.description }}
             </div>
-            <ul class="list-group list-group-flush mt-3">
-              <li class="mt-1">
+            <ul class="list-group list-group-flush mt-3 ml-5">
+              <li class="mt-1 small">
                 Created: {{ new Date(task.createdAt).toLocaleString() }}
               </li>
 
-              <li class="mt-1">
+              <li class="mt-1 small">
                 Due: {{ new Date(task.dueDate).toLocaleString() }}
               </li>
             </ul>
@@ -60,25 +60,25 @@
           </div>
         </div>
         <div v-else>
-          <div class="card-body shadow">
-            <h6 class="card-title text-center bg-primary">
+          <div class="card-body p-0 shadow">
+            <h6 class="card-header text-center bg-primary">
               {{ task.title }}
             </h6>
 
-            <div class="card-text mt-1">
+            <div class="card-text mt-1 ml-2">
               {{ task.description }}
             </div>
-            <ul class="list-group list-group-flush mt-3">
-              <li class="mt-1">
+            <ul class="list-group list-group-flush mt-3 ml-5">
+              <li class="mt-1 small">
                 Created: {{ new Date(task.createdAt).toLocaleString() }}
               </li>
 
-              <li class="mt-1">
+              <li class="mt-1 small">
                 Due: {{ new Date(task.dueDate).toLocaleString() }}
               </li>
             </ul>
 
-            <button class="btn btn-success btn-block mt-3" @click="toggleTask(task)">
+            <button class="btn btn-dark btn-block mt-3" @click="toggleTask(task)">
               Complete
             </button>
           </div>
@@ -155,5 +155,8 @@ button {
 }
 .card {
   width: 25rem;
+}
+.muted {
+  opacity: 0.40;
 }
 </style>
