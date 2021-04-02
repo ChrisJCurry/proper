@@ -74,13 +74,13 @@
                     </li>
                   </ul>
                   <div class="btn-group btn-block btn-warning mt-3" role="group" aria-label="Basic example">
-                    <button class="btn btn-dark" @click="toggleTask(task)">
+                    <button class="btn btn-dark" @click="disableTask(task)">
                       <h6 class="m-0">
                         Reactivate
                       </h6>
                     </button>
 
-                    <button class="btn btn-warning" type="button" @click="disableTask(task)">
+                    <button class="btn btn-warning" type="button" @click="removeTask(task)">
                       Delete Task
                     </button>
                   </div>
@@ -107,7 +107,7 @@
                     </li>
                   </ul>
 
-                  <button class="btn btn-primary text-dark btn-block mt-3" @click="toggleTask(task)">
+                  <button class="btn btn-primary text-dark btn-block mt-3" @click="disableTask(task)">
                     Complete
                   </button>
                 </div>
@@ -180,6 +180,10 @@ export default {
       async disableTask(task) {
         await tasksService.edit(task)
         tasksService.getTasksByRentalId(task.rentalId)
+      },
+      async removeTask(task) {
+        await tasksService.delete(task)
+        await tasksService.getAll()
       }
 
     }
