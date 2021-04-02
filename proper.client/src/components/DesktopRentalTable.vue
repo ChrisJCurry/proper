@@ -23,15 +23,16 @@
       </tr>
     </thead>
     <tbody>
-      <DesktopRentalTableData />
+      <DesktopRentalTableData v-for="tenant in state.tenant" :key="tenant.id" :tenant="tenant" />
     </tbody>
   </table>
 </template>
 
 <script>
-import { computed, reactive } from 'vue'
+import { computed, reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { AppState } from '../AppState'
+import { rentalsService } from '../services/RentalsService'
 export default {
   name: 'DesktopRentalTable',
   setup() {
@@ -39,6 +40,9 @@ export default {
     const state = reactive({
       tenant: computed(() => AppState.tenants),
       rental: computed(() => AppState.rentals)
+    })
+    onMounted(async() => {
+      await rentalsService.getAll()
     })
     return {
       route,

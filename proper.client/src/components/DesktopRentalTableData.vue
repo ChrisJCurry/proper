@@ -1,23 +1,25 @@
 <template>
   <tr>
     <td scope="row">
-      Apartment Number Here
+      {{ rental.address.aptNum }}
     </td>
     <td>
-      <!-- {{ tenant.address }} -->
-      12345 Seasame Street Boulevard Road
+      {{ rental.address.street }}
     </td>
     <!--TODO NULL CHECK WITH V-IF-->
     <td>
-      <!-- {{ tenant.name }} -->
-      Steve from Minecraft
+      {{ rental.tenant[0] }}
     </td>
     <td>
-      <!-- {{ tenant.primarycontact }} -->
-      55512345678
+      {{ rental.tenant[0] }}
     </td>
-    <td>
-      <!-- {{tenant.occupied}} -->
+    <td v-if="rental.tenant">
+      <span v-if="!rental.closed">
+        <h6 class="text-success">OCCUPIED</h6>
+      </span>
+      <span v-if="rental.closed">
+        <h6 class="text-warning">UNOCCUPIED</h6>
+      </span>
     </td>
     <td>
       <button @click="nodemailerstuff" class="btn btn-success">
@@ -31,7 +33,7 @@
 export default {
   name: 'DesktopRentalTableData',
   props: {
-    tenant: { type: Object, required: true }
+    rental: { type: Object, required: true }
   },
   setup() {
     return {}
