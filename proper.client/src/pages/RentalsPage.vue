@@ -4,19 +4,22 @@
       Property Management Software, manage rentals
     </div>
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
-      <div class="row" v-if="state.loading === false">
-        <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
-      </div>
-      <div class="row" v-else>
+      <div class="row" v-if="state.loading === true">
         <SkeletonLoader />
+      </div>
+
+      <div class="row" v-else>
+        <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
     <div v-else>
-      <DesktopCarousel :rentals="state.rentals" />
-      <DesktopRentalTable :rentals="state.rentals" />
-      <DesktopRentalTasks :rentals="state.rentals" />
       <div v-if="state.loading === true">
         <SkeletonLoader />
+      </div>
+      <div v-else>
+        <DesktopCarousel :rentals="state.rentals" />
+        <DesktopRentalTable :rentals="state.rentals" />
+        <DesktopRentalTasks :rentals="state.rentals" />
       </div>
     </div>
   </div>
@@ -42,7 +45,7 @@ export default {
         return coll
       }),
       filterOpen: true,
-      loading: computed(() => AppState.loading)
+      loading: true
     })
     onMounted(async() => {
       state.loading = true
