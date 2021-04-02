@@ -289,12 +289,11 @@ export default {
           state.newOwner.address = state.ownerAddress
           state.newOwner = await ownersService.create(state.newOwner)
           state.newRental.tenants = state.tenants
-          logger.log('tenants :', state.newRental.tenants)
           state.newRental.address = state.address
+          state.newRental.ownerId = state.newOwner.id
           state.newRental = await rentalsService.create(state.newRental)
           state.createdRental = true
           document.getElementById('file').value = ''
-          logger.log('newly created rental :', state.newRental)
           router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
         } catch (error) {
           logger.error(error)

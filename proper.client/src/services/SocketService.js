@@ -60,14 +60,11 @@ class SocketService extends SocketHandler {
       document.getElementById('notification').classList.add('d-sm-block')
       document.getElementById('notification').classList.remove('d-none')
       if (AppState.newMessageUsers.length < 1) {
-        logger.log('got here')
         AppState.newMessageUsers.push(payload.creatorId)
         return
       }
       for (let i = 0; i < AppState.newMessageUsers.length; i++) {
-        logger.log(AppState.newMessageUsers[i])
         if (payload.creatorId === AppState.newMessageUsers[i]) {
-          logger.log('already added')
           return
         }
       }

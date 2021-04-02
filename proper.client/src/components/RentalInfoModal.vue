@@ -86,7 +86,6 @@ import $ from 'jquery'
 import { AppState } from '../AppState'
 import { computed, onMounted, reactive } from 'vue'
 import { rentalsService } from '../services/RentalsService'
-import { logger } from '../utils/Logger'
 export default {
   name: 'RentalInfoModal',
   props: {
@@ -101,7 +100,6 @@ export default {
     })
     onMounted(async() => {
       await rentalsService.getTenantsByRentalId(state.rental.id)
-      logger.log(state.tenant)
     })
     return {
       state,

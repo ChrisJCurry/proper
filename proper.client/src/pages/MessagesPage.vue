@@ -101,7 +101,6 @@ import { computed, onMounted, reactive } from 'vue'
 import { messagesService } from '../services/MessagesService'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService'
-import { logger } from '../utils/Logger'
 export default {
   name: 'MessagesPage',
   setup() {
@@ -128,7 +127,6 @@ export default {
         setTimeout(() => {
           document.getElementById('message').focus()
         }, 1)
-        logger.log('to Id: ', AppState.newMessageUsers)
         await messagesService.getByUserIdAndToId(state.account._id, state.to._id)
         if (AppState.messages[state.account._id].length !== AppState.readMessages[state.account._id]) {
           AppState.readMessages[state.account._id] = AppState.messages[state.account._id]
