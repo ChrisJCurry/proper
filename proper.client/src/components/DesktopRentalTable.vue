@@ -1,23 +1,23 @@
 <template>
-  <table class="table table-striped">
+  <table class="table table-striped table-dark mt-2">
     <thead class="thead-light">
       <tr>
-        <th class="col" scope="col">
+        <th scope="col">
           Apartment Number
         </th>
-        <th class="col" scope="col">
+        <th scope="col">
           Address
         </th>
-        <th class="col" scope="col">
+        <th scope="col">
           Tenants
         </th>
-        <th class="col" scope="col">
+        <th scope="col">
           Primary Contact
         </th>
-        <th class="col" scope="col">
+        <th scope="col">
           Avaliable?
         </th>
-        <th class="col" scope="col">
+        <th scope="col">
           Contact Tenant
         </th>
       </tr>
