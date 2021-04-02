@@ -321,8 +321,8 @@ export default {
 
         const compress = new Compress(options)
         compress.compress(fileArray).then(async(conversions) => {
-          const { photo } = conversions[0]
-
+          const { photo, info } = conversions[0]
+          logger.log(info)
           const res = await uploadFile(photo.data, 'images/rentals/', {
             rentalId: state.newRental.id
           })
