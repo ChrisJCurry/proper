@@ -1,5 +1,5 @@
 <template>
-  <table class="table table-striped table-dark mt-2">
+  <table class="table table-striped table-hover table-dark mt-2">
     <thead class="thead-light">
       <tr>
         <th scope="col">

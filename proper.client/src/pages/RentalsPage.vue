@@ -17,9 +17,15 @@
         <SkeletonLoader />
       </div>
       <div v-else>
-        <DesktopCarousel :rentals="state.rentals" />
-        <DesktopRentalTable :rentals="state.rentals" />
-        <DesktopRentalTasks :rentals="state.rentals" />
+        <div class="container-fluid">
+          <DesktopCarousel :rentals="state.rentals" />
+        </div>
+        <div class="container-fluid">
+          <DesktopRentalTable :rentals="state.rentals" />
+        </div>
+        <div class="container-fluid">
+          <DesktopRentalTasks :rentals="state.rentals" />
+        </div>
       </div>
     </div>
   </div>
