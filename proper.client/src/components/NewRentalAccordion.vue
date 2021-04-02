@@ -1,5 +1,5 @@
 <template>
-  <div class="new-rental-accordion row" id="rental-accordion">
+  <div class="new-rental-accordion row " id="rental-accordion">
     <div class="accordion col-xl-12" id="accordionExample">
       <div class="card">
         <div class="border-bottom border-dark card-header bg-primary" id="headingOne">
@@ -23,7 +23,7 @@
               <p>
                 <input class="mr-1"
                        required
-                       placeholder="(123) 456-7890"
+                       placeholder="xxx-xxx-xxxx"
                        type="tel"
                        pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                        v-model="state.newOwner.phone"

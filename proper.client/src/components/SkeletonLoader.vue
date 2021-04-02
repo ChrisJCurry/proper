@@ -37,10 +37,28 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import router from '../router'
+import { rentalsService } from '../services/RentalsService'
 export default {
   name: 'SkeletonLoader',
   setup() {
-    return {}
+    const state = reactive({
+      rentals: computed(() => AppState.rentals)
+    })
+    onMounted(() => {
+      setTimeout(async() => {
+        if (state.rentals.length === 0) {
+          router.push({ name: 'NewRentalPage' })
+        }
+        await rentalsService.getAll()
+      }, 3000)
+    })
+    return {
+      state
+    }
   },
   components: {}
 }

@@ -38,8 +38,8 @@ export default {
       filterOpen: true
     })
     onMounted(async() => {
-      await rentalsService.getAll()
       window.addEventListener('resize', () => { state.viewportWidth = window.innerWidth })
+      await rentalsService.getAll()
     })
     return {
       state
