@@ -1,5 +1,4 @@
 import { AppState } from '../AppState'
-import { logger } from '../utils/Logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
