@@ -2,20 +2,20 @@
   <div class="container-fluid">
     <div class="row mt-5"></div>
     <div class="row mt-5">
-      <div class="col-3">
-        <button type="button" class="btn btn-primary" @click="(state.showInbox = true), (state.showNewMessage = false)">
-          Inbox
+      <div class="col-3" v-if="state.to.name">
+        <button type="button" class="btn btn-dark" @click="(state.showCurrentMessage = true), (state.showNewMessage = false)">
+          {{ state.to.name }}
         </button>
       </div>
     </div>
     <div class="row">
       <div class="col-12 text-right">
-        <button type="button" class="btn btn-primary text-sizing " @click="(state.showNewMessage = true), (state.showInbox = false)">
+        <button type="button" class="btn btn-dark text-sizing " @click="(state.showNewMessage = true), (state.showCurrentMessage = false)">
           New
         </button>
       </div>
     </div>
-    <div v-if="state.showInbox">
+    <div v-if="state.showCurrentMessage">
       <div class="mt-5">
         <div class="row">
           <div class="col-12 text-center" v-if="state.to">
@@ -29,8 +29,11 @@
         <div class="container-fluid border border-dark shadow">
           <div v-for="message in state.messages[state.to._id]" :key="message._id">
             <div class="row" v-if="message.creatorId === state.account.id">
-              <div class="col-12 text-right mt-3" v-if="message.creatorId === state.account.id">
-                <span class="text-sizing">{{ message.body }}</span>
+              <div class="col-12 text-right mt-3">
+                <span class="text-sizing">
+                  {{ message.body }}
+                  <img class="image-size" :src="state.account.picture" alt="avatar">
+                </span>
                 <div class="row">
                   <div class="col-12 text-sizing">
                     {{ new Date(message.createdAt).toLocaleTimeString() }}
@@ -41,6 +44,7 @@
             <div v-else>
               <div class="col-8 mt-3">
                 <span class="text-sizing">
+                  <img class="image-size" :src="state.account.picture" alt="avatar">
                   {{ message.body }}
                   <div class="row">
                     <div class="col-12 text-sizing">
@@ -57,7 +61,7 @@
           <form @submit.prevent="sendMessage">
             <div class="form-row">
               <div class="col-2">
-                <button type="submit" class="btn btn-primary mb-3 text-sizing">
+                <button type="submit" class="btn btn-dark mb-3 text-sizing">
                   Send
                 </button>
               </div>
@@ -81,7 +85,7 @@
     Users:
     <div v-for="account in state.accounts" :key="account._id">
       <div v-if="account._id != state.account._id">
-        <button type="button" class="btn btn-primary" @click="openMessage(account.email)">
+        <button type="button" class="btn btn-dark" @click="openMessage(account.email)">
           {{ account.email }}
         </button>
       </div>
@@ -102,7 +106,7 @@ export default {
   name: 'MessagesPage',
   setup() {
     const state = reactive({
-      showInbox: false,
+      showCurrentMessage: false,
       showNewMessage: false,
       account: computed(() => AppState.account),
       accounts: computed(() => AppState.accounts),
@@ -119,7 +123,7 @@ export default {
       async openMessage(toEmail) {
         state.to = {}
         state.showNewMessage = false
-        state.showInbox = true
+        state.showCurrentMessage = true
         state.to = await accountService.getByEmail(toEmail)
         setTimeout(() => {
           document.getElementById('message').focus()
@@ -146,34 +150,29 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-textarea {
-  border: 2px solid;
-  width: 95%;
-  resize: none;
-  overflow: auto;
+  textarea {
+    border: 2px solid;
+    width: 95%;
+    resize: none;
+    overflow: auto;
+  }
 
-}
+  .image-size{
+    height: 2.5rem;
+    width: 2.5rem;
+  }
+  .container{
+    height: 70%;
+    width: 100%;
+    box-shadow: .2rem .2rem .2rem ;
+  }
+  .shadow{
+    box-shadow: .2rem .2rem .2rem ;
+  }
+  .text-sizing{
+      font-size: 1rem;
+    }
+  // @media screen and (max-width: 992px) {
 
-.image-size{
-  height: 2.5rem;
-  width: 2.5rem;
-}
-.container{
-  height: 70%;
-  width: 100%;
-  box-shadow: .2rem .2rem .2rem ;
-}
-.shadow{
-  box-shadow: .2rem .2rem .2rem ;
-}
-@media screen and (max-width: 992px) {
-.text-sizing{
-  font-size: 1.1rem;
-}
-}
-@media screen and (min-width: 992px) {
-.text-sizing{
-  font-size: 3.5rem;
-}
-}
+  // }
 </style>

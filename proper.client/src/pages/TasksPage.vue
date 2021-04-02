@@ -37,7 +37,7 @@
             </div>
             <div class="row text-center">
               <div class="col-6">
-                <button class="btn btn-secondary">
+                <button class="btn btn-secondary" @click="toggleTask(task)">
                   <h6 class="m-0">
                     complete
                   </h6>
@@ -56,22 +56,22 @@
 <script>
 import { reactive, computed, onMounted } from 'vue'
 import { AppState } from '../AppState'
-import { rentalsService } from '../services/RentalsService'
 import { tasksService } from '../services/TasksService'
 export default {
   name: 'TasksPage',
   setup() {
     const state = reactive({
-      rentals: computed(() => AppState.rentals),
       // NOTE use this to get all tasks for your rentals
       tasks: computed(() => AppState.tasks)
     })
     onMounted(async() => {
-      await rentalsService.getAll()
       await tasksService.getAll()
     })
     return {
-      state
+      state,
+      async toggleTask(task) {
+        await tasksService.edit(task)
+      }
     }
   },
   components: {}

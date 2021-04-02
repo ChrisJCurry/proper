@@ -168,6 +168,7 @@ export default {
       },
       async disableTask(task) {
         await tasksService.edit(task)
+        tasksService.getTasksByRentalId(task.rentalId)
       }
 
     }
