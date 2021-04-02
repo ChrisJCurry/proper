@@ -37,10 +37,29 @@
 </template>
 
 <script>
+import { reactive } from '@vue/reactivity'
+import { computed, onMounted } from '@vue/runtime-core'
+import { AppState } from '../AppState'
+import router from '../router'
+import { useRoute } from 'vue-router'
 export default {
   name: 'SkeletonLoader',
   setup() {
-    return {}
+    const route = useRoute()
+    const state = reactive({
+      rentals: computed(() => AppState.rentals)
+    })
+    onMounted(() => {
+      setTimeout(async() => {
+        // you can check actual page you are on through logic through route.name
+        if (state.rentals.length === 0 && route.name === 'RentalsPage') {
+          router.push({ name: 'NewRentalPage' })
+        }
+      }, 3000)
+    })
+    return {
+      state
+    }
   },
   components: {}
 }

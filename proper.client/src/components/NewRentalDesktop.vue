@@ -366,20 +366,20 @@ export default {
         }
       },
       async create() {
-        if (state.newOwner && state.newRental) {
-          try {
-            state.newOwner.address = state.ownerAddress
-            state.newOwner = await ownersService.create(state.newOwner)
-            state.newRental.tenants = []
-            state.newRental.tenants = state.tenants
-            state.newRental.address = state.address
-            state.newRental = await rentalsService.create(state.newRental)
-            state.createdRental = true
-            document.getElementById('file').value = ''
-            router.push({ name: 'RentalDetailsPage', params: { id: state.newRental._id } })
-          } catch (error) {
-            logger.error(error)
-          }
+        try {
+          state.newOwner.address = state.ownerAddress
+
+          state.newOwner = await ownersService.create(state.newOwner)
+          state.newRental.tenants = state.tenants
+          state.newRental.address = state.address
+          state.newRental.ownerId = state.newOwner.id
+
+          state.newRental = await rentalsService.create(state.newRental)
+          state.createdRental = true
+          document.getElementById('file').value = ''
+          router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
+        } catch (error) {
+          logger.error(error)
         }
       },
       async removeTenant(tenant) {
@@ -393,7 +393,6 @@ export default {
       async upload() {
         const files = event.target.files
         const fileArray = Array.from(files)
-        logger.log(fileArray)
         const options = {
           targetSize: 0.2,
           quality: 0.25,
@@ -403,8 +402,7 @@ export default {
 
         const compress = new Compress(options)
         compress.compress(fileArray).then(async(conversions) => {
-          const { photo, info } = conversions[0]
-          logger.log(info)
+          const { photo } = conversions[0]
           const res = await uploadFile(photo.data, 'images/rentals/', {
             rentalId: state.newRental.id
           })

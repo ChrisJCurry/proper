@@ -18,7 +18,7 @@ const Rental = new Schema(
     picture: { type: String, required: true, default: 'https://firebasestorage.googleapis.com/v0/b/proper-capstone.appspot.com/o/images%2F1617123687903%2F234.jpg?alt=media&token=ec493c05-a85f-4df4-b42a-83b3c93a8ccf' }, // use default image for styling
     closed: { type: Boolean, default: false },
     creatorId: { type: String, required: true },
-    ownerId: { type: ObjectId }
+    ownerId: { type: ObjectId, required: true }
   },
   { timestamps: true, toJSON: { virtuals: true } }
 )
