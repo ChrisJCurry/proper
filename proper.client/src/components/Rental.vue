@@ -5,7 +5,7 @@
         <img class="card-img-top" :src="rental.picture" alt="property">
         <div class="card-body">
           <h5 class="card-title" v-if="rental.address">
-            {{ rental.address.street }} {{ rental.picture }}
+            {{ rental.address.street }}
           </h5>
           <a href="#" class="btn btn-dark text-light">Rental Info</a>
         </div>
