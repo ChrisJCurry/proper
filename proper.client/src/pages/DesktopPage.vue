@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-page">
     <div class="container-fluid">
-      <CarouselTest />
+      <DesktopCarousel />
     </div>
     <div class="container-fluid">
       <DesktopRentalTable />
