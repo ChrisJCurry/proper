@@ -314,19 +314,14 @@ export default {
         logger.log(fileArray)
         const options = {
           targetSize: 0.2,
-          quality: 0.75,
+          quality: 0.25,
           maxWidth: 800,
           maxHeight: 600
         }
 
         const compress = new Compress(options)
         compress.compress(fileArray).then(async(conversions) => {
-          const { photo, info } = conversions[0]
-          console.log({ photo, info })
-
-          const objectUrl = URL.createObjectURL(photo.data)
-
-          logger.log(objectUrl)
+          const { photo } = conversions[0]
 
           const res = await uploadFile(photo.data, 'images/rentals/', {
             rentalId: state.newRental.id
