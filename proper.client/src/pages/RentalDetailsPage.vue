@@ -53,7 +53,7 @@
           Tasks
         </h4>
         <div class="row">
-          <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
+          <div class="col-12 mt-4" v-for="task in state.tasks" :key="task.id">
             <div v-if="task.closed">
               <div class="card overlay" :id="task.id">
                 <div class="card-body p-0 muted">
@@ -198,6 +198,6 @@ export default {
 }
 
 .muted {
-  opacity: 0.35;
+  opacity: 0.40;
 }
 </style>
