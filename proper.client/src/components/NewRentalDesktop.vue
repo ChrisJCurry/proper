@@ -298,6 +298,10 @@ import { rentalsService } from '../services/RentalsService'
 import { ownersService } from '../services/OwnersService'
 import { tenantsService } from '../services/TenantsService'
 import { onBeforeRouteLeave, useRouter } from 'vue-router'
+// eslint-disable-next-line no-unused-vars
+import firebase from 'firebase'
+import uploadFile from '../FileUploader'
+const Compress = require('@ssmithereens/client-compress')
 
 export default {
   name: 'NewRentalDesktop',
@@ -385,6 +389,27 @@ export default {
         } catch (error) {
           logger.error(error)
         }
+      },
+      async upload() {
+        const files = event.target.files
+        const fileArray = Array.from(files)
+        logger.log(fileArray)
+        const options = {
+          targetSize: 0.2,
+          quality: 0.25,
+          maxWidth: 800,
+          maxHeight: 600
+        }
+
+        const compress = new Compress(options)
+        compress.compress(fileArray).then(async(conversions) => {
+          const { photo, info } = conversions[0]
+          logger.log(info)
+          const res = await uploadFile(photo.data, 'images/rentals/', {
+            rentalId: state.newRental.id
+          })
+          state.newRental.picture = res.url
+        })
       }
     }
   },
