@@ -27,9 +27,9 @@
       </div>
     </div>
     <div class="row mt-3" v-if="state.tasks">
-      <div class="card shadow mt-3" v-for="task in state.tasks" :key="task.id">
+      <div class="card mt-3" v-for="task in state.tasks" :key="task.id">
         <div v-if="task.closed">
-          <div class="card-body">
+          <div class="card-body muted">
             <h6 class="card-title text-center bg-primary">
               {{ task.title }}
             </h6>
@@ -37,12 +37,12 @@
             <div class="card-text mt-1">
               {{ task.description }}
             </div>
-            <ul class="list-group list-group-flush mt-3">
-              <li class="mt-1">
+            <ul class="list-group list-group-flush mt-3 ml-3">
+              <li class="mt-1 small">
                 Created: {{ new Date(task.createdAt).toLocaleString() }}
               </li>
 
-              <li class="mt-1">
+              <li class="mt-1 small">
                 Due: {{ new Date(task.dueDate).toLocaleString() }}
               </li>
             </ul>
@@ -68,17 +68,17 @@
             <div class="card-text mt-1">
               {{ task.description }}
             </div>
-            <ul class="list-group list-group-flush mt-3">
-              <li class="mt-1">
+            <ul class="list-group list-group-flush mt-3 ml-3">
+              <li class="mt-1 small">
                 Created: {{ new Date(task.createdAt).toLocaleString() }}
               </li>
 
-              <li class="mt-1">
+              <li class="mt-1 small">
                 Due: {{ new Date(task.dueDate).toLocaleString() }}
               </li>
             </ul>
 
-            <button class="btn btn-success btn-block mt-3" @click="toggleTask(task)">
+            <button class="btn btn-primary text-dark btn-block mt-3" @click="toggleTask(task)">
               Complete
             </button>
           </div>
@@ -155,5 +155,8 @@ button {
 }
 .card {
   width: 25rem;
+}
+.muted {
+  opacity: 0.35;
 }
 </style>
