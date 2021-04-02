@@ -1,7 +1,7 @@
 <template>
   <div class="desktop-page">
     <div class="container-fluid">
-      <DesktopCarousel />
+      <CarouselTest />
     </div>
     <div class="container-fluid">
       <DesktopRentalTable />
@@ -16,7 +16,8 @@
 export default {
   name: 'DesktopPage',
   setup() {
-    return {}
+    return {
+    }
   },
   components: {}
 }

@@ -41,19 +41,20 @@ import { reactive } from '@vue/reactivity'
 import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import router from '../router'
-import { rentalsService } from '../services/RentalsService'
+import { useRoute } from 'vue-router'
 export default {
   name: 'SkeletonLoader',
   setup() {
+    const route = useRoute()
     const state = reactive({
       rentals: computed(() => AppState.rentals)
     })
     onMounted(() => {
       setTimeout(async() => {
-        if (state.rentals.length === 0) {
+        // you can check actual page you are on through logic through route.name
+        if (state.rentals.length === 0 && route.name === 'RentalsPage') {
           router.push({ name: 'NewRentalPage' })
         }
-        await rentalsService.getAll()
       }, 3000)
     })
     return {
