@@ -1,53 +1,48 @@
 <template>
-  <div class="container-fluid">
-    <div class="row mt-5"></div>
-    <div class="row mt-5">
-      <div class="col-3" v-if="state.to.name">
-        <button type="button" class="btn btn-dark" @click="(state.showCurrentMessage = true), (state.showNewMessage = false)">
-          {{ state.to.name }}
-        </button>
-      </div>
+  <div class="container-fluid messages-page">
+    <div class="row mt-3 text-white">
+      Messages Property Management
     </div>
-    <div class="row">
+    <div class="row mt-5">
       <div class="col-12 text-right">
-        <button type="button" class="btn btn-dark text-sizing " @click="(state.showNewMessage = true), (state.showCurrentMessage = false)">
+        <button type="button" class="btn btn-dark text-sizing " @click="(state.showNewMessage = !state.showNewMessage), (state.showCurrentMessage = false)">
           New
         </button>
       </div>
     </div>
     <div v-if="state.showCurrentMessage">
-      <div class="mt-5">
+      <div class="mt-4">
         <div class="row">
-          <div class="col-12 text-center" v-if="state.to">
+          <div class="col-12 text-center text-light" v-if="state.to">
             <div>
               Conversation With:
             </div>
-            <img class="image-size" :src="state.to.picture" alt="avatar">
+            <img class="image-size mt-3" :src="state.to.picture" alt="avatar">
             {{ state.to.name }}
           </div>
         </div>
-        <div class="container-fluid border border-dark shadow">
+        <div class="messaging-container container-fluid border border-dark rounded shadow mt-3 bg-light">
           <div v-for="message in state.messages[state.to._id]" :key="message._id">
             <div class="row" v-if="message.creatorId === state.account.id">
-              <div class="col-12 text-right mt-3">
+              <div class="col-12 text-right mt-2">
                 <span class="text-sizing">
                   {{ message.body }}
                   <img class="image-size" :src="state.account.picture" alt="avatar">
                 </span>
-                <div class="row">
+                <div class="row mb-2">
                   <div class="col-12 text-sizing">
                     {{ new Date(message.createdAt).toLocaleTimeString() }}
                   </div>
                 </div>
               </div>
             </div>
-            <div v-else>
+            <div class="row bg-secondary" v-else>
               <div class="col-8 mt-3">
                 <span class="text-sizing">
                   <img class="image-size" :src="state.account.picture" alt="avatar">
                   {{ message.body }}
                   <div class="row">
-                    <div class="col-12 text-sizing">
+                    <div class="col-12 text-sizing mt-1 mb-1">
                       {{ new Date(message.createdAt).toLocaleTimeString() }}</div>
                   </div>
                 </span>
@@ -58,39 +53,48 @@
       </div>
       <div class="row mt-5">
         <div class="col">
-          <form @submit.prevent="sendMessage">
+          <form class="input-group" @submit.prevent="sendMessage">
+            <textarea class="form-control" aria-label="With textarea" v-model="state.message.body"></textarea>
+            <div class="input-group-append">
+              <button class="btn btn-primary text-dark" type="submit">
+                Send
+              </button>
+            </div>
+          </form>
+          <!-- <form @submit.prevent="sendMessage" class="input-group">
             <div class="form-row">
-              <div class="col-2">
-                <button type="submit" class="btn btn-dark mb-3 text-sizing">
-                  Send
-                </button>
-              </div>
-              <div class="col-lg-8 col-sm">
+              <div class="col-lg-8 col">
                 <textarea class="text-sizing"
                           id="message"
                           v-model="state.message.body"
-                          cols="20"
-                          rows="2"
+                          cols="150"
+                          rows="1"
                           aria-hidden="true"
                 >
                  </textarea>
+                <span class="input-group-btn">
+                  <button type="submit" class="btn btn-primary text-dark mt-2 mb-3 text-sizing input-group-append">
+                    Send
+                  </button>
+                </span>
               </div>
             </div>
-          </form>
+          </form> -->
         </div>
       </div>
     </div>
   </div>
-  <div v-if="state.showNewMessage" class="mt-5">
-    Users:
-    <div v-for="account in state.accounts" :key="account._id">
-      <div v-if="account._id != state.account._id">
-        <button type="button" class="btn btn-dark" @click="openMessage(account.email)">
-          {{ account.email }}
-        </button>
-      </div>
-      <div v-else>
-        <SkeletonLoader />
+  <div class="mt-5">
+    <div v-if="state.showNewMessage" class="mt-5">
+      <div v-for="account in state.accounts" :key="account._id">
+        <div class="m-2" v-if="account._id != state.account._id">
+          <button type="button" class="btn btn-primary text-dark" @click="openMessage(account.email)">
+            {{ account.email }}
+          </button>
+        </div>
+        <div v-else>
+          <!-- <SkeletonLoader /> -->
+        </div>
       </div>
     </div>
   </div>
@@ -148,9 +152,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  textarea {
+  .messaging-container {
     border: 2px solid;
-    width: 95%;
+    height: 16.2rem;
     resize: none;
     overflow: auto;
   }
@@ -170,6 +174,11 @@ export default {
   .text-sizing{
       font-size: 1rem;
     }
+    .messages-page {
+  background: linear-gradient(-45deg, #8f8389, #899985);
+  background-size: 100% 100%;
+  animation: gradient 15s ease infinite;
+}
   // @media screen and (max-width: 992px) {
 
   // }

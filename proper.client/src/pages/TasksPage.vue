@@ -26,7 +26,7 @@
         </button>
       </div>
     </div>
-    <div class="row mt-3" v-if="state.tasks">
+    <div class="row mt-4" v-if="state.tasks">
       <div class="card mt-3" v-for="task in state.tasks" :key="task.id">
         <div v-if="task.closed">
           <div class="card-body p-0 muted">
@@ -157,6 +157,6 @@ button {
   width: 25rem;
 }
 .muted {
-  opacity: 0.35;
+  opacity: 0.40;
 }
 </style>
