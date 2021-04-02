@@ -1,7 +1,7 @@
 <template>
   <div class="rentals-page flex-grow-1">
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
-      <div class="row" v-if="state.rentals.length > 0">
+      <div class="row" v-if="state.loading === false">
         <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
       <div class="row" v-else>
@@ -12,6 +12,9 @@
       <DesktopCarousel :rentals="state.rentals" />
       <DesktopRentalTable :rentals="state.rentals" />
       <DesktopRentalTasks :rentals="state.rentals" />
+      <div v-if="state.loading === true">
+        <SkeletonLoader />
+      </div>
     </div>
   </div>
 </template>
@@ -35,11 +38,14 @@ export default {
         })
         return coll
       }),
-      filterOpen: true
+      filterOpen: true,
+      loading: computed(() => AppState.loading)
     })
     onMounted(async() => {
+      state.loading = true
       window.addEventListener('resize', () => { state.viewportWidth = window.innerWidth })
       await rentalsService.getAll()
+      state.loading = false
     })
     return {
       state
