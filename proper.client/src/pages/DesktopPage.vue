@@ -16,7 +16,8 @@
 export default {
   name: 'DesktopPage',
   setup() {
-    return {}
+    return {
+    }
   },
   components: {}
 }

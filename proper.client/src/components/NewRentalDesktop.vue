@@ -393,21 +393,32 @@ export default {
       async upload() {
         const files = event.target.files
         const fileArray = Array.from(files)
+        logger.log(fileArray)
         const options = {
           targetSize: 0.2,
-          quality: 0.25,
+          quality: 0.75,
           maxWidth: 800,
           maxHeight: 600
         }
 
         const compress = new Compress(options)
         compress.compress(fileArray).then(async(conversions) => {
-          const { photo } = conversions[0]
-          const res = await uploadFile(photo.data, 'images/rentals/', {
+          const { photo, info } = conversions[0]
+          logger.log(info)
+          const res = await uploadFile(photo.data, 'images/rentals/' + this.createId(), {
             rentalId: state.newRental.id
           })
           state.newRental.picture = res.url
         })
+      },
+      createId() {
+        let result = ''
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+        const charactersLength = characters.length
+        for (let i = 0; i < 30; i++) {
+          result += characters.charAt(Math.floor(Math.random() * charactersLength))
+        }
+        return result
       }
     }
   },

@@ -12,101 +12,75 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-2 offset-1 text-center border border-dark">
-        <button type="button" class="btn btn-dark" @click="sortByComplete">
+      <div class="btn-group btn-block" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-primary text-dark" @click="sortByComplete">
           Completed
         </button>
-      </div>
-      <div class="col-2 text-center border border-dark">
-        <button type="button" class="btn btn-dark" @click="sortByDueDate">
+
+        <button type="button" class="btn btn-dark text-primary" @click="sortByDueDate">
           Due Date
         </button>
-      </div>
-      <div class="col-3 text-center border border-dark">
-        <button type="button" class="btn btn-dark" @click="sortByCreationDate">
+
+        <button type="button" class="btn btn-primary text-dark" @click="sortByCreationDate">
           Created Date
         </button>
       </div>
     </div>
-    <div class="row" v-if="state.tasks">
-      <div class="col-12 mt-2" v-for="task in state.tasks" :key="task.id">
+    <div class="row mt-3" v-if="state.tasks">
+      <div class="card mt-3" v-for="task in state.tasks" :key="task.id">
         <div v-if="task.closed">
-          <div class="card overlay">
-            <div class="card-body shadow">
-              <div class="row">
-                <div class="col-1">
-                  <button class="btn btn-dark" @click="toggleTask(task)">
-                    <h6 class="m-0">
-                      reactivate
-                    </h6>
-                  </button>
-                </div>
-                <div class="col-3">
-                  <div class="card-text text-right">
-                    <h6>{{ task.title }}: </h6>
-                  </div>
-                </div>
-                <div class="col-7">
-                  <div class="card-text">
-                    <h6>{{ task.description }}</h6>
-                  </div>
-                </div>
-                <div class="col-1">
-                  <button class="btn btn-warning" type="button" @click="removeTask(task)">
-                    x
-                  </button>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 text-center">
-                  <div class="col-12">
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
-                  </div>
-                </div>
-              </div>
-              <div class="row text-center">
-                <div class="col-6">
-                  <small>{{ task.dueDate }}</small>
-                </div>
-              </div>
+          <div class="card-body muted">
+            <h6 class="card-title text-center bg-primary">
+              {{ task.title }}
+            </h6>
+
+            <div class="card-text mt-1">
+              {{ task.description }}
+            </div>
+            <ul class="list-group list-group-flush mt-3 ml-3">
+              <li class="mt-1 small">
+                Created: {{ new Date(task.createdAt).toLocaleString() }}
+              </li>
+
+              <li class="mt-1 small">
+                Due: {{ new Date(task.dueDate).toLocaleString() }}
+              </li>
+            </ul>
+            <div class="btn-group btn-block btn-warning mt-3" role="group" aria-label="Basic example">
+              <button class="btn btn-dark" @click="toggleTask(task)">
+                <h6 class="m-0">
+                  Reactivate
+                </h6>
+              </button>
+
+              <button class="btn btn-warning" type="button" @click="removeTask(task)">
+                Delete Task
+              </button>
             </div>
           </div>
         </div>
         <div v-else>
-          <div class="card">
-            <div class="card-body shadow">
-              <div class="row">
-                <div class="col-1">
-                  <button class="btn btn-success" @click="toggleTask(task)">
-                    <h6 class="m-0">
-                      complete
-                    </h6>
-                  </button>
-                </div>
-                <div class="col-3">
-                  <div class="card-text text-right">
-                    <h6>{{ task.title }}: </h6>
-                  </div>
-                </div>
-                <div class="col-8">
-                  <div class="card-text">
-                    <h6>{{ task.description }}</h6>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12 text-center">
-                  <div class="col-12">
-                    <small>Created: {{ new Date(task.createdAt).toLocaleString() }}</small>
-                  </div>
-                </div>
-              </div>
-              <div class="row text-center">
-                <div class="col-6">
-                  <small>{{ task.dueDate }}</small>
-                </div>
-              </div>
+          <div class="card-body shadow">
+            <h6 class="card-title text-center bg-primary">
+              {{ task.title }}
+            </h6>
+
+            <div class="card-text mt-1">
+              {{ task.description }}
             </div>
+            <ul class="list-group list-group-flush mt-3 ml-3">
+              <li class="mt-1 small">
+                Created: {{ new Date(task.createdAt).toLocaleString() }}
+              </li>
+
+              <li class="mt-1 small">
+                Due: {{ new Date(task.dueDate).toLocaleString() }}
+              </li>
+            </ul>
+
+            <button class="btn btn-primary text-dark btn-block mt-3" @click="toggleTask(task)">
+              Complete
+            </button>
           </div>
         </div>
       </div>
@@ -178,5 +152,11 @@ export default {
 }
 button {
   user-select: none;
+}
+.card {
+  width: 25rem;
+}
+.muted {
+  opacity: 0.35;
 }
 </style>
