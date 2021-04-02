@@ -1,6 +1,5 @@
 import firebase from 'firebase/app'
-// eslint-disable-next-line no-unused-vars
-import Storage from 'firebase/storage'
+require('firebase/storage')
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDSeYaWTpFDfZRyWiTxc8ywkalJ3X60JOA',

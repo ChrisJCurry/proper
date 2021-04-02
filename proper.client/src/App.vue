@@ -6,20 +6,29 @@
     <router-view />
   </main>
   <footer>
-    <CreateNoteModal />
-    <CreateTaskModal />
+    <createNoteModal />
+    <createTaskModal />
   </footer>
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed, defineAsyncComponent } from 'vue'
 import { AppState } from './AppState'
+const createNoteModal = defineAsyncComponent(
+  () => import('./components/CreateNoteModal')
+)
+const createTaskModal = defineAsyncComponent(
+  () => import('./components/CreateTaskModal')
+)
 export default {
   name: 'App',
   setup() {
     return {
       appState: computed(() => AppState)
     }
+  },
+  components: {
+    createNoteModal, createTaskModal
   }
 
 }

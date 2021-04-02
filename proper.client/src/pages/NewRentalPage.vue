@@ -1,13 +1,20 @@
 <template>
   <div class="container-fluid d-lg-none new-rental-page">
-    <NewRentalAccordion />
+    <newRentalAccordion />
   </div>
   <div class="container-fluid d-none d-lg-block p-0 new-rental-page">
-    <NewRentalDesktop />
+    <newRentalDesktop />
   </div>
 </template>
 
 <script>
+import { defineAsyncComponent } from 'vue'
+const newRentalAccordion = defineAsyncComponent(
+  () => import('../components/NewRentalAccordion')
+)
+const newRentalDesktop = defineAsyncComponent(
+  () => import('../components/NewRentalDesktop')
+)
 export default {
   name: 'NewRentalPage',
   setup() {
@@ -15,7 +22,9 @@ export default {
       // d-none d-med-block
     }
   },
-  components: {}
+  components: {
+    newRentalAccordion, newRentalDesktop
+  }
 }
 </script>
 

@@ -1,29 +1,41 @@
 <template>
   <div class="rentals-page flex-grow-1">
-    <div style="height: 15vh" class="text-white">
-      Property Management Software, manage rentals
-    </div>
     <div class="container-fluid" v-if="state.viewportWidth <= 700">
-      <div class="row" v-if="state.rentals.length > 0">
-        <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
-      </div>
+      <Suspense v-if="state.rentals">
+        <div class="row" v-if="state.rentals.length > 0">
+          <rentalPage v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+        </div>
+      </Suspense>
       <div class="row" v-else>
         <SkeletonLoader />
       </div>
     </div>
     <div v-else>
-      <DesktopCarousel :rentals="state.rentals" />
-      <DesktopRentalTable :rentals="state.rentals" />
-      <DesktopRentalTasks :rentals="state.rentals" />
+      <Suspense v-if="state.rentals">
+        <desktopCarousel :rentals="state.rentals" />
+        <desktopRentalTable :rentals="state.rentals" />
+        <desktopRentalTasks :rentals="state.rentals" />
+      </Suspense>
     </div>
   </div>
 </template>
 
 <script>
-import { reactive, computed, onMounted } from 'vue'
+import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
-
+const rentalPage = defineAsyncComponent(
+  () => import('../components/Rental')
+)
+const desktopCarousel = defineAsyncComponent(
+  () => import('../components/DesktopCarousel')
+)
+const desktopRentalTable = defineAsyncComponent(
+  () => import('../components/DesktopRentalTable')
+)
+const desktopRentalTasks = defineAsyncComponent(
+  () => import('../components/DesktopRentalTasks')
+)
 export default {
   name: 'RentalsPage',
   setup() {
@@ -48,7 +60,9 @@ export default {
       state
     }
   },
-  components: {}
+  components: {
+    rentalPage, desktopCarousel, desktopRentalTable, desktopRentalTasks
+  }
 }
 </script>
 
