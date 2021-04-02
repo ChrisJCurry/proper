@@ -1,33 +1,31 @@
 <template>
-  <div class="desktop-rental-table">
-    <table class="table table-striped">
-      <thead class="thead-light">
-        <tr>
-          <th class="col" scope="col">
-            Apartment Number
-          </th>
-          <th class="col" scope="col">
-            Address
-          </th>
-          <th class="col" scope="col">
-            Tenants
-          </th>
-          <th class="col" scope="col">
-            Primary Contact
-          </th>
-          <th class="col" scope="col">
-            Avaliable?
-          </th>
-          <th class="col" scope="col">
-            Contact Tenant
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <DesktopRentalTableData />
-      </tbody>
-    </table>
-  </div>
+  <table class="table table-striped table-dark mt-2">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">
+          Apartment Number
+        </th>
+        <th scope="col">
+          Address
+        </th>
+        <th scope="col">
+          Tenants
+        </th>
+        <th scope="col">
+          Primary Contact
+        </th>
+        <th scope="col">
+          Avaliable?
+        </th>
+        <th scope="col">
+          Contact Tenant
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <DesktopRentalTableData />
+    </tbody>
+  </table>
 </template>
 
 <script>

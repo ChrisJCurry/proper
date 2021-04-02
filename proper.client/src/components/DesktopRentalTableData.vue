@@ -1,32 +1,30 @@
 <template>
-  <div class="desktop-rental-table-data">
-    <tr>
-      <td scope="row">
-        Apartment Number Here
-      </td>
-      <td>
-        <!-- {{ tenant.address }} -->
-        12345 Seasame Street Boulevard Road
-      </td>
-      <!--TODO NULL CHECK WITH V-IF-->
-      <td>
-        <!-- {{ tenant.name }} -->
-        Steve from Minecraft
-      </td>
-      <td>
-        <!-- {{ tenant.primarycontact }} -->
-        55512345678
-      </td>
-      <td>
-        <!-- {{tenant.occupied}} -->
-      </td>
-      <td>
-        <button @click="nodemailerstuff" class="btn btn-success">
-          E-Mail Tenant
-        </button>
-      </td>
-    </tr>
-  </div>
+  <tr>
+    <td scope="row">
+      Apartment Number Here
+    </td>
+    <td>
+      <!-- {{ tenant.address }} -->
+      12345 Seasame Street Boulevard Road
+    </td>
+    <!--TODO NULL CHECK WITH V-IF-->
+    <td>
+      <!-- {{ tenant.name }} -->
+      Steve from Minecraft
+    </td>
+    <td>
+      <!-- {{ tenant.primarycontact }} -->
+      55512345678
+    </td>
+    <td>
+      <!-- {{tenant.occupied}} -->
+    </td>
+    <td>
+      <button @click="nodemailerstuff" class="btn btn-success">
+        E-Mail Tenant
+      </button>
+    </td>
+  </tr>
 </template>
 
 <script>
