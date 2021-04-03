@@ -11,13 +11,25 @@
 </template>
 
 <script>
+import { defineAsyncComponent } from '@vue/runtime-core'
+const DesktopCarousel = defineAsyncComponent(
+  () => import('../components/DesktopCarousel')
+)
+const DesktopRentalTable = defineAsyncComponent(
+  () => import('../components/DesktopCarousel')
+)
+const DesktopRentalTasks = defineAsyncComponent(
+  () => import('../components/DesktopCarousel')
+)
 export default {
   name: 'DesktopPage',
   setup() {
     return {
     }
   },
-  components: {}
+  components: {
+    DesktopCarousel, DesktopRentalTable, DesktopRentalTasks
+  }
 }
 </script>
 
