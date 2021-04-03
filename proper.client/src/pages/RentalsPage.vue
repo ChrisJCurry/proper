@@ -9,7 +9,7 @@
       </div>
 
       <div class="row" v-else>
-        <RentalComponent v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+        <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
     <div v-else>
@@ -37,20 +37,12 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
-<<<<<<< HEAD
 
-const rentalPage = defineAsyncComponent(
+const Rental = defineAsyncComponent(
   () => import('../components/Rental')
 )
 const DesktopRentals = defineAsyncComponent(
   () => import('../components/DesktopRentals')
-=======
-const RentalComponent = defineAsyncComponent(
-  () => import('../components/Rental')
-)
-const DesktopCarousel = defineAsyncComponent(
-  () => import('../components/DesktopCarousel')
->>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
 )
 const DesktopRentalTable = defineAsyncComponent(
   () => import('../components/DesktopRentalTable')
@@ -89,11 +81,7 @@ export default {
     }
   },
   components: {
-<<<<<<< HEAD
-    rentalPage, desktopRentalTable, desktopRentalTasks, DesktopRentals
-=======
-    RentalComponent, DesktopCarousel, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
->>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
+    Rental, DesktopRentalTable, DesktopRentalTasks, DesktopRentals, SkeletonLoader
   }
 }
 </script>
