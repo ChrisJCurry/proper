@@ -1,6 +1,9 @@
 <template>
+  <div class="mt-5">
+    Halp
+  </div>
   <div class="rentals-page flex-grow-1">
-    <div class="container-fluid" v-if="state.viewportWidth <= 700">
+    <div class="container-fluid mt-5" v-if="state.viewportWidth <= 700">
       <div class="row" v-if="state.loading === true">
         <SkeletonLoader />
       </div>
@@ -14,8 +17,10 @@
         <SkeletonLoader />
       </div>
       <div v-else>
-        <div class="container-fluid">
-          <desktopCarousel :rentals="state.rentals" />
+        <div class="container-fluid mt-5 rentals-container">
+          <div class="row">
+            <DesktopRentals v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+          </div>
         </div>
         <div class="container-fluid">
           <desktopRentalTable :rentals="state.rentals" />
@@ -32,11 +37,12 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
+
 const rentalPage = defineAsyncComponent(
   () => import('../components/Rental')
 )
-const desktopCarousel = defineAsyncComponent(
-  () => import('../components/DesktopCarousel')
+const DesktopRentals = defineAsyncComponent(
+  () => import('../components/DesktopRentals')
 )
 const desktopRentalTable = defineAsyncComponent(
   () => import('../components/DesktopRentalTable')
@@ -72,13 +78,13 @@ export default {
     }
   },
   components: {
-    rentalPage, desktopCarousel, desktopRentalTable, desktopRentalTasks
+    rentalPage, desktopRentalTable, desktopRentalTasks, DesktopRentals
   }
 }
 </script>
 
 <style lan
-    DesktopCarouselg="scss" scoped>
+    lang="scss" scoped>
 .rentals-page {
   background: linear-gradient(-45deg, #8f8389, #899985);
   background-size: 100% 100%;
@@ -101,4 +107,10 @@ h1 {
     color: white;
     text-shadow: 0 0 10px #fff
   }
+
+  .rentals-container {
+    height: 20rem;
+    overflow: auto;
+  }
+
 </style>

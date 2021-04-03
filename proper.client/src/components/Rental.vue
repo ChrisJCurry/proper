@@ -1,5 +1,5 @@
 <template>
-  <div class="col-12 col-md-4 rental mt-3">
+  <div class="col-12 col-md-4 rental mt-5">
     <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
       <div style="height: 800px width: 600px" class="card shadow img-fluid">
         <img class="card-img-top img-fluid" :src="rental.picture" alt="property">

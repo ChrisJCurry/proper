@@ -42,6 +42,7 @@ import { computed, onMounted } from '@vue/runtime-core'
 import { AppState } from '../AppState'
 import router from '../router'
 import { useRoute } from 'vue-router'
+
 export default {
   name: 'SkeletonLoader',
   setup() {
@@ -63,6 +64,7 @@ export default {
   },
   components: {}
 }
+
 </script>
 
 <style lang="scss" scoped>

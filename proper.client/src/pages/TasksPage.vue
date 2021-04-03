@@ -46,7 +46,7 @@
                 Due: {{ new Date(task.dueDate).toLocaleString() }}
               </li>
             </ul>
-            <div class="btn-group btn-block btn-warning mt-3" role="group" aria-label="Basic example">
+            <div class="btn-group btn-block btn-warning mt-3 unmuted" role="group" aria-label="Basic example">
               <button class="btn btn-dark" @click="toggleTask(task)">
                 <h6 class="m-0">
                   Reactivate
@@ -158,5 +158,8 @@ button {
 }
 .muted {
   opacity: 0.40;
+}
+.unmuted1 {
+  opacity: .9;
 }
 </style>

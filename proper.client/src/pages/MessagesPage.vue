@@ -54,7 +54,7 @@
       <div class="row mt-5">
         <div class="col">
           <form class="input-group" @submit.prevent="sendMessage">
-            <textarea class="form-control" aria-label="With textarea" v-model="state.message.body"></textarea>
+            <textarea id="message" class="form-control" aria-label="With textarea" v-model="state.message.body"></textarea>
             <div class="input-group-append">
               <button class="btn btn-primary text-dark" type="submit">
                 Send
@@ -88,7 +88,7 @@
     <div v-if="state.showNewMessage" class="mt-5">
       <div v-for="account in state.accounts" :key="account._id">
         <div class="m-2" v-if="account._id != state.account._id">
-          <button type="button" class="btn btn-primary text-dark" @click="openMessage(account.email)">
+          <button type="button" class="btn btn-primary text-dark btn-block" @click="openMessage(account.email)">
             {{ account.email }}
           </button>
         </div>
@@ -105,6 +105,8 @@ import { computed, onMounted, reactive } from 'vue'
 import { messagesService } from '../services/MessagesService'
 import { AppState } from '../AppState'
 import { accountService } from '../services/AccountService'
+import $ from 'jquery'
+
 export default {
   name: 'MessagesPage',
   setup() {
@@ -144,6 +146,8 @@ export default {
       async sendMessage() {
         await messagesService.create(state.message, state.to._id)
         state.message = {}
+        console.log($('.messaging-container'))
+        $('.messaging-container').scrollTop($('.messaging-container')[0].scrollHeight)
       }
 
     }
