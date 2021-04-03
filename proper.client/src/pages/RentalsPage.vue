@@ -6,7 +6,7 @@
       </div>
 
       <div class="row" v-else>
-        <rentalPage v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+        <RentalComponent v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
     <div v-else>
@@ -15,13 +15,13 @@
       </div>
       <div v-else>
         <div class="container-fluid">
-          <desktopCarousel :rentals="state.rentals" />
+          <DesktopCarousel :rentals="state.rentals" />
         </div>
         <div class="container-fluid">
-          <desktopRentalTable :rentals="state.rentals" />
+          <DesktopRentalTable :rentals="state.rentals" />
         </div>
         <div class="container-fluid">
-          <desktopRentalTasks :rentals="state.rentals" />
+          <DesktopRentalTasks :rentals="state.rentals" />
         </div>
       </div>
     </div>
@@ -32,17 +32,20 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
-const rentalPage = defineAsyncComponent(
+const RentalComponent = defineAsyncComponent(
   () => import('../components/Rental')
 )
-const desktopCarousel = defineAsyncComponent(
+const DesktopCarousel = defineAsyncComponent(
   () => import('../components/DesktopCarousel')
 )
-const desktopRentalTable = defineAsyncComponent(
+const DesktopRentalTable = defineAsyncComponent(
   () => import('../components/DesktopRentalTable')
 )
-const desktopRentalTasks = defineAsyncComponent(
+const DesktopRentalTasks = defineAsyncComponent(
   () => import('../components/DesktopRentalTasks')
+)
+const SkeletonLoader = defineAsyncComponent(
+  () => import('../components/SkeletonLoader')
 )
 export default {
   name: 'RentalsPage',
@@ -72,7 +75,7 @@ export default {
     }
   },
   components: {
-    rentalPage, desktopCarousel, desktopRentalTable, desktopRentalTasks
+    RentalComponent, DesktopCarousel, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
   }
 }
 </script>

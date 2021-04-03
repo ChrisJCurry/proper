@@ -7,19 +7,22 @@
     <!-- <SkeletonLoader /> -->
   </main>
   <footer>
-    <createNoteModal />
-    <createTaskModal />
+    <CreateNoteModal />
+    <CreateTaskModal />
   </footer>
 </template>
 
 <script>
 import { computed, defineAsyncComponent } from 'vue'
 import { AppState } from './AppState'
-const createNoteModal = defineAsyncComponent(
+const CreateNoteModal = defineAsyncComponent(
   () => import('./components/CreateNoteModal')
 )
-const createTaskModal = defineAsyncComponent(
+const CreateTaskModal = defineAsyncComponent(
   () => import('./components/CreateTaskModal')
+)
+const Navbar = defineAsyncComponent(
+  () => import('./components/navbar')
 )
 export default {
   name: 'App',
@@ -29,7 +32,7 @@ export default {
     }
   },
   components: {
-    createNoteModal, createTaskModal
+    CreateNoteModal, CreateTaskModal, Navbar
   }
 
 }
