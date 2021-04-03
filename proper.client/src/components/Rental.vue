@@ -1,13 +1,12 @@
 <template>
-  <div class="col-12 col-md-4 rental mt-5">
+  <div class="col-12 col-md-4 rental mt-4">
     <router-link :to="{ name: 'RentalDetailsPage', params: {id: rental.id}}">
-      <div style="height: 800px width: 600px" class="card shadow img-fluid">
-        <img class="card-img-top img-fluid" :src="rental.picture" alt="property">
+      <div style="height: 20rem" class="card shadow">
+        <img class="card-img-top" style="height: 80%" :src="rental.picture" alt="property">
         <div class="card-body">
-          <h5 class="card-title" v-if="rental.address">
+          <h6 class="card-title" v-if="rental.address">
             {{ rental.address.street }}
-          </h5>
-          <a href="#" class="btn btn-dark text-light">Rental Info</a>
+          </h6>
         </div>
       </div>
     </router-link>

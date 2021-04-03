@@ -1,9 +1,6 @@
 <template>
-  <div class="mt-5">
-    Halp
-  </div>
   <div class="rentals-page flex-grow-1">
-    <div class="container-fluid mt-5" v-if="state.viewportWidth <= 700">
+    <div class="container-fluid mt-2" v-if="state.viewportWidth <= 700">
       <div class="row" v-if="state.loading === true">
         <SkeletonLoader />
       </div>
@@ -17,9 +14,9 @@
         <SkeletonLoader />
       </div>
       <div v-else>
-        <div class="container-fluid mt-5 rentals-container">
+        <div class="container-fluid mt-2 rentals-container">
           <div class="row">
-            <DesktopRentals v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+            <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
           </div>
         </div>
         <div class="container-fluid">
@@ -40,9 +37,6 @@ import { rentalsService } from '../services/RentalsService'
 
 const Rental = defineAsyncComponent(
   () => import('../components/Rental')
-)
-const DesktopRentals = defineAsyncComponent(
-  () => import('../components/DesktopRentals')
 )
 const DesktopRentalTable = defineAsyncComponent(
   () => import('../components/DesktopRentalTable')
@@ -81,7 +75,7 @@ export default {
     }
   },
   components: {
-    Rental, DesktopRentalTable, DesktopRentalTasks, DesktopRentals, SkeletonLoader
+    Rental, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
   }
 }
 </script>

@@ -1,9 +1,6 @@
 <template>
   <div class="container-fluid">
     <div class="row">
-      <div style="height: 15vh" class="text-white">
-        Property Management Software, manage rentals
-      </div>
     </div>
     <div class="rental-details-page" v-if="state.rental.address">
       <div class="row mt-2 text-center">
