@@ -17,15 +17,10 @@
         <SkeletonLoader />
       </div>
       <div v-else>
-<<<<<<< HEAD
         <div class="container-fluid mt-5 rentals-container">
           <div class="row">
             <DesktopRentals v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
           </div>
-=======
-        <div class="container-fluid">
-          <DesktopCarousel :rentals="state.rentals" />
->>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
         </div>
         <div class="container-fluid">
           <DesktopRentalTable :rentals="state.rentals" />
