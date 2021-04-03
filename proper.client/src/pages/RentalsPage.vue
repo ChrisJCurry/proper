@@ -9,7 +9,7 @@
       </div>
 
       <div class="row" v-else>
-        <rentalPage v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
+        <RentalComponent v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
       </div>
     </div>
     <div v-else>
@@ -17,16 +17,21 @@
         <SkeletonLoader />
       </div>
       <div v-else>
+<<<<<<< HEAD
         <div class="container-fluid mt-5 rentals-container">
           <div class="row">
             <DesktopRentals v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
           </div>
+=======
+        <div class="container-fluid">
+          <DesktopCarousel :rentals="state.rentals" />
+>>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
         </div>
         <div class="container-fluid">
-          <desktopRentalTable :rentals="state.rentals" />
+          <DesktopRentalTable :rentals="state.rentals" />
         </div>
         <div class="container-fluid">
-          <desktopRentalTasks :rentals="state.rentals" />
+          <DesktopRentalTasks :rentals="state.rentals" />
         </div>
       </div>
     </div>
@@ -37,18 +42,29 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
+<<<<<<< HEAD
 
 const rentalPage = defineAsyncComponent(
   () => import('../components/Rental')
 )
 const DesktopRentals = defineAsyncComponent(
   () => import('../components/DesktopRentals')
+=======
+const RentalComponent = defineAsyncComponent(
+  () => import('../components/Rental')
 )
-const desktopRentalTable = defineAsyncComponent(
+const DesktopCarousel = defineAsyncComponent(
+  () => import('../components/DesktopCarousel')
+>>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
+)
+const DesktopRentalTable = defineAsyncComponent(
   () => import('../components/DesktopRentalTable')
 )
-const desktopRentalTasks = defineAsyncComponent(
+const DesktopRentalTasks = defineAsyncComponent(
   () => import('../components/DesktopRentalTasks')
+)
+const SkeletonLoader = defineAsyncComponent(
+  () => import('../components/SkeletonLoader')
 )
 export default {
   name: 'RentalsPage',
@@ -78,7 +94,11 @@ export default {
     }
   },
   components: {
+<<<<<<< HEAD
     rentalPage, desktopRentalTable, desktopRentalTasks, DesktopRentals
+=======
+    RentalComponent, DesktopCarousel, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
+>>>>>>> 44be71204fcd5c3e4ab6b6be11667cc830c082ee
   }
 }
 </script>

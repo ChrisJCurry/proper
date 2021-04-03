@@ -1,4 +1,5 @@
 import { AppState } from '../AppState'
+import { logger } from '../utils/Logger'
 import { SocketHandler } from '../utils/SocketHandler'
 
 class SocketService extends SocketHandler {
@@ -18,11 +19,10 @@ class SocketService extends SocketHandler {
   }
 
   connected(payload) {
-    console.log(payload.message)
+    logger.log(payload.message)
   }
 
   createPost(payload) {
-    console.log(payload)
     AppState.posts.push(payload)
   }
 
