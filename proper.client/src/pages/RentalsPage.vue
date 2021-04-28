@@ -19,12 +19,6 @@
             <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
           </div>
         </div>
-        <div class="container-fluid">
-          <DesktopRentalTable :rentals="state.rentals" />
-        </div>
-        <div class="container-fluid">
-          <DesktopRentalTasks :rentals="state.rentals" />
-        </div>
       </div>
     </div>
   </div>
@@ -37,12 +31,6 @@ import { rentalsService } from '../services/RentalsService'
 
 const Rental = defineAsyncComponent(
   () => import('../components/Rental')
-)
-const DesktopRentalTable = defineAsyncComponent(
-  () => import('../components/DesktopRentalTable')
-)
-const DesktopRentalTasks = defineAsyncComponent(
-  () => import('../components/DesktopRentalTasks')
 )
 const SkeletonLoader = defineAsyncComponent(
   () => import('../components/SkeletonLoader')
@@ -75,7 +63,7 @@ export default {
     }
   },
   components: {
-    Rental, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
+    Rental, SkeletonLoader
   }
 }
 </script>
