@@ -28,6 +28,7 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 const Rental = defineAsyncComponent(
   () => import('../components/Rental')
@@ -38,6 +39,7 @@ const SkeletonLoader = defineAsyncComponent(
 export default {
   name: 'RentalsPage',
   setup() {
+    onBeforeRouteUpdate((to, from, next) => { next(true) })
     const state = reactive({
       viewportWidth: window.innerWidth,
       rentals: computed(() => AppState.rentals),
