@@ -292,7 +292,6 @@ export default {
           state.newRental.address = state.address
           state.newRental.ownerId = state.newOwner.id
           state.newRental = await rentalsService.create(state.newRental)
-          console.log(state.newRental)
           state.createdRental = true
           document.getElementById('file').value = ''
           router.push({ name: 'RentalDetailsPage', params: { id: state.newRental.id } })
