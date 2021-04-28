@@ -9,6 +9,7 @@
   <footer>
     <CreateNoteModal />
     <CreateTaskModal />
+    <RentalInfoModal />
   </footer>
 </template>
 
