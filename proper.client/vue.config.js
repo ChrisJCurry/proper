@@ -2,6 +2,6 @@
 module.exports = {
   // NOTE to host on github publicPath: '/YOUR-GITHUB-REPOSITORY-NAME/',
   publicPath: '/',
-  outputDir: 'docs',
+  outputDir: '../proper.server/client',
   productionSourceMap: false
 }

@@ -40,7 +40,7 @@
                   </button>
                 </div>
               </div>
-              <RentalInfoModal />
+              <RentalInfoModal :rental="state.rental" />
             </div>
           </div>
         </div>
@@ -145,10 +145,12 @@
 import { useRoute } from 'vue-router'
 import { rentalsService } from '../services/RentalsService'
 import { tasksService } from '../services/TasksService'
-import { onMounted, reactive, computed } from 'vue'
+import { onMounted, reactive, computed, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { notesService } from '../services/NotesService'
-
+const RentalInfoModal = defineAsyncComponent(
+  () => import('../components/RentalInfoModal')
+)
 export default {
   name: 'RentalDetailsPage',
   setup() {
@@ -160,6 +162,7 @@ export default {
       showNotes: false,
       showTasks: true
     })
+
     onMounted(async() => {
       await rentalsService.getById(route.params.id)
       await tasksService.getTasksByRentalId(route.params.id)
@@ -185,7 +188,7 @@ export default {
 
     }
   },
-  components: { }
+  components: { RentalInfoModal }
 }
 </script>
 

@@ -19,12 +19,6 @@
             <Rental v-for="rental in state.rentals" :key="rental.id" :rental="rental" />
           </div>
         </div>
-        <div class="container-fluid">
-          <DesktopRentalTable :rentals="state.rentals" />
-        </div>
-        <div class="container-fluid">
-          <DesktopRentalTasks :rentals="state.rentals" />
-        </div>
       </div>
     </div>
   </div>
@@ -34,15 +28,10 @@
 import { reactive, computed, onMounted, defineAsyncComponent } from 'vue'
 import { AppState } from '../AppState'
 import { rentalsService } from '../services/RentalsService'
+import { onBeforeRouteUpdate } from 'vue-router'
 
 const Rental = defineAsyncComponent(
   () => import('../components/Rental')
-)
-const DesktopRentalTable = defineAsyncComponent(
-  () => import('../components/DesktopRentalTable')
-)
-const DesktopRentalTasks = defineAsyncComponent(
-  () => import('../components/DesktopRentalTasks')
 )
 const SkeletonLoader = defineAsyncComponent(
   () => import('../components/SkeletonLoader')
@@ -50,6 +39,7 @@ const SkeletonLoader = defineAsyncComponent(
 export default {
   name: 'RentalsPage',
   setup() {
+    onBeforeRouteUpdate((to, from, next) => { next(true) })
     const state = reactive({
       viewportWidth: window.innerWidth,
       rentals: computed(() => AppState.rentals),
@@ -75,7 +65,7 @@ export default {
     }
   },
   components: {
-    Rental, DesktopRentalTable, DesktopRentalTasks, SkeletonLoader
+    Rental, SkeletonLoader
   }
 }
 </script>
