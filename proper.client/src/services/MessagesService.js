@@ -29,18 +29,5 @@ class MessagesService {
       logger.error(err)
     }
   }
-
-  // async delete(note) {
-  //   const res = window.confirm('Are you sure you want to delete this message?')
-  //   if (!res) {
-  //     return
-  //   }
-  //   try {
-  //     await api.delete('/api/notes/' + note.id)
-  //     AppState.notes.splice(AppState.notes.indexOf(note), 1)
-  //   } catch (err) {
-  //     logger.error(err)
-  //   }
-  // }
 }
 export const messagesService = new MessagesService()
